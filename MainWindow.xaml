@@ -1,0 +1,394 @@
+﻿<Window x:Class="BatteryMonitor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:BatteryMonitor"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        Title="Batterie-Monitor"
+        Width="359"
+        Height="566"
+        Background="{DynamicResource WindowBackgroundBrush}"
+        MinWidth="310"
+        MinHeight="429"
+        SnapsToDevicePixels="True"
+        mc:Ignorable="d">
+    <Window.Resources>
+    </Window.Resources>
+    <Grid>
+        <Button x:Name="ThemeBtn"
+                Width="30"
+                Height="27"
+                Margin="0,1,0,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                BorderThickness="0"
+                Click="ThemeButton_Click"
+                Style="{DynamicResource TransparentButtonStyle}">
+            <Grid>
+                <Path x:Name="Sonne"
+                      Margin="5"
+                      Data="{StaticResource LightThemeIcon}"
+                      Fill="{DynamicResource ForegroundBrush}"
+                      Stretch="Uniform"
+                      Visibility="Collapsed" />
+                <Path x:Name="Monde"
+                      Margin="5"
+                      Data="{StaticResource DarkThemeIcon}"
+                      Fill="{DynamicResource ForegroundBrush}"
+                      Stretch="Uniform" />
+            </Grid>
+        </Button>
+
+    <StackPanel Grid.IsSharedSizeScope="True">
+        <DockPanel Margin="30,20,30,0">
+            <Label HorizontalAlignment="Left"
+                       FontWeight="Bold"
+                       Content="System" />
+            <Border Height="1"
+                    Margin="3,0,0,5"
+                    VerticalAlignment="Bottom"
+                    Background="#FFCECECE" />
+        </DockPanel>
+
+        <Grid Width="Auto"
+              Margin="30,10,0,0"
+              HorizontalAlignment="Left"
+              VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"
+                                  SharedSizeGroup="columnGroup" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0"
+                       Grid.Column="0"
+                       Style="{DynamicResource DescriptionStyle}"
+                       Content="Kapazität:" />
+            <StackPanel Grid.Row="0"
+                        Grid.Column="1"
+                        Orientation="Horizontal">
+                <Label x:Name="SystemCapacity"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Top"
+                           Content="--" />
+                <Label Grid.Row="0"
+                           Grid.Column="1"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Top"
+                           Content="%" />
+            </StackPanel>
+            <Label Grid.Row="1"
+                       Grid.Column="0"
+                       Style="{DynamicResource DescriptionStyle}"
+                       Content="verbleibende Zeit:" />
+            <Label x:Name="RemainingSystemTime"
+                       Grid.Row="1"
+                       Grid.Column="1"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                       Content="--" />
+        </Grid>
+
+        <DockPanel Margin="30,20,30,0">
+            <Label HorizontalAlignment="Left"
+                       FontWeight="Bold"
+                       Content="Batterie" />
+            <Border Height="1"
+                    Margin="3,0,0,5"
+                    VerticalAlignment="Bottom"
+                    Background="#FFCECECE" />
+        </DockPanel>
+
+        <Grid Width="Auto"
+              Margin="30,10,0,0"
+              HorizontalAlignment="Left"
+              VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"
+                                  SharedSizeGroup="columnGroup" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0"
+                       Grid.Column="0"
+                       Style="{DynamicResource DescriptionStyle}"
+                       Content="Batteriename:" />
+            <Label x:Name="DeviceName"
+                       Grid.Row="0"
+                       Grid.Column="1"
+                       Style="{DynamicResource ValueStyle}"
+                       Content="--" />
+
+            <Label Grid.Row="1"
+                       Grid.Column="0"
+                       Style="{DynamicResource DescriptionStyle}"
+                       Content="Hersteller:" />
+            <Label x:Name="Manufacture"
+                       Grid.Row="1"
+                       Grid.Column="1"
+                       Style="{DynamicResource ValueStyle}"
+                       Content="--" />
+
+            <Label Grid.Row="2"
+                       Grid.Column="0"
+                       Style="{DynamicResource DescriptionStyle}"
+                       Content="Chemie:" />
+            <Label x:Name="Chemistry"
+                       Grid.Row="2"
+                       Grid.Column="1"
+                       Style="{DynamicResource ValueStyle}"
+                       Content="--" />
+
+            <Label Grid.Row="3"
+                       Grid.Column="0"
+                       Style="{DynamicResource DescriptionStyle}"
+                       Content="Herstellungsdatum:" />
+            <Label x:Name="ManufactureDate"
+                       Grid.Row="3"
+                       Grid.Column="1"
+                       Style="{DynamicResource ValueStyle}"
+                       Content="--" />
+
+            <Label Grid.Row="4"
+                       Grid.Column="0"
+                       Style="{DynamicResource DescriptionStyle}"
+                       Content="Energiestatus:" />
+            <Label x:Name="PowerState"
+                       Grid.Row="4"
+                       Grid.Column="1"
+                       Style="{DynamicResource ValueStyle}"
+                       Content="--" />
+
+            <Label Grid.Row="5"
+                       Grid.Column="0"
+                       Style="{DynamicResource DescriptionStyle}"
+                       Content="Nennkapazität:" />
+            <StackPanel Grid.Row="5"
+                        Grid.Column="1"
+                        Orientation="Horizontal">
+                <Label x:Name="DesignedCapacity"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Top"
+                           Content="--" />
+                <Label HorizontalAlignment="Left"
+                           VerticalAlignment="Top"
+                           Content=" mWh" />
+            </StackPanel>
+            <Label Grid.Row="6"
+                       Grid.Column="0"
+                       Style="{DynamicResource DescriptionStyle}"
+                       Content="Kapazität voll aufgeladen:" />
+            <StackPanel Grid.Row="6"
+                        Grid.Column="1"
+                        Orientation="Horizontal">
+                <Label x:Name="FullChargeCapacity"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Top"
+                           Content="--" />
+                <Label HorizontalAlignment="Left"
+                           VerticalAlignment="Top"
+                           Content=" mWh" />
+            </StackPanel>
+            <Label Grid.Row="7"
+                       Grid.Column="0"
+                       Style="{DynamicResource DescriptionStyle}"
+                       Content="Batteriezustand:" />
+            <StackPanel Grid.Row="7"
+                        Grid.Column="1"
+                        Orientation="Horizontal">
+                <Label x:Name="BatteryHealth"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Top"
+                           Content="--" />
+                <Label HorizontalAlignment="Left"
+                           VerticalAlignment="Top"
+                           Content="%" />
+            </StackPanel>
+            <Label Grid.Row="8"
+                       Grid.Column="0"
+                       Style="{DynamicResource DescriptionStyle}"
+                       Content="aktuelle Kapazität:" />
+            <StackPanel Grid.Row="8"
+                        Grid.Column="1"
+                        Orientation="Horizontal">
+                <Label x:Name="CurrentCapacity"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Top"
+                           Content="--" />
+                <Label HorizontalAlignment="Left"
+                           VerticalAlignment="Top"
+                           Content=" mWh" />
+            </StackPanel>
+            <Label Grid.Row="9"
+                       Grid.Column="0"
+                       Style="{DynamicResource DescriptionStyle}"
+                       Content="aktuelle Kapazität:" />
+            <StackPanel Grid.Row="9"
+                        Grid.Column="1"
+                        Orientation="Horizontal">
+                <Label x:Name="CurrentCapacityPercent"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Top"
+                           Content="--" />
+                <Label HorizontalAlignment="Left"
+                           VerticalAlignment="Top"
+                           Content="%" />
+            </StackPanel>
+            <Label Grid.Row="10"
+                       Grid.Column="0"
+                       Style="{DynamicResource DescriptionStyle}"
+                       Content="Spannung:" />
+            <StackPanel Grid.Row="10"
+                        Grid.Column="1"
+                        Orientation="Horizontal">
+                <Label x:Name="Voltage"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Top"
+                           Content="--" />
+                <Label HorizontalAlignment="Left"
+                           VerticalAlignment="Top"
+                           Content=" V" />
+            </StackPanel>
+            <Label Grid.Row="11"
+                       Grid.Column="0"
+                       Style="{DynamicResource DescriptionStyle}"
+                       Content="verbleibende Zeit:" />
+            <Label x:Name="EstimatedTime"
+                       Grid.Row="11"
+                       Grid.Column="1"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                       Content="--" />
+            <Label Grid.Row="12"
+                       Grid.Column="0"
+                       Style="{DynamicResource DescriptionStyle}"
+                       Content="Lade-/Entladerate:" />
+            <StackPanel Grid.Row="12"
+                        Grid.Column="1"
+                        Orientation="Horizontal">
+                <Label x:Name="Rate"
+                           HorizontalAlignment="Left"
+                           Content="--" />
+                <Label HorizontalAlignment="Left"
+                           VerticalAlignment="Top"
+                           Content=" mW" />
+            </StackPanel>
+            <Label Grid.Row="13"
+                       Grid.Column="0"
+                       Style="{DynamicResource DescriptionStyle}"
+                       Content="Kapazitätsgrenzwert 1:" />
+            <StackPanel Grid.Row="13"
+                        Grid.Column="1"
+                        Orientation="Horizontal">
+                <Label x:Name="DefaultAlert1"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Top"
+                           Content="--" />
+                <Label HorizontalAlignment="Left"
+                           VerticalAlignment="Top"
+                           Content=" mWh" />
+            </StackPanel>
+            <Label Grid.Row="14"
+                       Grid.Column="0"
+                       Style="{DynamicResource DescriptionStyle}"
+                       Content="Kapazitätsgrenzwert 2:" />
+            <StackPanel Grid.Row="14"
+                        Grid.Column="1"
+                        Orientation="Horizontal">
+                <Label x:Name="DefaultAlert2"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Top"
+                           Content="--" />
+                <Label HorizontalAlignment="Left"
+                           VerticalAlignment="Top"
+                           Content=" mWh" />
+            </StackPanel>
+            <Label Grid.Row="15"
+                       Grid.Column="0"
+                       Style="{DynamicResource DescriptionStyle}"
+                       Content="Kapazitätsreserve:" />
+            <StackPanel Grid.Row="15"
+                        Grid.Column="1"
+                        Orientation="Horizontal">
+                <Label x:Name="CriticalBias"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Top"
+                           Content="--" />
+                <Label HorizontalAlignment="Left"
+                           VerticalAlignment="Top"
+                           Content=" mWh" />
+            </StackPanel>
+            <Label Grid.Row="16"
+                       Grid.Column="0"
+                       Style="{DynamicResource DescriptionStyle}"
+                       Content="Ladezyklen:" />
+            <Label x:Name="CylceCount"
+                       Grid.Row="16"
+                       Grid.Column="1"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                       Content="--" />
+            <Label Grid.Row="17"
+                       Grid.Column="0"
+                       Style="{DynamicResource DescriptionStyle}"
+                       Content="Temperatur:" />
+            <StackPanel Grid.Row="17"
+                        Grid.Column="1"
+                        Orientation="Horizontal">
+                <Label x:Name="Temperature"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Top"
+                           Content="--" />
+                <Label HorizontalAlignment="Left"
+                           VerticalAlignment="Top"
+                           Content="°" />
+            </StackPanel>
+        </Grid>
+
+        <StackPanel Margin="21,40,0,0"
+                    Orientation="Horizontal">
+            <Button Width="85"
+                    Margin="0,0,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Click="Button_Click"
+                    Content="1" />
+            <Button Width="85"
+                    Margin="12,0,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Click="Button_Click_1"
+                    Content="2" />
+        </StackPanel>
+
+        <Label x:Name="Error"
+                   Margin="0,303,0,37"
+                   Background="#A0424242"
+                   Foreground="White"
+                   Content="ajlfjkdsalfjösafjlsaöfj"
+                   Visibility="Collapsed" />
+    </StackPanel>
+    </Grid>
+</Window>

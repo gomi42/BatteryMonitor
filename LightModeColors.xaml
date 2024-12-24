@@ -1,0 +1,54 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!--  Colors  -->
+    <Color x:Key="DarkBackgroundColor">#FF707070</Color>
+    <Color x:Key="BackgroundColor">#FAFAFA</Color>
+    <Color x:Key="ForegroundColor">#FF212121</Color>
+    <Color x:Key="DimmedForegroundColor">#FF737373</Color>
+    <Color x:Key="SuperDimmedForegroundColor">#FFE8E8E8</Color>
+    <Color x:Key="WindowBackgroundColor">#FFFFFF</Color>
+
+    <Color x:Key="HighlightColor">#C0DDEB</Color>
+    <Color x:Key="HotColor">green</Color>
+    <Color x:Key="ControlBorderColor">#ACACAC</Color>
+    <Color x:Key="ControlBackgroundColor">#FFFFFF</Color>
+
+    <!--  Brushes  -->
+    <SolidColorBrush x:Key="ForegroundBrush" Color="{StaticResource ForegroundColor}" />
+    <SolidColorBrush x:Key="DimmedForegroundBrush" Color="{StaticResource DimmedForegroundColor}" />
+    <SolidColorBrush x:Key="SuperDimmedForegroundBrush" Color="{StaticResource SuperDimmedForegroundColor}" />
+    <SolidColorBrush x:Key="MouseOverForegroundBrush" Color="{StaticResource ForegroundColor}" />
+    <SolidColorBrush x:Key="WindowBackgroundBrush" Color="{StaticResource WindowBackgroundColor}" />
+    <SolidColorBrush x:Key="ControlBorderBrush" Color="{StaticResource ControlBorderColor}" />
+    <SolidColorBrush x:Key="ControlBackgroundBrush" Color="{StaticResource ControlBackgroundColor}" />
+
+    <!--  button  -->
+    <Color x:Key="Button.BackgroundColor">#FFFFFF</Color>
+    <Color x:Key="Button.MouseOver.BackgroundColor">#E1EFFA</Color>
+    <Color x:Key="Button.MouseOver.BorderColor">#3B85C9</Color>
+    <SolidColorBrush x:Key="Button.ForegroundBrush" Color="{StaticResource ForegroundColor}" />
+    <SolidColorBrush x:Key="Button.BackgroundBrush" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="Button.BorderBrush" Color="{StaticResource ControlBorderColor}" />
+    <SolidColorBrush x:Key="Button.IsDefault.BorderBrush" Color="#3B85C9" />
+    <SolidColorBrush x:Key="Button.Pressed.BackgroundBrush" Color="#EEEEEE" />
+    <SolidColorBrush x:Key="Button.Disabled.BackgroundBrush" Color="#EEEEEE" />
+    <SolidColorBrush x:Key="Button.Disabled.ForegroundBrush" Color="#AAAAAA" />
+    <SolidColorBrush x:Key="Button.Disabled.BorderBrush" Color="#CCCCCC" />
+
+    <!--  TabControl  -->
+    <SolidColorBrush x:Key="TabItem.Selected.BackgroundBrush" Color="#FBFBFB" />
+    <SolidColorBrush x:Key="TabItem.Selected.BorderBrushBrush" Color="#ACACAC" />
+    <LinearGradientBrush x:Key="TabItem.Static.BackgroundBrush" StartPoint="0,0" EndPoint="0,1">
+        <!--<GradientStop Color="#F0F0F0" Offset="0.0"/>
+            <GradientStop Color="#E5E5E5" Offset="1.0"/>-->
+        <GradientStop Offset="1.0" Color="#FFFFFF" />
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="TabItem.Static.BorderBrush" Color="#ACACAC" />
+    <LinearGradientBrush x:Key="TabItem.MouseOver.BackgroundBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0.0" Color="#ECF4FC" />
+        <GradientStop Offset="1.0" Color="#DCECFC" />
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="TabItem.MouseOver.BorderBrush" Color="#7EB4EA" />
+    <SolidColorBrush x:Key="TabItem.Disabled.BackgroundBrush" Color="#F0F0F0" />
+    <SolidColorBrush x:Key="TabItem.Disabled.BorderBrush" Color="#D9D9D9" />
+</ResourceDictionary>
