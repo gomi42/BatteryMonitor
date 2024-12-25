@@ -118,16 +118,16 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="HeaderBattery" xml:space="preserve">
-    <value>Batterie</value>
+    <value>Akku</value>
   </data>
   <data name="HeaderSystem" xml:space="preserve">
     <value>System</value>
   </data>
   <data name="LabelBatteryHealth" xml:space="preserve">
-    <value>Batteriezustand:</value>
+    <value>Akku-Zustand:</value>
   </data>
   <data name="LabelBatteryName" xml:space="preserve">
-    <value>Batteriename:</value>
+    <value>Akku-Name:</value>
   </data>
   <data name="LabelCapacity" xml:space="preserve">
     <value>Kapazität:</value>
@@ -178,7 +178,7 @@
     <value>Spannung:</value>
   </data>
   <data name="PowerStateCharging" xml:space="preserve">
-    <value>wird aufgeladen</value>
+    <value>wird geladen</value>
   </data>
   <data name="PowerStateDischarging" xml:space="preserve">
     <value>wird entladen</value>
@@ -190,7 +190,7 @@
     <value>kritisch</value>
   </data>
   <data name="WindowTitle" xml:space="preserve">
-    <value>Batterie-Monitor</value>
+    <value>Akku-Monitor</value>
   </data>
   <data name="ChemistryLiPo" xml:space="preserve">
     <value>Lithium-Polymer</value>
@@ -217,7 +217,7 @@
     <value>d.m.yyyy</value>
   </data>
   <data name="ChargeStatusNoSystemBattery" xml:space="preserve">
-    <value>keine Batterie</value>
+    <value>keine Akku</value>
   </data>
   <data name="ChargeStatusCritical" xml:space="preserve">
     <value>kritisch</value>
@@ -236,5 +236,17 @@
   </data>
   <data name="LabelChargeState" xml:space="preserve">
     <value>Ladezustand:</value>
+  </data>
+  <data name="ChargeStatusOk" xml:space="preserve">
+    <value>gut</value>
+  </data>
+  <data name="LabelPowerLineStatus" xml:space="preserve">
+    <value>Stromversorgung:</value>
+  </data>
+  <data name="PowerLineStateOnline" xml:space="preserve">
+    <value>eingesteckt</value>
+  </data>
+  <data name="PowerLineStateOffline" xml:space="preserve">
+    <value>nicht eingesteckt</value>
   </data>
 </root>

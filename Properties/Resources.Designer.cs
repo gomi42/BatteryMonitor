@@ -106,6 +106,15 @@ namespace BatteryMonitor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ok.
+        /// </summary>
+        public static string ChargeStatusOk {
+            get {
+                return ResourceManager.GetString("ChargeStatusOk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to unknown.
         /// </summary>
         public static string ChargeStatusUnknown {
@@ -331,6 +340,15 @@ namespace BatteryMonitor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Power Line Status:.
+        /// </summary>
+        public static string LabelPowerLineStatus {
+            get {
+                return ResourceManager.GetString("LabelPowerLineStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Power State:.
         /// </summary>
         public static string LabelPowerState {
@@ -372,6 +390,24 @@ namespace BatteryMonitor.Properties {
         public static string LabelVoltage {
             get {
                 return ResourceManager.GetString("LabelVoltage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to offline.
+        /// </summary>
+        public static string PowerLineStateOffline {
+            get {
+                return ResourceManager.GetString("PowerLineStateOffline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to online.
+        /// </summary>
+        public static string PowerLineStateOnline {
+            get {
+                return ResourceManager.GetString("PowerLineStateOnline", resourceCulture);
             }
         }
         

@@ -19,7 +19,6 @@ namespace BatteryMonitor
 
         public MainWindow()
         {
-            //Thread.CurrentThread.CurrentUICulture = new CultureInfo("en");
             InitializeComponent();
 
             ThemeSettings.SetThemeData("pack://application:,,,/BatteryMonitor;component/", "DarkModeColors.xaml", "LightModeColors.xaml", "Styles.xaml");
@@ -63,6 +62,8 @@ namespace BatteryMonitor
 
             SystemPowerState.Content = ConvertPowerState(pwr.BatteryChargeStatus);
 
+            SystemPowerLineStatus.Content = ConvertPowerLineStatus(pwr.PowerLineStatus);
+
             if ((pwr.BatteryChargeStatus & BatteryChargeStatus.NoSystemBattery) != 0)
             {
                 return false;
@@ -82,6 +83,21 @@ namespace BatteryMonitor
             return true;
         }
 
+        private string ConvertPowerLineStatus(System.Windows.Forms.PowerLineStatus powerLineStatus)
+        {
+            if (powerLineStatus == System.Windows.Forms.PowerLineStatus.Online)
+            {
+                return Properties.Resources.PowerLineStateOnline;
+            }
+
+            if (powerLineStatus == System.Windows.Forms.PowerLineStatus.Offline)
+            {
+                return Properties.Resources.PowerLineStateOffline;
+            }
+
+            return Properties.Resources.ChargeStatusUnknown;
+        }
+
         private string ConvertPowerState(BatteryChargeStatus powerState)
         {
             if (powerState == BatteryChargeStatus.Unknown)
@@ -90,6 +106,7 @@ namespace BatteryMonitor
             }
 
             List<string> states = new List<string>();
+            bool stateFound = false;
 
             if ((powerState & BatteryChargeStatus.NoSystemBattery) != 0)
             {
@@ -100,13 +117,27 @@ namespace BatteryMonitor
                 states.Add(Properties.Resources.ChargeStatusCharging);
 
             if ((powerState & BatteryChargeStatus.Low) != 0)
+            {
+                stateFound = true;
                 states.Add(Properties.Resources.ChargeStatusLow);
+            }
 
             if ((powerState & BatteryChargeStatus.High) != 0)
+            {
+                stateFound = true;
                 states.Add(Properties.Resources.ChargeStatusHigh);
+            }
 
             if ((powerState & BatteryChargeStatus.Critical) != 0)
+            {
+                stateFound = true;
                 states.Add(Properties.Resources.ChargeStatusCritical);
+            }
+
+            if (!stateFound)
+            {
+                states.Add(Properties.Resources.ChargeStatusOk);
+            }
 
             return string.Join(", ", states);
         }
@@ -129,7 +160,7 @@ namespace BatteryMonitor
 
                 if (battery.ManufactureDate != DateTime.MinValue)
                 {
-                    ManufactureDate.Content = battery.ManufactureDate.ToString("d.m.yyyy");
+                    ManufactureDate.Content = battery.ManufactureDate.ToString(Properties.Resources.FormatDate);
                 }
 
                 DesignedCapacity.Content = battery.DesignedMaxCapacity.ToString();

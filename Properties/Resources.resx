@@ -215,7 +215,7 @@
   </data>
   <data name="FormatDate" xml:space="preserve">
     <value>m-d-yyyy</value>
-    <comment>format to format a DateTime object</comment>
+    <comment>format to format a DateTime object in ToString()</comment>
   </data>
   <data name="ChargeStatusNoSystemBattery" xml:space="preserve">
     <value>no system battery</value>
@@ -237,5 +237,17 @@
   </data>
   <data name="LabelChargeState" xml:space="preserve">
     <value>Charge State:</value>
+  </data>
+  <data name="ChargeStatusOk" xml:space="preserve">
+    <value>ok</value>
+  </data>
+  <data name="LabelPowerLineStatus" xml:space="preserve">
+    <value>Power Line Status:</value>
+  </data>
+  <data name="PowerLineStateOnline" xml:space="preserve">
+    <value>online</value>
+  </data>
+  <data name="PowerLineStateOffline" xml:space="preserve">
+    <value>offline</value>
   </data>
 </root>
