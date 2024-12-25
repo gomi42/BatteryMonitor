@@ -44,7 +44,7 @@ namespace BatteryInfo
             ManufactureDate = manufactureDate;
             Chemistry = chemistry;
             DesignedMaxCapacity = designedMaxCapacity;
-            FullChargeCapacity = fullChargeCapacity;
+            FullChargedCapacity = fullChargeCapacity;
             CurrentCapacity = currentCapacity;
             Voltage = voltage;
             EstimatedTime = estimatedTime;
@@ -64,7 +64,7 @@ namespace BatteryInfo
         public DateTime ManufactureDate { get; }
         public uint CurrentCapacity { get; }
         public int DesignedMaxCapacity { get; }
-        public int FullChargeCapacity { get; }
+        public int FullChargedCapacity { get; }
         public uint Voltage { get; }
         public TimeSpan EstimatedTime { get; }
         public int DischargeRate { get; }
@@ -79,7 +79,49 @@ namespace BatteryInfo
 
     public static class BatteryInfo
     {
-        public static List<BatteryInformation> GetBatteryData()
+        public static List<int> GetSystemBatteryIndexes()
+        {
+            List<int> batteryIndexes = new List<int>();
+
+            IntPtr deviceHandle = SetupDiGetClassDevs(NativeMethods.GUID_DEVCLASS_BATTERY,
+                                                      NativeMethods.DEVICE_GET_CLASS_FLAGS.DIGCF_PRESENT | NativeMethods.DEVICE_GET_CLASS_FLAGS.DIGCF_DEVICEINTERFACE);
+
+            int batteryIndex = 0;
+
+            while (true)
+            {
+                var deviceInterfaceData = new NativeMethods.SP_DEVICE_INTERFACE_DATA();
+                deviceInterfaceData.CbSize = Marshal.SizeOf(deviceInterfaceData);
+
+                if (!SetupDiEnumDeviceInterfaces(deviceHandle, NativeMethods.GUID_DEVCLASS_BATTERY, batteryIndex, ref deviceInterfaceData))
+                {
+                    break;
+                }
+
+                var deviceDetailData = new NativeMethods.SP_DEVICE_INTERFACE_DETAIL_DATA();
+                deviceDetailData.CbSize = (IntPtr.Size == 8) ? 8 : 4 + Marshal.SystemDefaultCharSize;
+                SetupDiGetDeviceInterfaceDetail(deviceHandle, ref deviceInterfaceData, ref deviceDetailData, NativeMethods.DEVICE_INTERFACE_BUFFER_SIZE);
+                var batteryHandle = CreateFile(deviceDetailData.DevicePath, FileAccess.ReadWrite, FileShare.ReadWrite, FileMode.Open, NativeMethods.FILE_ATTRIBUTES.Normal);
+
+                uint batteryTag = batteryTag = GetBatteryTag(batteryHandle);
+                var batteryInformation = GetBatteryInformation(batteryHandle, batteryTag);
+
+                if ((batteryInformation.Capabilities & NativeMethods.BATTERY_CAPABILITIES.BATTERY_SYSTEM_BATTERY) != 0
+                    && (batteryInformation.Capabilities & NativeMethods.BATTERY_CAPABILITIES.BATTERY_IS_SHORT_TERM) == 0)
+                {
+                    batteryIndexes.Add(batteryIndex);
+                }
+
+                NativeMethods.CloseHandle(batteryHandle);
+                batteryIndex++;
+            }
+
+            NativeMethods.SetupDiDestroyDeviceInfoList(deviceHandle);
+
+            return batteryIndexes;
+        }
+
+        public static List<BatteryInformation> GetAllSystemBatteryInfos()
         {
             var batteries = new List<BatteryInformation>();
 
@@ -88,9 +130,9 @@ namespace BatteryInfo
 
             int batteryIndex = 0;
 
-            for (; ; )
+            while (true)
             {
-                var batteryInfo = GetOneBatteryData(deviceHandle, batteryIndex);
+                var batteryInfo = GetOneBatteryInfo(deviceHandle, batteryIndex);
 
                 if (batteryInfo == null)
                 {
@@ -110,7 +152,19 @@ namespace BatteryInfo
             return batteries;
         }
 
-        private static BatteryInformation GetOneBatteryData(IntPtr deviceHandle, int batteryIndex)
+        public static BatteryInformation GetBatteryInfo(int batteryIndex)
+        {
+            IntPtr deviceHandle = SetupDiGetClassDevs(NativeMethods.GUID_DEVCLASS_BATTERY,
+                                                      NativeMethods.DEVICE_GET_CLASS_FLAGS.DIGCF_PRESENT | NativeMethods.DEVICE_GET_CLASS_FLAGS.DIGCF_DEVICEINTERFACE);
+
+            var batteryInfo = GetOneBatteryInfo(deviceHandle, batteryIndex);
+
+            NativeMethods.SetupDiDestroyDeviceInfoList(deviceHandle);
+
+            return batteryInfo;
+        }
+
+        private static BatteryInformation GetOneBatteryInfo(IntPtr deviceHandle, int batteryIndex)
         {
             IntPtr batteryHandle = IntPtr.Zero;
             bool isSystemPowerBatterie = false;

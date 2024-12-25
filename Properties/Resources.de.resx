@@ -118,124 +118,123 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="HeaderBattery" xml:space="preserve">
-    <value>Battery</value>
+    <value>Batterie</value>
   </data>
   <data name="HeaderSystem" xml:space="preserve">
     <value>System</value>
   </data>
   <data name="LabelBatteryHealth" xml:space="preserve">
-    <value>Battery Health:</value>
+    <value>Batteriezustand:</value>
   </data>
   <data name="LabelBatteryName" xml:space="preserve">
-    <value>Battery Name:</value>
+    <value>Batteriename:</value>
   </data>
   <data name="LabelCapacity" xml:space="preserve">
-    <value>Capacity:</value>
+    <value>Kapazität:</value>
   </data>
   <data name="LabelChemistry" xml:space="preserve">
-    <value>Chemistry:</value>
+    <value>Chemie:</value>
   </data>
   <data name="LabelCriticalBias" xml:space="preserve">
-    <value>Critical Bias:</value>
+    <value>Kapazitätsreserve:</value>
   </data>
   <data name="LabelCurrentCapacity" xml:space="preserve">
-    <value>Current Capacity:</value>
+    <value>aktuelle Kapazität:</value>
   </data>
   <data name="LabelCycleCount" xml:space="preserve">
-    <value>Cycle Count:</value>
+    <value>Ladezyklen:</value>
   </data>
   <data name="LabelDefaultAlert1" xml:space="preserve">
-    <value>Low Capacity Limit 1:</value>
+    <value>Kapazitätsgrenzwert 1:</value>
   </data>
   <data name="LabelDefaultAlert2" xml:space="preserve">
-    <value>Low Capacity Limit 2:</value>
+    <value>Kapazitätsgrenzwert 2:</value>
   </data>
   <data name="LabelDesignCapacity" xml:space="preserve">
-    <value>Designed Capacity:</value>
+    <value>Nennkapazität:</value>
   </data>
   <data name="LabelFullChargedCapacity" xml:space="preserve">
-    <value>Full Charged Capacity:</value>
+    <value>Kapazität voll aufgeladen:</value>
   </data>
   <data name="LabelManufactureDate" xml:space="preserve">
-    <value>Manufacture Date:</value>
+    <value>Herstellungsdatum:</value>
   </data>
   <data name="LabelManufacturer" xml:space="preserve">
-    <value>Manufacturer:</value>
+    <value>Hersteller:</value>
   </data>
   <data name="LabelPowerState" xml:space="preserve">
-    <value>Power State:</value>
+    <value>Energiestatus:</value>
   </data>
   <data name="LabelRate" xml:space="preserve">
-    <value>Charge/Discharge Rate:</value>
+    <value>Lade-/Entladerate:</value>
   </data>
   <data name="LabelRemainingTime" xml:space="preserve">
-    <value>Remaing time:</value>
+    <value>verbleibende Zeit:</value>
   </data>
   <data name="LabelTemperature" xml:space="preserve">
-    <value>Temperature:</value>
+    <value>Temperatur:</value>
   </data>
   <data name="LabelVoltage" xml:space="preserve">
-    <value>Voltage:</value>
+    <value>Spannung:</value>
   </data>
   <data name="PowerStateCharging" xml:space="preserve">
-    <value>charging</value>
+    <value>wird aufgeladen</value>
   </data>
   <data name="PowerStateDischarging" xml:space="preserve">
-    <value>discharging</value>
+    <value>wird entladen</value>
   </data>
   <data name="PowerStatePluggedIn" xml:space="preserve">
-    <value>plugged in</value>
+    <value>eingesteckt</value>
   </data>
   <data name="PowerStateCritical" xml:space="preserve">
-    <value>critical</value>
+    <value>kritisch</value>
   </data>
   <data name="WindowTitle" xml:space="preserve">
-    <value>Battery Monitor</value>
+    <value>Batterie-Monitor</value>
   </data>
   <data name="ChemistryLiPo" xml:space="preserve">
-    <value>LiPo</value>
+    <value>Lithium-Polymer</value>
   </data>
   <data name="ChemistryNiZn" xml:space="preserve">
-    <value>Nickel Zinc</value>
+    <value>Nickel-Zink</value>
   </data>
   <data name="ChemistryNiMH" xml:space="preserve">
-    <value>Nickel Metal Hydride</value>
+    <value>Nickel-Metallhydrid</value>
   </data>
   <data name="ChemistryPbAc" xml:space="preserve">
-    <value>Lead Acid</value>
+    <value>Bleisäure</value>
   </data>
   <data name="ChemistryRAM" xml:space="preserve">
-    <value>Rechargeable Alkaline-Manganese</value>
+    <value>aufladbare Alkali-Mangan</value>
   </data>
   <data name="ChemistryNiCd" xml:space="preserve">
-    <value>Nickel Cadmium</value>
+    <value>Nickel-Cadmium</value>
   </data>
   <data name="ChemistryLiIo" xml:space="preserve">
-    <value>Lithium Ion</value>
+    <value>Lithium-Ion</value>
   </data>
   <data name="FormatDate" xml:space="preserve">
-    <value>m-d-yyyy</value>
-    <comment>format to format a DateTime object</comment>
+    <value>d.m.yyyy</value>
   </data>
   <data name="ChargeStatusNoSystemBattery" xml:space="preserve">
-    <value>no system battery</value>
+    <value>keine Batterie</value>
   </data>
   <data name="ChargeStatusCritical" xml:space="preserve">
-    <value>critical</value>
+    <value>kritisch</value>
   </data>
   <data name="ChargeStatusLow" xml:space="preserve">
-    <value>low</value>
+    <value>niedrig</value>
   </data>
   <data name="ChargeStatusHigh" xml:space="preserve">
-    <value>high</value>
+    <value>hoch</value>
   </data>
   <data name="ChargeStatusUnknown" xml:space="preserve">
-    <value>unknown</value>
+    <value>unbekannt</value>
   </data>
   <data name="ChargeStatusCharging" xml:space="preserve">
-    <value>charging</value>
+    <value>wird geladen</value>
   </data>
   <data name="LabelChargeState" xml:space="preserve">
-    <value>Charge State:</value>
+    <value>Ladezustand:</value>
   </data>
 </root>
