@@ -14,22 +14,31 @@ namespace BatteryMonitor
     public partial class MainWindow : Window
     {
         DispatcherTimer timer;
-        WindowsTheme theme;
+        WindowsTheme currentTheme;
+        int currentBatterieIndex;
 
         public MainWindow()
         {
+            //Thread.CurrentThread.CurrentUICulture = new CultureInfo("en");
             InitializeComponent();
 
             ThemeSettings.SetThemeData("pack://application:,,,/BatteryMonitor;component/", "DarkModeColors.xaml", "LightModeColors.xaml", "Styles.xaml");
-            theme = ThemeSettings.GetWindowsTheme();
-            SetTheme();
+            SetTheme(ThemeSettings.GetWindowsTheme());
 
-            if (UpdateAll())
+            if (UpdateSystemInfo())
             {
-                timer = new DispatcherTimer();
-                timer.Interval = TimeSpan.FromSeconds(10);
-                timer.Tick += TimerTickHandler;
-                timer.Start();
+                var batteryIndexes = BatteryInfo.BatteryInfo.GetSystemBatteryIndexes();
+
+                if (batteryIndexes.Count > 0)
+                {
+                    currentBatterieIndex = batteryIndexes[0];
+                    UpdateOneBatteryInfo(currentBatterieIndex);
+
+                    timer = new DispatcherTimer();
+                    timer.Interval = TimeSpan.FromSeconds(10);
+                    timer.Tick += TimerTickHandler;
+                    timer.Start();
+                }
             }
         }
 
@@ -38,9 +47,21 @@ namespace BatteryMonitor
             UpdateAll();
         }
 
-        private bool UpdateAll()
+        private void UpdateAll()
+        {
+            if (!UpdateSystemInfo())
+            {
+                return;
+            }
+
+            UpdateOneBatteryInfo(currentBatterieIndex);
+        }
+
+        private bool UpdateSystemInfo()
         {
             PowerStatus pwr = SystemInformation.PowerStatus;
+
+            SystemPowerState.Content = ConvertPowerState(pwr.BatteryChargeStatus);
 
             if ((pwr.BatteryChargeStatus & BatteryChargeStatus.NoSystemBattery) != 0)
             {
@@ -58,17 +79,50 @@ namespace BatteryMonitor
 
             SystemCapacity.Content = (pwr.BatteryLifePercent * 100.0).ToString("F0");
 
+            return true;
+        }
+
+        private string ConvertPowerState(BatteryChargeStatus powerState)
+        {
+            if (powerState == BatteryChargeStatus.Unknown)
+            {
+                return Properties.Resources.ChargeStatusUnknown;
+            }
+
+            List<string> states = new List<string>();
+
+            if ((powerState & BatteryChargeStatus.NoSystemBattery) != 0)
+            {
+                return Properties.Resources.ChargeStatusNoSystemBattery;
+            }
+
+            if ((powerState & BatteryChargeStatus.Charging) != 0)
+                states.Add(Properties.Resources.ChargeStatusCharging);
+
+            if ((powerState & BatteryChargeStatus.Low) != 0)
+                states.Add(Properties.Resources.ChargeStatusLow);
+
+            if ((powerState & BatteryChargeStatus.High) != 0)
+                states.Add(Properties.Resources.ChargeStatusHigh);
+
+            if ((powerState & BatteryChargeStatus.Critical) != 0)
+                states.Add(Properties.Resources.ChargeStatusCritical);
+
+            return string.Join(", ", states);
+        }
+
+
+        private void UpdateOneBatteryInfo(int batteryIndex)
+        {
+            var battery = BatteryInfo.BatteryInfo.GetBatteryInfo(batteryIndex);
+
+            if (battery == null)
+            {
+                return;
+            }
+
             try
             {
-                var batteries = BatteryInfo.BatteryInfo.GetBatteryData();
-
-                if (batteries.Count == 0)
-                {
-                    return false;
-                }
-
-                var battery = batteries[0];
-
                 DeviceName.Content = battery.DeviceName;
                 Manufacture.Content = battery.ManufactureName;
                 Chemistry.Content = ConvertChemistry(battery.Chemistry);
@@ -80,9 +134,9 @@ namespace BatteryMonitor
 
                 DesignedCapacity.Content = battery.DesignedMaxCapacity.ToString();
                 CurrentCapacity.Content = battery.CurrentCapacity.ToString();
-                CurrentCapacityPercent.Content = ((battery.CurrentCapacity * 100.0) / battery.FullChargeCapacity).ToString("F0");
-                FullChargeCapacity.Content = battery.FullChargeCapacity.ToString();
-                BatteryHealth.Content = ((int)Math.Round((battery.FullChargeCapacity * 100.0) / (uint)battery.DesignedMaxCapacity)).ToString();
+                CurrentCapacityPercent.Content = ((battery.CurrentCapacity * 100.0) / battery.FullChargedCapacity).ToString("F0");
+                FullChargeCapacity.Content = battery.FullChargedCapacity.ToString();
+                BatteryHealth.Content = ((battery.FullChargedCapacity * 100.0) / battery.DesignedMaxCapacity).ToString("F0");
                 Voltage.Content = ((double)battery.Voltage / 1000.0).ToString();
 
                 if (battery.EstimatedTime == TimeSpan.Zero)
@@ -112,8 +166,6 @@ namespace BatteryMonitor
                 Error.Content = ex.ToString();
                 Error.Visibility = Visibility.Visible;
             }
-
-            return true;
         }
 
         private string ConvertPowerState(PowerStates powerState)
@@ -121,16 +173,16 @@ namespace BatteryMonitor
             List<string> states = new List<string>();
 
             if ((powerState & PowerStates.PowerOnline) != 0)
-                states.Add("eingesteckt");
+                states.Add(Properties.Resources.PowerStatePluggedIn);
 
             if ((powerState & PowerStates.Charging) != 0)
-                states.Add("wird geladen");
+                states.Add(Properties.Resources.PowerStateCharging);
 
             if ((powerState & PowerStates.Discharging) != 0)
-                states.Add("wird entladen");
+                states.Add(Properties.Resources.PowerStateDischarging);
 
             if ((powerState & PowerStates.Critical) != 0)
-                states.Add("kritisch");
+                states.Add(Properties.Resources.PowerStateCritical);
 
             return string.Join(", ", states);
         }
@@ -139,14 +191,24 @@ namespace BatteryMonitor
         {
             switch (chemistry)
             {
-                case "LiP": return "Lithium-Polymer";
-                case "Li-I": return "Lithium-Ion";
-                case "LÖWE": return "Litium-Ion";
-                case "NiCd": return "Nickel-Cadmium";
-                case "NiMH": return "Nickel-Metallhydrid";
-                case "NiZn": return "Nickel-Zink";
-                case "RAM": return "aufladbare Alkali-Mangan";
-                default: return chemistry;
+                case "PbAc":
+                    return Properties.Resources.ChemistryPbAc;
+                case "LiP":
+                    return Properties.Resources.ChemistryLiPo;
+                case "Li-I":
+                    return Properties.Resources.ChemistryLiIo;
+                case "LION":
+                    return Properties.Resources.ChemistryLiIo;
+                case "NiCd":
+                    return Properties.Resources.ChemistryNiCd;
+                case "NiMH":
+                    return Properties.Resources.ChemistryNiMH;
+                case "NiZn":
+                    return Properties.Resources.ChemistryNiZn;
+                case "RAM":
+                    return Properties.Resources.ChemistryRAM;
+                default:
+                    return chemistry;
             }
         }
 
@@ -154,43 +216,35 @@ namespace BatteryMonitor
 
         private void ThemeButton_Click(object sender, RoutedEventArgs e)
         {
-            if (theme == WindowsTheme.Light)
-            {
-                theme = WindowsTheme.Dark;
-            }
-            else
-            {
-                theme = WindowsTheme.Light;
-            }
-
-            SetTheme();
+            SetTheme(currentTheme == WindowsTheme.Light ? WindowsTheme.Dark : WindowsTheme.Light);
         }
 
-        private void SetTheme()
+        private void SetTheme(WindowsTheme theme)
         {
+            currentTheme = theme;
             var dark = theme == WindowsTheme.Dark;
 
             if (dark)
             {
                 Sonne.Visibility = Visibility.Visible;
-                Monde.Visibility = Visibility.Collapsed;
+                Mond.Visibility = Visibility.Collapsed;
             }
             else
             {
                 Sonne.Visibility = Visibility.Collapsed;
-                Monde.Visibility = Visibility.Visible;
+                Mond.Visibility = Visibility.Visible;
             }
 
             ThemeSettings.SetTheme(this, dark);
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click_Test1(object sender, RoutedEventArgs e)
         {
             Test();
             Error.Visibility = Visibility.Visible;
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void Button_Click_Test2(object sender, RoutedEventArgs e)
         {
             UpdateAll();
         }
@@ -201,9 +255,17 @@ namespace BatteryMonitor
 
             PowerStatus pwr = SystemInformation.PowerStatus;
 
+            sb.AppendLine(pwr.BatteryChargeStatus.ToString("X"));
+            sb.AppendLine(ConvertPowerState(pwr.BatteryChargeStatus));
+
             sb.AppendLine(pwr.BatteryLifePercent.ToString());
             sb.AppendLine(TimeSpan.FromSeconds(pwr.BatteryLifeRemaining).ToString());
             sb.AppendLine(TimeSpan.FromSeconds(pwr.BatteryFullLifetime).ToString());
+
+            var battery = BatteryInfo.BatteryInfo.GetBatteryInfo(currentBatterieIndex);
+            var ps = battery.PowerState.ToString("X");
+            sb.AppendLine(ps);
+
             Error.Content = sb.ToString();
         }
     }
