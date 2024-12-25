@@ -193,7 +193,7 @@
     <value>Battery Monitor</value>
   </data>
   <data name="ChemistryLiPo" xml:space="preserve">
-    <value>LiPo</value>
+    <value>Lithium Polymer</value>
   </data>
   <data name="ChemistryNiZn" xml:space="preserve">
     <value>Nickel Zinc</value>

@@ -124,7 +124,7 @@ namespace BatteryMonitor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to LiPo.
+        ///   Looks up a localized string similar to Lithium Polymer.
         /// </summary>
         public static string ChemistryLiPo {
             get {
