@@ -313,7 +313,7 @@ namespace BatteryMonitor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Full Charged Capacity:.
+        ///   Looks up a localized string similar to Full Charge Capacity:.
         /// </summary>
         public static string LabelFullChargedCapacity {
             get {

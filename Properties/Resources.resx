@@ -154,7 +154,7 @@
     <value>Designed Capacity:</value>
   </data>
   <data name="LabelFullChargedCapacity" xml:space="preserve">
-    <value>Full Charged Capacity:</value>
+    <value>Full Charge Capacity:</value>
   </data>
   <data name="LabelManufactureDate" xml:space="preserve">
     <value>Manufacture Date:</value>
