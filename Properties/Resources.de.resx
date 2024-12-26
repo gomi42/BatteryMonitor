@@ -217,7 +217,7 @@
     <value>d.m.yyyy</value>
   </data>
   <data name="ChargeStatusNoSystemBattery" xml:space="preserve">
-    <value>keine Akku</value>
+    <value>kein Akku</value>
   </data>
   <data name="ChargeStatusCritical" xml:space="preserve">
     <value>kritisch</value>

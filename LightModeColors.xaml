@@ -6,12 +6,15 @@
     <Color x:Key="ForegroundColor">#FF212121</Color>
     <Color x:Key="DimmedForegroundColor">#FFcecece</Color>
     <Color x:Key="SuperDimmedForegroundColor">#FFE8E8E8</Color>
-    <Color x:Key="WindowBackgroundColor">#FFFFFF</Color>
+    <Color x:Key="WindowBackgroundColor">#f3f3f3</Color>
 
     <Color x:Key="HighlightColor">#C0DDEB</Color>
     <Color x:Key="HotColor">green</Color>
     <Color x:Key="ControlBorderColor">#ACACAC</Color>
     <Color x:Key="ControlBackgroundColor">#FFFFFF</Color>
+
+    <Color x:Key="Group.BackgroundColor">#fbfbfb</Color>
+    <Color x:Key="Group.BorderColor">#e5e5e5</Color>
 
     <!--  Brushes  -->
     <SolidColorBrush x:Key="ForegroundBrush"
@@ -29,6 +32,12 @@
     <SolidColorBrush x:Key="ControlBackgroundBrush"
                      Color="{StaticResource ControlBackgroundColor}" />
 
+    <!-- Group -->
+    <SolidColorBrush x:Key="Group.BackgroundBrush"
+                     Color="{StaticResource Group.BackgroundColor}" />
+    <SolidColorBrush x:Key="Group.BorderBrush"
+                     Color="{StaticResource Group.BorderColor}" />
+    
     <!--  button  -->
     <Color x:Key="Button.BackgroundColor">#FFFFFF</Color>
     <Color x:Key="Button.MouseOver.BackgroundColor">#E1EFFA</Color>
