@@ -12,6 +12,6 @@ namespace BatteryMonitor
         }
 
         public static readonly DependencyProperty ValueProperty =
-            DependencyProperty.Register("Value", typeof(string), typeof(PercentValue), new PropertyMetadata("##"));
+            DependencyProperty.Register("Value", typeof(string), typeof(PercentValue), new PropertyMetadata(""));
     }
 }

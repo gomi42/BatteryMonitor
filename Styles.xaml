@@ -641,21 +641,24 @@
                         <Grid.RowDefinitions>
                             <RowDefinition />
                         </Grid.RowDefinitions>
-                        <StackPanel  TextElement.FontSize="22"
-                                    Margin="0,-2,0,0"
+                        <StackPanel Margin="0,-2,0,0"
                                     Orientation="Horizontal"
-                                  >
-                            <Label Margin="60,0,0,0" x:Name="NoneEmptyValue"
+                                    TextElement.FontSize="22">
+                            <Label x:Name="NoneEmptyValue"
+                                   Margin="60,0,0,0"
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top"
                                    Content="{TemplateBinding Value}" />
-                            <Label Grid.Row="0" x:Name="Unit"
+                            <Label x:Name="Unit"
+                                   Grid.Row="0"
                                    Grid.Column="1"
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top"
                                    Content="%" />
-                            <Label Margin="60,-2,0,0" x:Name="Empty" FontSize="22"
+                            <Label x:Name="Empty"
+                                   Margin="60,-2,0,0"
                                    Content="--"
+                                   FontSize="22"
                                    Style="{DynamicResource ValueStyle}"
                                    Visibility="Collapsed" />
                         </StackPanel>

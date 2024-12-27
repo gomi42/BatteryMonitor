@@ -61,7 +61,6 @@ namespace BatteryMonitor
             PowerStatus pwr = SystemInformation.PowerStatus;
 
             SystemPowerState.Value = ConvertPowerState(pwr.BatteryChargeStatus);
-
             SystemPowerLineStatus.Value = ConvertPowerLineStatus(pwr.PowerLineStatus);
 
             if ((pwr.BatteryChargeStatus & BatteryChargeStatus.NoSystemBattery) != 0)
@@ -75,7 +74,7 @@ namespace BatteryMonitor
             }
             else
             {
-                RemainingSystemTime.Value = "--";
+                RemainingSystemTime.Value = string.Empty;
             }
 
             SystemCapacity.Value = (pwr.BatteryLifePercent * 100.0).ToString("F0");

@@ -63,8 +63,7 @@
                                    FontWeight="Normal" />
                             <StackPanel Margin="20,5,20,0">
                                 <WrapPanel>
-                                    <local:PercentValue x:Name="CurrentCapacityPercent"
-                                                        Value="" />
+                                    <local:PercentValue x:Name="CurrentCapacityPercent" />
                                     <local:LabelValuePair x:Name="EstimatedTime"
                                                           Label="{x:Static p:Resources.LabelRemainingTime}" />
                                 </WrapPanel>
@@ -101,9 +100,11 @@
                         <local:LabelValuePair x:Name="Chemistry"
                                               Label="{x:Static p:Resources.LabelChemistry}" />
                         <local:LabelValuePair x:Name="DefaultAlert1"
-                                              Label="{x:Static p:Resources.LabelDefaultAlert1}" />
+                                              Label="{x:Static p:Resources.LabelDefaultAlert1}"
+                                              Unit=" mWh" />
                         <local:LabelValuePair x:Name="DefaultAlert2"
-                                              Label="{x:Static p:Resources.LabelDefaultAlert2}" />
+                                              Label="{x:Static p:Resources.LabelDefaultAlert2}"
+                                              Unit=" mWh" />
                         <local:LabelValuePair x:Name="CriticalBias"
                                               Label="{x:Static p:Resources.LabelCriticalBias}"
                                               Unit=" mWh" />
