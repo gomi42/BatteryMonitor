@@ -277,7 +277,7 @@ namespace BatteryMonitor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cycle Count:.
+        ///   Looks up a localized string similar to Cycle Count.
         /// </summary>
         public static string LabelCycleCount {
             get {
@@ -349,7 +349,7 @@ namespace BatteryMonitor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Power State:.
+        ///   Looks up a localized string similar to Power State.
         /// </summary>
         public static string LabelPowerState {
             get {

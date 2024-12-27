@@ -142,7 +142,7 @@
     <value>Current Capacity</value>
   </data>
   <data name="LabelCycleCount" xml:space="preserve">
-    <value>Cycle Count:</value>
+    <value>Cycle Count</value>
   </data>
   <data name="LabelDefaultAlert1" xml:space="preserve">
     <value>Low Capacity Limit 1</value>
@@ -163,7 +163,7 @@
     <value>Manufacturer</value>
   </data>
   <data name="LabelPowerState" xml:space="preserve">
-    <value>Power State:</value>
+    <value>Power State</value>
   </data>
   <data name="LabelRate" xml:space="preserve">
     <value>Charge/Discharge Rate</value>
