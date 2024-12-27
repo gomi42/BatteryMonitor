@@ -24,7 +24,7 @@
     <SolidColorBrush x:Key="DescriptionBrush"
                      Color="{StaticResource DescriptionColor}" />
 
-    <Color x:Key="ScrollbarThumbColor">#9a9a9a</Color>
+    <Color x:Key="ScrollbarThumbColor">#9f9f9f</Color>
 
     <!--  Brushes  -->
     <SolidColorBrush x:Key="ForegroundBrush"
@@ -42,11 +42,11 @@
     <SolidColorBrush x:Key="ControlBackground"
                      Color="{StaticResource ControlBackgroundColor}" />
 
-    <!-- Scrollbar -->
+    <!--  Scrollbar  -->
     <SolidColorBrush x:Key="ScrollbarThumbBrush"
                      Color="{StaticResource ScrollbarThumbColor}" />
 
-    <!-- Group -->
+    <!--  Group  -->
     <SolidColorBrush x:Key="Group.BackgroundBrush"
                      Color="{StaticResource Group.BackgroundColor}" />
     <SolidColorBrush x:Key="Group.BorderBrush"

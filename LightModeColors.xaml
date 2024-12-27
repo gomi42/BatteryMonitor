@@ -18,7 +18,7 @@
     <Color x:Key="Group.BorderColor">#e5e5e5</Color>
     <Color x:Key="Group.ExpanderButtonColor">#494949</Color>
 
-    <Color x:Key="ScrollbarThumbColor">#FFC0C0C0</Color>
+    <Color x:Key="ScrollbarThumbColor">#FF8a8a8a</Color>
 
     <!-- Desciption -->
     <SolidColorBrush x:Key="DescriptionBrush"
