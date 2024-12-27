@@ -5,8 +5,12 @@ The information is devided into two sections. The **System** section shows the d
 
 At the moment only the first system battery is shown. All data are updated every 10 seconds.
 
-The Battery Monitor supports the dark mode and is localizable (right now English and German is supported).
+The Battery Monitor supports the dark mode and is localizable (right now English and German is supported). The Battery Monitor also is responsive. Resize the application to your taste to rearrange to content. 
 
 
-![intro](/Monitor1.jpg)
+![intro](/Monitor1.png)
+
+Open the expander to see more details:
+
+![intro](/Monitor2.png)
 
