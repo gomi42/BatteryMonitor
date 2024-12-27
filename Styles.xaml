@@ -1,6 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:controls="clr-namespace:MasterSystem"
+                    xmlns:controls="clr-namespace:BatteryMonitor"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <!--  button  -->
     <Style x:Key="ButtonFocusVisual">
@@ -253,8 +253,8 @@
         <Setter Property="HorizontalAlignment" Value="Right" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Foreground" Value="{StaticResource DescriptionBrush}" />
-         <Setter Property="Height" Value="21" />
-   </Style>
+        <Setter Property="Height" Value="21" />
+    </Style>
 
     <Style x:Key="ValueStyle"
            BasedOn="{StaticResource LabelStyle}"
@@ -263,8 +263,8 @@
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="FontSize" Value="15" />
         <Setter Property="Height" Value="21" />
-         <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
-   </Style>
+        <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
+    </Style>
 
 
     <ControlTemplate x:Key="ExpanderToggleButton"
@@ -576,6 +576,97 @@
                                                    Mode=OneWay,
                                                    RelativeSource={RelativeSource TemplatedParent}}" />
                     </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type controls:LabelValuePair}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:LabelValuePair}">
+                    <Grid Width="Auto"
+                          HorizontalAlignment="Left"
+                          VerticalAlignment="Top">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"
+                                              SharedSizeGroup="columnGroup" />
+                            <ColumnDefinition Width="Auto"
+                                              SharedSizeGroup="columnGroupValue" />
+                            <ColumnDefinition Width="20"
+                                              SharedSizeGroup="columnGroupGap" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Label Grid.Column="0"
+                               Content="{TemplateBinding Label}"
+                               Style="{DynamicResource DescriptionStyle}" />
+                        <Grid Grid.Column="1">
+                            <StackPanel x:Name="NoneEmpty"
+                                        Orientation="Horizontal">
+                                <Label Content="{TemplateBinding Value}"
+                                       Style="{DynamicResource ValueStyle}" />
+                                <Label Content="{TemplateBinding Unit}"
+                                       Style="{DynamicResource ValueStyle}" />
+                            </StackPanel>
+                            <Label x:Name="Empty"
+                                   Content="--"
+                                   Style="{DynamicResource ValueStyle}"
+                                   Visibility="Collapsed" />
+                        </Grid>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Value" Value="">
+                            <Setter TargetName="NoneEmpty" Property="Visibility" Value="{x:Static Visibility.Collapsed}" />
+                            <Setter TargetName="Empty" Property="Visibility" Value="{x:Static Visibility.Visible}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type controls:PercentValue}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:PercentValue}">
+                    <Grid Width="Auto"
+                          HorizontalAlignment="Left"
+                          VerticalAlignment="Top">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"
+                                              SharedSizeGroup="columnGroupPercent" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <StackPanel  TextElement.FontSize="22"
+                                    Margin="0,-2,0,0"
+                                    Orientation="Horizontal"
+                                  >
+                            <Label Margin="60,0,0,0" x:Name="NoneEmptyValue"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Top"
+                                   Content="{TemplateBinding Value}" />
+                            <Label Grid.Row="0" x:Name="Unit"
+                                   Grid.Column="1"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Top"
+                                   Content="%" />
+                            <Label Margin="60,-2,0,0" x:Name="Empty" FontSize="22"
+                                   Content="--"
+                                   Style="{DynamicResource ValueStyle}"
+                                   Visibility="Collapsed" />
+                        </StackPanel>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Value" Value="">
+                            <Setter TargetName="NoneEmptyValue" Property="Visibility" Value="{x:Static Visibility.Collapsed}" />
+                            <Setter TargetName="Unit" Property="Visibility" Value="{x:Static Visibility.Collapsed}" />
+                            <Setter TargetName="Empty" Property="Visibility" Value="{x:Static Visibility.Visible}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

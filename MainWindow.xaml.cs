@@ -60,9 +60,9 @@ namespace BatteryMonitor
         {
             PowerStatus pwr = SystemInformation.PowerStatus;
 
-            SystemPowerState.Content = ConvertPowerState(pwr.BatteryChargeStatus);
+            SystemPowerState.Value = ConvertPowerState(pwr.BatteryChargeStatus);
 
-            SystemPowerLineStatus.Content = ConvertPowerLineStatus(pwr.PowerLineStatus);
+            SystemPowerLineStatus.Value = ConvertPowerLineStatus(pwr.PowerLineStatus);
 
             if ((pwr.BatteryChargeStatus & BatteryChargeStatus.NoSystemBattery) != 0)
             {
@@ -71,14 +71,14 @@ namespace BatteryMonitor
 
             if (pwr.BatteryLifeRemaining > 0)
             {
-                RemainingSystemTime.Content = TimeSpan.FromSeconds(pwr.BatteryLifeRemaining).ToString();
+                RemainingSystemTime.Value = TimeSpan.FromSeconds(pwr.BatteryLifeRemaining).ToString();
             }
             else
             {
-                RemainingSystemTime.Content = "--";
+                RemainingSystemTime.Value = "--";
             }
 
-            SystemCapacity.Content = (pwr.BatteryLifePercent * 100.0).ToString("F0");
+            SystemCapacity.Value = (pwr.BatteryLifePercent * 100.0).ToString("F0");
 
             return true;
         }
@@ -154,41 +154,45 @@ namespace BatteryMonitor
 
             try
             {
-                DeviceName.Content = battery.DeviceName;
-                Manufacture.Content = battery.ManufactureName;
-                Chemistry.Content = ConvertChemistry(battery.Chemistry);
+                DeviceName.Value = battery.DeviceName;
+                Manufacture.Value = battery.ManufactureName;
+                Chemistry.Value = ConvertChemistry(battery.Chemistry);
 
                 if (battery.ManufactureDate != DateTime.MinValue)
                 {
-                    ManufactureDate.Content = battery.ManufactureDate.ToString(Properties.Resources.FormatDate);
+                    ManufactureDate.Value = battery.ManufactureDate.ToString(Properties.Resources.FormatDate);
                 }
 
-                DesignedCapacity.Content = battery.DesignedMaxCapacity.ToString();
-                CurrentCapacity.Content = battery.CurrentCapacity.ToString();
-                CurrentCapacityPercent.Content = ((battery.CurrentCapacity * 100.0) / battery.FullChargedCapacity).ToString("F0");
-                FullChargeCapacity.Content = battery.FullChargedCapacity.ToString();
-                BatteryHealth.Content = ((battery.FullChargedCapacity * 100.0) / battery.DesignedMaxCapacity).ToString("F0");
-                Voltage.Content = ((double)battery.Voltage / 1000.0).ToString();
+                DesignedCapacity.Value = battery.DesignedMaxCapacity.ToString();
+                CurrentCapacity.Value = battery.CurrentCapacity.ToString();
+                CurrentCapacityPercent.Value = ((battery.CurrentCapacity * 100.0) / battery.FullChargedCapacity).ToString("F0");
+                FullChargeCapacity.Value = battery.FullChargedCapacity.ToString();
+                BatteryHealth.Value = ((battery.FullChargedCapacity * 100.0) / battery.DesignedMaxCapacity).ToString("F0");
+                Voltage.Value = ((double)battery.Voltage / 1000.0).ToString();
 
                 if (battery.EstimatedTime == TimeSpan.Zero)
                 {
-                    EstimatedTime.Content = "--";
+                    EstimatedTime.Value = string.Empty;
                 }
                 else
                 {
-                    EstimatedTime.Content = battery.EstimatedTime.ToString();
+                    EstimatedTime.Value = battery.EstimatedTime.ToString();
                 }
 
-                Rate.Content = battery.DischargeRate.ToString();
-                DefaultAlert1.Content = battery.DefaultAlert1.ToString();
-                DefaultAlert2.Content = battery.DefaultAlert2.ToString();
-                CriticalBias.Content = battery.CriticalBias.ToString();
-                PowerState.Content = ConvertPowerState(battery.PowerState);
-                CylceCount.Content = battery.CycleCount.ToString();
+                Rate.Value = battery.DischargeRate.ToString();
+                DefaultAlert1.Value = battery.DefaultAlert1.ToString();
+                DefaultAlert2.Value = battery.DefaultAlert2.ToString();
+                CriticalBias.Value = battery.CriticalBias.ToString();
+                PowerState.Value = ConvertPowerState(battery.PowerState);
+                CylceCount.Value = battery.CycleCount.ToString();
 
                 if (!double.IsNaN(battery.Temperature))
                 {
-                    Temperature.Content = battery.Temperature.ToString();
+                    Temperature.Value = battery.Temperature.ToString();
+                }
+                else
+                {
+                    Temperature.Value = string.Empty;
                 }
 
             }
