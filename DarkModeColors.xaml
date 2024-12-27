@@ -15,9 +15,16 @@
     <Color x:Key="WindowBackgroundColor">#202020</Color>
     <Color x:Key="ControlBorderColor">#808080</Color>
     <Color x:Key="ControlBackgroundColor">#333333</Color>
+    <Color x:Key="DescriptionColor">#eeeeee</Color>
 
     <Color x:Key="Group.BackgroundColor">#2b2b2b</Color>
     <Color x:Key="Group.BorderColor">#1d1d1d</Color>
+    <Color x:Key="Group.ExpanderButtonColor">#e8e8e8</Color>
+
+    <SolidColorBrush x:Key="DescriptionBrush"
+                     Color="{StaticResource DescriptionColor}" />
+
+    <Color x:Key="ScrollbarThumbColor">#9a9a9a</Color>
 
     <!--  Brushes  -->
     <SolidColorBrush x:Key="ForegroundBrush"
@@ -35,11 +42,17 @@
     <SolidColorBrush x:Key="ControlBackground"
                      Color="{StaticResource ControlBackgroundColor}" />
 
+    <!-- Scrollbar -->
+    <SolidColorBrush x:Key="ScrollbarThumbBrush"
+                     Color="{StaticResource ScrollbarThumbColor}" />
+
     <!-- Group -->
     <SolidColorBrush x:Key="Group.BackgroundBrush"
                      Color="{StaticResource Group.BackgroundColor}" />
     <SolidColorBrush x:Key="Group.BorderBrush"
                      Color="{StaticResource Group.BorderColor}" />
+    <SolidColorBrush x:Key="Group.ExpanderButtonBrush"
+                     Color="{StaticResource Group.ExpanderButtonColor}" />
 
     <!--  button  -->
     <Color x:Key="Button.BackgroundColor">#373737</Color>

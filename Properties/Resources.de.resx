@@ -124,58 +124,58 @@
     <value>System</value>
   </data>
   <data name="LabelBatteryHealth" xml:space="preserve">
-    <value>Akku-Zustand:</value>
+    <value>Akku-Zustand</value>
   </data>
   <data name="LabelBatteryName" xml:space="preserve">
-    <value>Akku-Name:</value>
+    <value>Akku-Name</value>
   </data>
   <data name="LabelCapacity" xml:space="preserve">
-    <value>Kapazität:</value>
+    <value>Kapazität</value>
   </data>
   <data name="LabelChemistry" xml:space="preserve">
     <value>Chemie:</value>
   </data>
   <data name="LabelCriticalBias" xml:space="preserve">
-    <value>Kapazitätsreserve:</value>
+    <value>Kapazitätsreserve</value>
   </data>
   <data name="LabelCurrentCapacity" xml:space="preserve">
-    <value>aktuelle Kapazität:</value>
+    <value>aktuelle Kapazität</value>
   </data>
   <data name="LabelCycleCount" xml:space="preserve">
-    <value>Ladezyklen:</value>
+    <value>Ladezyklen</value>
   </data>
   <data name="LabelDefaultAlert1" xml:space="preserve">
     <value>Kapazitätsgrenzwert 1:</value>
   </data>
   <data name="LabelDefaultAlert2" xml:space="preserve">
-    <value>Kapazitätsgrenzwert 2:</value>
+    <value>Kapazitätsgrenzwert 2</value>
   </data>
   <data name="LabelDesignCapacity" xml:space="preserve">
-    <value>Nennkapazität:</value>
+    <value>Nennkapazität</value>
   </data>
   <data name="LabelFullChargedCapacity" xml:space="preserve">
-    <value>Kapazität voll aufgeladen:</value>
+    <value>Kapazität voll aufgeladen</value>
   </data>
   <data name="LabelManufactureDate" xml:space="preserve">
-    <value>Herstellungsdatum:</value>
+    <value>Herstellungsdatum</value>
   </data>
   <data name="LabelManufacturer" xml:space="preserve">
-    <value>Hersteller:</value>
+    <value>Hersteller</value>
   </data>
   <data name="LabelPowerState" xml:space="preserve">
     <value>Energiestatus:</value>
   </data>
   <data name="LabelRate" xml:space="preserve">
-    <value>Lade-/Entladerate:</value>
+    <value>Lade-/Entladerate</value>
   </data>
   <data name="LabelRemainingTime" xml:space="preserve">
-    <value>verbleibende Zeit:</value>
+    <value>verbleibende Zeit</value>
   </data>
   <data name="LabelTemperature" xml:space="preserve">
-    <value>Temperatur:</value>
+    <value>Temperatur</value>
   </data>
   <data name="LabelVoltage" xml:space="preserve">
-    <value>Spannung:</value>
+    <value>Spannung</value>
   </data>
   <data name="PowerStateCharging" xml:space="preserve">
     <value>wird geladen</value>
@@ -235,13 +235,13 @@
     <value>wird geladen</value>
   </data>
   <data name="LabelChargeState" xml:space="preserve">
-    <value>Ladezustand:</value>
+    <value>Ladezustand</value>
   </data>
   <data name="ChargeStatusOk" xml:space="preserve">
     <value>gut</value>
   </data>
   <data name="LabelPowerLineStatus" xml:space="preserve">
-    <value>Stromversorgung:</value>
+    <value>Stromversorgung</value>
   </data>
   <data name="PowerLineStateOnline" xml:space="preserve">
     <value>eingesteckt</value>

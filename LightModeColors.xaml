@@ -12,9 +12,21 @@
     <Color x:Key="HotColor">green</Color>
     <Color x:Key="ControlBorderColor">#ACACAC</Color>
     <Color x:Key="ControlBackgroundColor">#FFFFFF</Color>
+    <Color x:Key="DescriptionColor">#606060</Color>
 
     <Color x:Key="Group.BackgroundColor">#fbfbfb</Color>
     <Color x:Key="Group.BorderColor">#e5e5e5</Color>
+    <Color x:Key="Group.ExpanderButtonColor">#494949</Color>
+
+    <Color x:Key="ScrollbarThumbColor">#FFC0C0C0</Color>
+
+    <!-- Desciption -->
+    <SolidColorBrush x:Key="DescriptionBrush"
+                     Color="{StaticResource DescriptionColor}" />
+
+    <!-- Scrollbar -->
+    <SolidColorBrush x:Key="ScrollbarThumbBrush"
+                     Color="{StaticResource ScrollbarThumbColor}" />
 
     <!--  Brushes  -->
     <SolidColorBrush x:Key="ForegroundBrush"
@@ -37,7 +49,9 @@
                      Color="{StaticResource Group.BackgroundColor}" />
     <SolidColorBrush x:Key="Group.BorderBrush"
                      Color="{StaticResource Group.BorderColor}" />
-    
+    <SolidColorBrush x:Key="Group.ExpanderButtonBrush"
+                     Color="{StaticResource Group.ExpanderButtonColor}" />
+
     <!--  button  -->
     <Color x:Key="Button.BackgroundColor">#FFFFFF</Color>
     <Color x:Key="Button.MouseOver.BackgroundColor">#E1EFFA</Color>

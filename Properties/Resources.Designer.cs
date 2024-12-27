@@ -214,7 +214,7 @@ namespace BatteryMonitor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Battery Health:.
+        ///   Looks up a localized string similar to Battery Health.
         /// </summary>
         public static string LabelBatteryHealth {
             get {
@@ -223,7 +223,7 @@ namespace BatteryMonitor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Battery Name:.
+        ///   Looks up a localized string similar to Battery Name.
         /// </summary>
         public static string LabelBatteryName {
             get {
@@ -232,7 +232,7 @@ namespace BatteryMonitor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Capacity:.
+        ///   Looks up a localized string similar to Capacity.
         /// </summary>
         public static string LabelCapacity {
             get {
@@ -241,7 +241,7 @@ namespace BatteryMonitor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Charge State:.
+        ///   Looks up a localized string similar to Charge State.
         /// </summary>
         public static string LabelChargeState {
             get {
@@ -250,7 +250,7 @@ namespace BatteryMonitor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Chemistry:.
+        ///   Looks up a localized string similar to Chemistry.
         /// </summary>
         public static string LabelChemistry {
             get {
@@ -259,7 +259,7 @@ namespace BatteryMonitor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Critical Bias:.
+        ///   Looks up a localized string similar to Critical Bias.
         /// </summary>
         public static string LabelCriticalBias {
             get {
@@ -268,7 +268,7 @@ namespace BatteryMonitor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Current Capacity:.
+        ///   Looks up a localized string similar to Current Capacity.
         /// </summary>
         public static string LabelCurrentCapacity {
             get {
@@ -286,7 +286,7 @@ namespace BatteryMonitor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Low Capacity Limit 1:.
+        ///   Looks up a localized string similar to Low Capacity Limit 1.
         /// </summary>
         public static string LabelDefaultAlert1 {
             get {
@@ -295,7 +295,7 @@ namespace BatteryMonitor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Low Capacity Limit 2:.
+        ///   Looks up a localized string similar to Low Capacity Limit 2.
         /// </summary>
         public static string LabelDefaultAlert2 {
             get {
@@ -304,7 +304,7 @@ namespace BatteryMonitor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Designed Capacity:.
+        ///   Looks up a localized string similar to Designed Capacity.
         /// </summary>
         public static string LabelDesignCapacity {
             get {
@@ -313,7 +313,7 @@ namespace BatteryMonitor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Full Charge Capacity:.
+        ///   Looks up a localized string similar to Full Charge Capacity.
         /// </summary>
         public static string LabelFullChargedCapacity {
             get {
@@ -322,7 +322,7 @@ namespace BatteryMonitor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Manufacture Date:.
+        ///   Looks up a localized string similar to Manufacture Date.
         /// </summary>
         public static string LabelManufactureDate {
             get {
@@ -331,7 +331,7 @@ namespace BatteryMonitor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Manufacturer:.
+        ///   Looks up a localized string similar to Manufacturer.
         /// </summary>
         public static string LabelManufacturer {
             get {
@@ -340,7 +340,7 @@ namespace BatteryMonitor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Power Line Status:.
+        ///   Looks up a localized string similar to Power Line Status.
         /// </summary>
         public static string LabelPowerLineStatus {
             get {
@@ -358,7 +358,7 @@ namespace BatteryMonitor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Charge/Discharge Rate:.
+        ///   Looks up a localized string similar to Charge/Discharge Rate.
         /// </summary>
         public static string LabelRate {
             get {
@@ -367,7 +367,7 @@ namespace BatteryMonitor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remaing time:.
+        ///   Looks up a localized string similar to Remaing time.
         /// </summary>
         public static string LabelRemainingTime {
             get {
@@ -376,7 +376,7 @@ namespace BatteryMonitor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Temperature:.
+        ///   Looks up a localized string similar to Temperature.
         /// </summary>
         public static string LabelTemperature {
             get {
