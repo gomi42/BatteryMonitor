@@ -385,7 +385,7 @@ namespace BatteryMonitor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Voltage:.
+        ///   Looks up a localized string similar to Voltage.
         /// </summary>
         public static string LabelVoltage {
             get {

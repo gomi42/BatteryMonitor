@@ -175,7 +175,7 @@
     <value>Temperature</value>
   </data>
   <data name="LabelVoltage" xml:space="preserve">
-    <value>Voltage:</value>
+    <value>Voltage</value>
   </data>
   <data name="PowerStateCharging" xml:space="preserve">
     <value>charging</value>
