@@ -133,7 +133,7 @@
     <value>Kapazität</value>
   </data>
   <data name="LabelChemistry" xml:space="preserve">
-    <value>Chemie:</value>
+    <value>Chemie</value>
   </data>
   <data name="LabelCriticalBias" xml:space="preserve">
     <value>Kapazitätsreserve</value>
@@ -145,7 +145,7 @@
     <value>Ladezyklen</value>
   </data>
   <data name="LabelDefaultAlert1" xml:space="preserve">
-    <value>Kapazitätsgrenzwert 1:</value>
+    <value>Kapazitätsgrenzwert 1</value>
   </data>
   <data name="LabelDefaultAlert2" xml:space="preserve">
     <value>Kapazitätsgrenzwert 2</value>
@@ -163,7 +163,7 @@
     <value>Hersteller</value>
   </data>
   <data name="LabelPowerState" xml:space="preserve">
-    <value>Energiestatus:</value>
+    <value>Energiestatus</value>
   </data>
   <data name="LabelRate" xml:space="preserve">
     <value>Lade-/Entladerate</value>

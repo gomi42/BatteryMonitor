@@ -5,403 +5,592 @@
         xmlns:local="clr-namespace:BatteryMonitor"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:p="clr-namespace:BatteryMonitor.Properties"
+        x:Name="Window"
         Title="{x:Static p:Resources.WindowTitle}"
-        Width="359"
-        Height="361"
+        Width="600"
+        Height="251"
         MinWidth="310"
-        MinHeight="361"
+        MinHeight="251"
         Background="{DynamicResource WindowBackgroundBrush}"
         SnapsToDevicePixels="True"
         mc:Ignorable="d">
-    <Window.Resources />
+    <Window.Resources>
+        <local:WidthConverter x:Key="WidthConverter" />
+    </Window.Resources>
     <Grid>
-        <ScrollViewer HorizontalScrollBarVisibility="Auto"
+        <ScrollViewer x:Name="Scroller"
+                      HorizontalScrollBarVisibility="Auto"
                       VerticalScrollBarVisibility="Auto">
-            <StackPanel Margin="0,0,0,11"
+            <StackPanel MaxWidth="{Binding ViewportWidth,
+                                           ElementName=Scroller,
+                                           Converter={StaticResource WidthConverter}}"
+                        Margin="10"
                         Grid.IsSharedSizeScope="True">
-                <Expander Margin="20,10,20,10"
-                          Padding="5">
+                <Expander Padding="5">
                     <Expander.Header>
                         <Grid>
-                            <Label Margin="7,0,30,0"
+                            <Label Margin="7,6,30,0"
                                    HorizontalAlignment="Left"
+                                   VerticalAlignment="Top"
                                    Content="{x:Static p:Resources.HeaderSystem}"
-                                   FontWeight="Normal" FontSize="15" />
+                                   FontSize="15"
+                                   FontWeight="Normal" />
 
-                            <StackPanel Margin="80,0,0,0"
-                                        Orientation="Horizontal"
-                                        TextElement.FontSize="22">
-                                <Label x:Name="SystemCapacity"
-                                       HorizontalAlignment="Left"
-                                       VerticalAlignment="Top"
-                                       Content="42" />
-                                <Label Grid.Row="0"
-                                       Grid.Column="1"
-                                       HorizontalAlignment="Left"
-                                       VerticalAlignment="Top"
-                                       Content="%" />
-                            </StackPanel>
+                            <WrapPanel Margin="20,5,20,4">
+                                <Grid Width="Auto"
+                                      HorizontalAlignment="Left"
+                                      VerticalAlignment="Top">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"
+                                                          SharedSizeGroup="columnGroupPercent" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <StackPanel Margin="0,-2,0,0"
+                                            Orientation="Horizontal"
+                                            TextElement.FontSize="22">
+                                        <Label x:Name="SystemCapacity"
+                                           Margin="60,0,0,0"
+                                           HorizontalAlignment="Left"
+                                           VerticalAlignment="Top"
+                                           Content="--" />
+                                        <Label Grid.Row="0"
+                                           Grid.Column="1"
+                                           HorizontalAlignment="Left"
+                                           VerticalAlignment="Top"
+                                           Content="%" />
+                                    </StackPanel>
+                                </Grid>
 
-                            <Grid Width="Auto"
-                                  Margin="30,40,0,0"
-                                  HorizontalAlignment="Left"
-                                  VerticalAlignment="Top">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"
-                                                      SharedSizeGroup="columnGroup" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition />
-                                </Grid.RowDefinitions>
-                                <Label Grid.Column="0"
-                                       Content="{x:Static p:Resources.LabelRemainingTime}"
-                                       Style="{DynamicResource DescriptionStyle}" />
-                                <Label x:Name="RemainingSystemTime"
-                                       Grid.Column="1"
-                                       HorizontalAlignment="Left"
-                                       VerticalAlignment="Top"
-                                       Content="03:04:05" />
-                            </Grid>
+                                <Grid Width="Auto"
+                                      HorizontalAlignment="Left"
+                                      VerticalAlignment="Top">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"
+                                                          SharedSizeGroup="columnGroup" />
+                                        <ColumnDefinition Width="Auto"
+                                                          SharedSizeGroup="columnGroupValue" />
+                                        <ColumnDefinition Width="20"
+                                                          SharedSizeGroup="columnGroupGap" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <Label Grid.Column="0"
+                                           Content="{x:Static p:Resources.LabelRemainingTime}"
+                                           Style="{DynamicResource DescriptionStyle}" />
+                                    <Label x:Name="RemainingSystemTime"
+                                           Grid.Column="1"
+                                           Content="--"
+                                           Style="{DynamicResource ValueStyle}" />
+                                </Grid>
+                            </WrapPanel>
                         </Grid>
                     </Expander.Header>
-                    <Grid Width="Auto"
-                          Margin="30,5,0,0"
-                          HorizontalAlignment="Left"
-                          VerticalAlignment="Top">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"
-                                              SharedSizeGroup="columnGroup" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-                        <Label Grid.Row="0"
-                               Grid.Column="0"
-                               Content="{x:Static p:Resources.LabelChargeState}"
-                               Style="{DynamicResource DescriptionStyle}" />
-                        <Label x:Name="SystemPowerState"
-                               Grid.Row="0"
-                               Grid.Column="1"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Top"
-                               Content="--" />
-
-                        <Label Grid.Row="1"
-                               Grid.Column="0"
-                               Content="{x:Static p:Resources.LabelPowerLineStatus}"
-                               Style="{DynamicResource DescriptionStyle}" />
-                        <Label x:Name="SystemPowerLineStatus"
-                               Grid.Row="1"
-                               Grid.Column="1"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Top"
-                               Content="--" />
-                    </Grid>
+                    <WrapPanel Margin="20,0,10,0">
+                        <Grid Width="Auto"
+                              HorizontalAlignment="Left"
+                              VerticalAlignment="Top">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"
+                                                  SharedSizeGroup="columnGroup" />
+                                <ColumnDefinition Width="Auto"
+                                                  SharedSizeGroup="columnGroupValue" />
+                                <ColumnDefinition SharedSizeGroup="columnGroupGap" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Label Grid.Column="0"
+                                   Content="{x:Static p:Resources.LabelChargeState}"
+                                   Style="{DynamicResource DescriptionStyle}" />
+                            <Label x:Name="SystemPowerState"
+                                   Grid.Column="1"
+                                   Content="--"
+                                   Style="{DynamicResource ValueStyle}" />
+                        </Grid>
+                        <Grid Width="Auto"
+                              HorizontalAlignment="Left"
+                              VerticalAlignment="Top">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"
+                                                  SharedSizeGroup="columnGroup" />
+                                <ColumnDefinition Width="Auto"
+                                                  SharedSizeGroup="columnGroupValue" />
+                                <ColumnDefinition SharedSizeGroup="columnGroupGap" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Label Grid.Column="0"
+                                   Content="{x:Static p:Resources.LabelPowerLineStatus}"
+                                   Style="{DynamicResource DescriptionStyle}" />
+                            <Label x:Name="SystemPowerLineStatus"
+                                   Grid.Column="1"
+                                   Content="--"
+                                   Style="{DynamicResource ValueStyle}" />
+                        </Grid>
+                    </WrapPanel>
                 </Expander>
 
-                <Expander Margin="20,10,20,10">
+                <Expander Margin="0,10,0,0">
                     <Expander.Header>
                         <Grid>
-                            <Label Margin="7,0,30,0"
+                            <Label Margin="7,6,30,0"
                                    HorizontalAlignment="Left"
-                                   Content="{x:Static p:Resources.HeaderBattery}"
-                                    FontWeight="Normal" FontSize="15" />
-                            <StackPanel Margin="80,0,0,0"   TextElement.FontSize="22"
-                                            Orientation="Horizontal">
-                                <Label x:Name="CurrentCapacityPercent"
-                                           HorizontalAlignment="Left"
-                                           VerticalAlignment="Top"
-                                           Content="43" />
-                                <Label HorizontalAlignment="Left"
-                                           VerticalAlignment="Top"
-                                           Content="%" />
-                            </StackPanel>
-
-                            <Grid Width="Auto"
-                                  Margin="30,40,0,0"
-                                  HorizontalAlignment="Left"
-                                  VerticalAlignment="Top">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"
-                                                      SharedSizeGroup="columnGroup" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                </Grid.RowDefinitions>
-
-
-                                <Label Grid.Row="1"
-                                       Grid.Column="0"
-                                       Content="{x:Static p:Resources.LabelRemainingTime}"
-                                       Style="{DynamicResource DescriptionStyle}" />
-                                <Label x:Name="EstimatedTime"
-                                       Grid.Row="1"
-                                       Grid.Column="1"
-                                       HorizontalAlignment="Left"
-                                       VerticalAlignment="Top"
-                                       Content="--" />
-
-                                <Label Grid.Row="2"
-                                       Grid.Column="0"
-                                       Content="{x:Static p:Resources.LabelDesignCapacity}"
-                                       Style="{DynamicResource DescriptionStyle}" />
-                                <StackPanel Grid.Row="2"
-                                            Grid.Column="1"
-                                            Orientation="Horizontal">
-                                    <Label x:Name="DesignedCapacity"
-                                           HorizontalAlignment="Left"
-                                           VerticalAlignment="Top"
-                                           Content="--" />
-                                    <Label HorizontalAlignment="Left"
-                                           VerticalAlignment="Top"
-                                           Content=" mWh" />
-                                </StackPanel>
-
-                                <Label Grid.Row="3"
-                                       Grid.Column="0"
-                                       Content="{x:Static p:Resources.LabelFullChargedCapacity}"
-                                       Style="{DynamicResource DescriptionStyle}" />
-                                <StackPanel Grid.Row="3"
-                                            Grid.Column="1"
-                                            Orientation="Horizontal">
-                                    <Label x:Name="FullChargeCapacity"
-                                           HorizontalAlignment="Left"
-                                           VerticalAlignment="Top"
-                                           Content="--" />
-                                    <Label HorizontalAlignment="Left"
-                                           VerticalAlignment="Top"
-                                           Content=" mWh" />
-                                </StackPanel>
-
-                                <Label Grid.Row="4"
-                                       Grid.Column="0"
-                                       Content="{x:Static p:Resources.LabelCurrentCapacity}"
-                                       Style="{DynamicResource DescriptionStyle}" />
-                                <StackPanel Grid.Row="4"
-                                            Grid.Column="1"
-                                            Orientation="Horizontal">
-                                    <Label x:Name="CurrentCapacity"
-                                           HorizontalAlignment="Left"
-                                           VerticalAlignment="Top"
-                                           Content="--" />
-                                    <Label HorizontalAlignment="Left"
-                                           VerticalAlignment="Top"
-                                           Content=" mWh" />
-                                </StackPanel>
-
-                                <Label Grid.Row="5"
-                                       Grid.Column="0"
-                                       Content="{x:Static p:Resources.LabelVoltage}"
-                                       Style="{DynamicResource DescriptionStyle}" />
-                                <StackPanel Grid.Row="5"
-                                            Grid.Column="1"
-                                            Orientation="Horizontal">
-                                    <Label x:Name="Voltage"
-                                           HorizontalAlignment="Left"
-                                           VerticalAlignment="Top"
-                                           Content="--" />
-                                    <Label HorizontalAlignment="Left"
-                                           VerticalAlignment="Top"
-                                           Content=" V" />
-                                </StackPanel>
-
-                                <Label Grid.Row="6"
-                                       Grid.Column="0"
-                                       Content="{x:Static p:Resources.LabelPowerState}"
-                                       Style="{DynamicResource DescriptionStyle}" />
-                                <Label x:Name="PowerState"
-                                       Grid.Row="6"
-                                       Grid.Column="1"
-                                       Content="--"
-                                       Style="{DynamicResource ValueStyle}" />
-
-                                <Label Grid.Row="7"
-                               Grid.Column="0"
-                               Content="{x:Static p:Resources.LabelRate}"
-                               Style="{DynamicResource DescriptionStyle}" />
-                                <StackPanel Grid.Row="7"
-                                    Grid.Column="1"
-                                    Orientation="Horizontal">
-                                    <Label x:Name="Rate"
-                                   HorizontalAlignment="Left"
-                                   Content="--" />
-                                    <Label HorizontalAlignment="Left"
                                    VerticalAlignment="Top"
-                                   Content=" mW" />
-                                </StackPanel>
-                            </Grid>
+                                   Content="{x:Static p:Resources.HeaderBattery}"
+                                   FontSize="15"
+                                   FontWeight="Normal" />
+                            <StackPanel Margin="20,5,20,0">
+                                <WrapPanel>
+                                    <Grid Width="Auto"
+                                      HorizontalAlignment="Left"
+                                      VerticalAlignment="Top">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"
+                                                          SharedSizeGroup="columnGroupPercent" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                        <StackPanel Margin="60,-2,0,0"
+                                                Orientation="Horizontal"
+                                                TextElement.FontSize="22">
+                                            <Label x:Name="CurrentCapacityPercent"
+                                               HorizontalAlignment="Left"
+                                               VerticalAlignment="Top"
+                                               Content="--" />
+                                            <Label HorizontalAlignment="Left"
+                                               VerticalAlignment="Top"
+                                               Content="%" />
+                                        </StackPanel>
+                                    </Grid>
+
+                                    <Grid Width="Auto"
+                                          Margin="0,0,0,10"
+                                          HorizontalAlignment="Left"
+                                          VerticalAlignment="Top">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"
+                                                              SharedSizeGroup="columnGroup" />
+                                            <ColumnDefinition Width="Auto"
+                                                              SharedSizeGroup="columnGroupValue" />
+                                            <ColumnDefinition SharedSizeGroup="columnGroupGap" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                        <Label Grid.Column="0"
+                                               Content="{x:Static p:Resources.LabelRemainingTime}"
+                                               Style="{DynamicResource DescriptionStyle}" />
+                                        <Label x:Name="EstimatedTime"
+                                               Grid.Column="1"
+                                               Content="--"
+                                               Style="{DynamicResource ValueStyle}" />
+                                    </Grid>
+                                </WrapPanel>
+
+                                <WrapPanel Margin="0,5,0,0">
+                                    <Grid Width="Auto"
+                                          HorizontalAlignment="Left"
+                                          VerticalAlignment="Top">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"
+                                                              SharedSizeGroup="columnGroup" />
+                                            <ColumnDefinition Width="Auto"
+                                                              SharedSizeGroup="columnGroupValue" />
+                                            <ColumnDefinition SharedSizeGroup="columnGroupGap" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                        <Label Grid.Column="0"
+                                               Content="{x:Static p:Resources.LabelDesignCapacity}"
+                                               Style="{DynamicResource DescriptionStyle}" />
+                                        <StackPanel Grid.Column="1"
+                                                    Orientation="Horizontal">
+                                            <Label x:Name="DesignedCapacity"
+                                                   Content="--"
+                                                   Style="{DynamicResource ValueStyle}" />
+                                            <Label Content=" mWh"
+                                                   Style="{DynamicResource ValueStyle}" />
+                                        </StackPanel>
+                                    </Grid>
+
+                                    <Grid Width="Auto"
+                                          HorizontalAlignment="Left"
+                                          VerticalAlignment="Top">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"
+                                                              SharedSizeGroup="columnGroup" />
+                                            <ColumnDefinition Width="Auto"
+                                                              SharedSizeGroup="columnGroupValue" />
+                                            <ColumnDefinition SharedSizeGroup="columnGroupGap" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                        <Label Grid.Column="0"
+                                               Content="{x:Static p:Resources.LabelFullChargedCapacity}"
+                                               Style="{DynamicResource DescriptionStyle}" />
+                                        <StackPanel Grid.Column="1"
+                                                    Orientation="Horizontal">
+                                            <Label x:Name="FullChargeCapacity"
+                                                   Grid.Column="1"
+                                                   Content="--"
+                                                   Style="{DynamicResource ValueStyle}" />
+                                            <Label Content=" mWh"
+                                                   Style="{DynamicResource ValueStyle}" />
+                                        </StackPanel>
+                                    </Grid>
+
+                                    <Grid Width="Auto"
+                                          HorizontalAlignment="Left"
+                                          VerticalAlignment="Top">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"
+                                                              SharedSizeGroup="columnGroup" />
+                                            <ColumnDefinition Width="Auto"
+                                                              SharedSizeGroup="columnGroupValue" />
+                                            <ColumnDefinition SharedSizeGroup="columnGroupGap" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                        <Label Grid.Column="0"
+                                               Content="{x:Static p:Resources.LabelCurrentCapacity}"
+                                               Style="{DynamicResource DescriptionStyle}" />
+                                        <StackPanel Grid.Column="1"
+                                                    Orientation="Horizontal">
+                                            <Label x:Name="CurrentCapacity"
+                                                   Content="--"
+                                                   Style="{DynamicResource ValueStyle}" />
+                                            <Label Content=" mWh"
+                                                   Style="{DynamicResource ValueStyle}" />
+                                        </StackPanel>
+                                    </Grid>
+
+                                    <Grid Width="Auto"
+                                          HorizontalAlignment="Left"
+                                          VerticalAlignment="Top">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"
+                                                              SharedSizeGroup="columnGroup" />
+                                            <ColumnDefinition Width="Auto"
+                                                              SharedSizeGroup="columnGroupValue" />
+                                            <ColumnDefinition SharedSizeGroup="columnGroupGap" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                        <Label Grid.Column="0"
+                                               Content="{x:Static p:Resources.LabelVoltage}"
+                                               Style="{DynamicResource DescriptionStyle}" />
+                                        <StackPanel Grid.Column="1"
+                                                    Orientation="Horizontal">
+                                            <Label x:Name="Voltage"
+                                                   Content="--"
+                                                   Style="{DynamicResource ValueStyle}" />
+                                            <Label Content=" V"
+                                                   Style="{DynamicResource ValueStyle}" />
+                                        </StackPanel>
+                                    </Grid>
+
+                                    <Grid Width="Auto"
+                                          HorizontalAlignment="Left"
+                                          VerticalAlignment="Top">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"
+                                                              SharedSizeGroup="columnGroup" />
+                                            <ColumnDefinition Width="Auto"
+                                                              SharedSizeGroup="columnGroupValue" />
+                                            <ColumnDefinition SharedSizeGroup="columnGroupGap" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                        <Label Grid.Column="0"
+                                               Content="{x:Static p:Resources.LabelPowerState}"
+                                               Style="{DynamicResource DescriptionStyle}" />
+                                        <Label x:Name="PowerState"
+                                               Grid.Column="1"
+                                               Content="--"
+                                               Style="{DynamicResource ValueStyle}" />
+                                    </Grid>
+
+                                    <Grid Width="Auto"
+                                          HorizontalAlignment="Left"
+                                          VerticalAlignment="Top">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"
+                                                              SharedSizeGroup="columnGroup" />
+                                            <ColumnDefinition Width="Auto"
+                                                              SharedSizeGroup="columnGroupValue" />
+                                            <ColumnDefinition SharedSizeGroup="columnGroupGap" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                        <Label Grid.Column="0"
+                                               Content="{x:Static p:Resources.LabelRate}"
+                                               Style="{DynamicResource DescriptionStyle}" />
+                                        <StackPanel Grid.Column="1"
+                                                    Orientation="Horizontal">
+                                            <Label x:Name="Rate"
+                                                   Content="--"
+                                                   Style="{DynamicResource ValueStyle}" />
+                                            <Label Content=" mW"
+                                                   Style="{DynamicResource ValueStyle}" />
+                                        </StackPanel>
+                                    </Grid>
+                                </WrapPanel>
+                            </StackPanel>
                         </Grid>
                     </Expander.Header>
-                    <Grid Width="Auto"
-                          Margin="30,5,0,0"
-                          HorizontalAlignment="Left"
-                          VerticalAlignment="Top">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"
-                                              SharedSizeGroup="columnGroup" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-                        <Label Grid.Row="0"
-                               Grid.Column="0"
-                               Content="{x:Static p:Resources.LabelBatteryName}"
-                               Style="{DynamicResource DescriptionStyle}" />
-                        <Label x:Name="DeviceName"
-                               Grid.Row="0"
-                               Grid.Column="1"
-                               Content="--"
-                               Style="{DynamicResource ValueStyle}" />
+                    <WrapPanel Margin="20,0,20,0">
+                        <Grid Width="Auto"
+                              HorizontalAlignment="Left"
+                              VerticalAlignment="Top">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"
+                                                  SharedSizeGroup="columnGroup" />
+                                <ColumnDefinition Width="Auto"
+                                                  SharedSizeGroup="columnGroupValue" />
+                                <ColumnDefinition SharedSizeGroup="columnGroupGap" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Label Grid.Column="0"
+                                   Content="{x:Static p:Resources.LabelBatteryName}"
+                                   Style="{DynamicResource DescriptionStyle}" />
+                            <Label x:Name="DeviceName"
+                                   Grid.Column="1"
+                                   Content="--"
+                                   Style="{DynamicResource ValueStyle}" />
+                        </Grid>
 
-                        <Label Grid.Row="1"
-                               Grid.Column="0"
-                               Content="{x:Static p:Resources.LabelManufacturer}"
-                               Style="{DynamicResource DescriptionStyle}" />
-                        <Label x:Name="Manufacture"
-                               Grid.Row="1"
-                               Grid.Column="1"
-                               Content="--"
-                               Style="{DynamicResource ValueStyle}" />
+                        <Grid Width="Auto"
+                              HorizontalAlignment="Left"
+                              VerticalAlignment="Top">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"
+                                                  SharedSizeGroup="columnGroup" />
+                                <ColumnDefinition Width="Auto"
+                                                  SharedSizeGroup="columnGroupValue" />
+                                <ColumnDefinition SharedSizeGroup="columnGroupGap" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Label Grid.Column="0"
+                                   Content="{x:Static p:Resources.LabelManufacturer}"
+                                   Style="{DynamicResource DescriptionStyle}" />
+                            <Label x:Name="Manufacture"
+                                   Grid.Column="1"
+                                   Content="--"
+                                   Style="{DynamicResource ValueStyle}" />
+                        </Grid>
 
-                        <Label Grid.Row="2"
-                               Grid.Column="0"
-                               Content="{x:Static p:Resources.LabelManufactureDate}"
-                               Style="{DynamicResource DescriptionStyle}" />
-                        <Label x:Name="ManufactureDate"
-                               Grid.Row="2"
-                               Grid.Column="1"
-                               Content="--"
-                               Style="{DynamicResource ValueStyle}" />
+                        <Grid Width="Auto"
+                              HorizontalAlignment="Left"
+                              VerticalAlignment="Top">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"
+                                                  SharedSizeGroup="columnGroup" />
+                                <ColumnDefinition Width="Auto"
+                                                  SharedSizeGroup="columnGroupValue" />
+                                <ColumnDefinition SharedSizeGroup="columnGroupGap" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Label Grid.Column="0"
+                                   Content="{x:Static p:Resources.LabelManufactureDate}"
+                                   Style="{DynamicResource DescriptionStyle}" />
+                            <Label x:Name="ManufactureDate"
+                                   Grid.Column="1"
+                                   Content="--"
+                                   Style="{DynamicResource ValueStyle}" />
+                        </Grid>
 
-                        <Label Grid.Row="3"
-                               Grid.Column="0"
-                               Content="{x:Static p:Resources.LabelChemistry}"
-                               Style="{DynamicResource DescriptionStyle}" />
-                        <Label x:Name="Chemistry"
-                               Grid.Row="3"
-                               Grid.Column="1"
-                               Content="--"
-                               Style="{DynamicResource ValueStyle}" />
+                        <Grid Width="Auto"
+                              HorizontalAlignment="Left"
+                              VerticalAlignment="Top">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"
+                                                  SharedSizeGroup="columnGroup" />
+                                <ColumnDefinition Width="Auto"
+                                                  SharedSizeGroup="columnGroupValue" />
+                                <ColumnDefinition SharedSizeGroup="columnGroupGap" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Label Grid.Column="0"
+                                   Content="{x:Static p:Resources.LabelChemistry}"
+                                   Style="{DynamicResource DescriptionStyle}" />
+                            <Label x:Name="Chemistry"
+                                   Grid.Column="1"
+                                   Content="--"
+                                   Style="{DynamicResource ValueStyle}" />
+                        </Grid>
 
-                        <Label Grid.Row="4"
-                               Grid.Column="0"
-                               Content="{x:Static p:Resources.LabelDefaultAlert1}"
-                               Style="{DynamicResource DescriptionStyle}" />
-                        <StackPanel Grid.Row="4"
-                                    Grid.Column="1"
-                                    Orientation="Horizontal">
-                            <Label x:Name="DefaultAlert1"
-                                   HorizontalAlignment="Left"
-                                   VerticalAlignment="Top"
-                                   Content="--" />
-                            <Label HorizontalAlignment="Left"
-                                   VerticalAlignment="Top"
-                                   Content=" mWh" />
-                        </StackPanel>
-                        <Label Grid.Row="5"
-                               Grid.Column="0"
-                               Content="{x:Static p:Resources.LabelDefaultAlert2}"
-                               Style="{DynamicResource DescriptionStyle}" />
-                        <StackPanel Grid.Row="5"
-                                    Grid.Column="1"
-                                    Orientation="Horizontal">
-                            <Label x:Name="DefaultAlert2"
-                                   HorizontalAlignment="Left"
-                                   VerticalAlignment="Top"
-                                   Content="--" />
-                            <Label HorizontalAlignment="Left"
-                                   VerticalAlignment="Top"
-                                   Content=" mWh" />
-                        </StackPanel>
-                        <Label Grid.Row="6"
-                               Grid.Column="0"
-                               Content="{x:Static p:Resources.LabelCriticalBias}"
-                               Style="{DynamicResource DescriptionStyle}" />
-                        <StackPanel Grid.Row="6"
-                                    Grid.Column="1"
-                                    Orientation="Horizontal">
-                            <Label x:Name="CriticalBias"
-                                   HorizontalAlignment="Left"
-                                   VerticalAlignment="Top"
-                                   Content="--" />
-                            <Label HorizontalAlignment="Left"
-                                   VerticalAlignment="Top"
-                                   Content=" mWh" />
-                        </StackPanel>
+                        <Grid Width="Auto"
+                              HorizontalAlignment="Left"
+                              VerticalAlignment="Top">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"
+                                                  SharedSizeGroup="columnGroup" />
+                                <ColumnDefinition Width="Auto"
+                                                  SharedSizeGroup="columnGroupValue" />
+                                <ColumnDefinition SharedSizeGroup="columnGroupGap" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Label Grid.Column="0"
+                                   Content="{x:Static p:Resources.LabelDefaultAlert1}"
+                                   Style="{DynamicResource DescriptionStyle}" />
+                            <StackPanel Grid.Column="1"
+                                        Orientation="Horizontal">
+                                <Label x:Name="DefaultAlert1"
+                                       Content="--"
+                                       Style="{DynamicResource ValueStyle}" />
+                                <Label Content=" mWh"
+                                       Style="{DynamicResource ValueStyle}" />
+                            </StackPanel>
+                        </Grid>
 
-                        <Label Grid.Row="7"
-                               Grid.Column="0"
-                               Content="{x:Static p:Resources.LabelCycleCount}"
-                               Style="{DynamicResource DescriptionStyle}" />
-                        <Label x:Name="CylceCount"
-                               Grid.Row="7"
-                               Grid.Column="1"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Top"
-                               Content="--" />
-                        <Label Grid.Row="8"
-                               Grid.Column="0"
-                               Content="{x:Static p:Resources.LabelTemperature}"
-                               Style="{DynamicResource DescriptionStyle}" />
-                        <StackPanel Grid.Row="8"
-                                    Grid.Column="1"
-                                    Orientation="Horizontal">
-                            <Label x:Name="Temperature"
-                                   HorizontalAlignment="Left"
-                                   VerticalAlignment="Top"
-                                   Content="--" />
-                            <Label HorizontalAlignment="Left"
-                                   VerticalAlignment="Top"
-                                   Content="°" />
-                        </StackPanel>
+                        <Grid Width="Auto"
+                              HorizontalAlignment="Left"
+                              VerticalAlignment="Top">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"
+                                                  SharedSizeGroup="columnGroup" />
+                                <ColumnDefinition Width="Auto"
+                                                  SharedSizeGroup="columnGroupValue" />
+                                <ColumnDefinition SharedSizeGroup="columnGroupGap" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Label Grid.Column="0"
+                                   Content="{x:Static p:Resources.LabelDefaultAlert2}"
+                                   Style="{DynamicResource DescriptionStyle}" />
+                            <StackPanel Grid.Row="5"
+                                        Grid.Column="1"
+                                        Orientation="Horizontal">
+                                <Label x:Name="DefaultAlert2"
+                                       Content="--"
+                                       Style="{DynamicResource ValueStyle}" />
+                                <Label Content=" mWh"
+                                       Style="{DynamicResource ValueStyle}" />
+                            </StackPanel>
+                        </Grid>
 
-                        <Label Grid.Row="9"
-                                       Grid.Column="0"
-                                       Content="{x:Static p:Resources.LabelBatteryHealth}"
-                                       Style="{DynamicResource DescriptionStyle}" />
-                        <StackPanel Grid.Row="9"
-                                            Grid.Column="1"
-                                            Orientation="Horizontal">
-                            <Label x:Name="BatteryHealth"
-                                           HorizontalAlignment="Left"
-                                           VerticalAlignment="Top"
-                                           Content="--" />
-                            <Label HorizontalAlignment="Left"
-                                           VerticalAlignment="Top"
-                                           Content="%" />
-                        </StackPanel>
-                    </Grid>
+                        <Grid Width="Auto"
+                              HorizontalAlignment="Left"
+                              VerticalAlignment="Top">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"
+                                                  SharedSizeGroup="columnGroup" />
+                                <ColumnDefinition Width="Auto"
+                                                  SharedSizeGroup="columnGroupValue" />
+                                <ColumnDefinition SharedSizeGroup="columnGroupGap" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Label Grid.Column="0"
+                                   Content="{x:Static p:Resources.LabelCriticalBias}"
+                                   Style="{DynamicResource DescriptionStyle}" />
+                            <StackPanel Grid.Column="1"
+                                        Orientation="Horizontal">
+                                <Label x:Name="CriticalBias"
+                                       Content="--"
+                                       Style="{DynamicResource ValueStyle}" />
+                                <Label Content=" mWh"
+                                       Style="{DynamicResource ValueStyle}" />
+                            </StackPanel>
+                        </Grid>
+
+                        <Grid Width="Auto"
+                              HorizontalAlignment="Left"
+                              VerticalAlignment="Top">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"
+                                                  SharedSizeGroup="columnGroup" />
+                                <ColumnDefinition Width="Auto"
+                                                  SharedSizeGroup="columnGroupValue" />
+                                <ColumnDefinition SharedSizeGroup="columnGroupGap" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Label Grid.Column="0"
+                                   Content="{x:Static p:Resources.LabelCycleCount}"
+                                   Style="{DynamicResource DescriptionStyle}" />
+                            <Label x:Name="CylceCount"
+                                   Grid.Column="1"
+                                   Content="--"
+                                   Style="{DynamicResource ValueStyle}" />
+                        </Grid>
+
+                        <Grid Width="Auto"
+                              HorizontalAlignment="Left"
+                              VerticalAlignment="Top">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"
+                                                  SharedSizeGroup="columnGroup" />
+                                <ColumnDefinition Width="Auto"
+                                                  SharedSizeGroup="columnGroupValue" />
+                                <ColumnDefinition SharedSizeGroup="columnGroupGap" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Label Grid.Column="0"
+                                   Content="{x:Static p:Resources.LabelTemperature}"
+                                   Style="{DynamicResource DescriptionStyle}" />
+                            <StackPanel Grid.Column="1"
+                                        Orientation="Horizontal">
+                                <Label x:Name="Temperature"
+                                       Content="--"
+                                       Style="{DynamicResource ValueStyle}" />
+                                <Label Content="°"
+                                       Style="{DynamicResource ValueStyle}" />
+                            </StackPanel>
+                        </Grid>
+
+                        <Grid Width="Auto"
+                              HorizontalAlignment="Left"
+                              VerticalAlignment="Top">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"
+                                                  SharedSizeGroup="columnGroup" />
+                                <ColumnDefinition Width="Auto"
+                                                  SharedSizeGroup="columnGroupValue" />
+                                <ColumnDefinition SharedSizeGroup="columnGroupGap" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Label Grid.Column="0"
+                                   Content="{x:Static p:Resources.LabelBatteryHealth}"
+                                   Style="{DynamicResource DescriptionStyle}" />
+                            <StackPanel Grid.Column="1"
+                                        Orientation="Horizontal">
+                                <Label x:Name="BatteryHealth"
+                                       Content="--"
+                                       Style="{DynamicResource ValueStyle}" />
+                                <Label Content="%"
+                                       Style="{DynamicResource ValueStyle}" />
+                            </StackPanel>
+                        </Grid>
+                    </WrapPanel>
                 </Expander>
 
                 <StackPanel Margin="21,40,0,0"
