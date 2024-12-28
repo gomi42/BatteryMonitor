@@ -41,7 +41,7 @@
                                 <local:ValueControl x:Name="SystemCapacity"
                                                     Margin="0,2,0,2"
                                                     Style="{StaticResource PercentValueStyle}"
-                                                    Value="42" />
+                                                    Value="" />
                                 <local:LabelValuePair x:Name="RemainingSystemTime"
                                                       Margin="0,2,0,2"
                                                       Label="{x:Static p:Resources.LabelRemainingTime}"
@@ -71,7 +71,7 @@
                                     <local:ValueControl x:Name="CurrentCapacityPercent"
                                                         Margin="0,2,0,2"
                                                         Style="{StaticResource PercentValueStyle}"
-                                                        Value="43" />
+                                                        Value="" />
                                     <local:LabelValuePair x:Name="EstimatedTime"
                                                           Margin="0,2,0,2"
                                                           Label="{x:Static p:Resources.LabelRemainingTime}"
