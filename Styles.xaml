@@ -322,6 +322,7 @@
     </ControlTemplate>
 
     <Style TargetType="{x:Type Expander}">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Expander}">
@@ -345,6 +346,7 @@
                                                                   Mode=TwoWay,
                                                                   RelativeSource={RelativeSource TemplatedParent}}"
                                               OverridesDefaultStyle="True"
+                                              FocusVisualStyle="{x:Null}"
                                               Template="{StaticResource ExpanderToggleButton}" />
                             </Grid>
                         </Border>
