@@ -582,6 +582,7 @@
     </Style>
 
     <Style TargetType="{x:Type controls:LabelValuePair}">
+        <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type controls:LabelValuePair}">
@@ -626,7 +627,9 @@
         </Setter>
     </Style>
 
-    <Style x:Key="PercentValueStyle" TargetType="{x:Type controls:ValueControl}">
+    <Style x:Key="PercentValueStyle"
+           TargetType="{x:Type controls:ValueControl}">
+        <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type controls:ValueControl}">
@@ -640,25 +643,25 @@
                         <Grid.RowDefinitions>
                             <RowDefinition />
                         </Grid.RowDefinitions>
-                        <StackPanel Margin="0,-2,0,0"
-                                    Orientation="Horizontal"
-                                    TextElement.FontSize="22">
+                        <StackPanel Margin="60,0,0,0"
+                                    Orientation="Horizontal">
                             <Label x:Name="NoneEmptyValue"
-                                   Margin="60,0,0,0"
+                                   Margin="0,0,0,0"
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top"
-                                   Content="{TemplateBinding Value}" />
+                                   Content="{TemplateBinding Value}"
+                                   FontSize="24" />
                             <Label x:Name="Unit"
                                    Grid.Row="0"
                                    Grid.Column="1"
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top"
-                                   Content="%" />
+                                   Content="%"
+                                   FontSize="24" />
                             <Label x:Name="Empty"
-                                   Margin="60,-2,0,0"
+                                   Margin="0,-2,0,0"
                                    Content="--"
                                    FontSize="22"
-                                   Style="{DynamicResource ValueStyle}"
                                    Visibility="Collapsed" />
                         </StackPanel>
                     </Grid>
@@ -674,7 +677,9 @@
         </Setter>
     </Style>
 
-    <Style x:Key="RemainingTimeValueStyle" TargetType="{x:Type controls:LabelValuePair}">
+    <Style x:Key="RemainingTimeValueStyle"
+           TargetType="{x:Type controls:LabelValuePair}">
+        <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type controls:LabelValuePair}">
@@ -684,7 +689,8 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"
                                               SharedSizeGroup="ColumnGroupLabel" />
-                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto"
+                                              SharedSizeGroup="ColumnGroupTime" />
                             <ColumnDefinition Width="20" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
@@ -693,14 +699,15 @@
                         <Label Grid.Column="0"
                                Content="{TemplateBinding Label}"
                                Style="{DynamicResource DescriptionStyle}" />
-                            <Label x:Name="NoneEmptyValue"
-                                   HorizontalAlignment="Left"
-                                   VerticalAlignment="Top"
-                                   Content="{TemplateBinding Value}" />
-                            <Label x:Name="Empty" Grid.Column="1"
-                                   Content="--"
-                                   Style="{DynamicResource ValueStyle}"
-                                   Visibility="Collapsed" />
+                        <Label x:Name="NoneEmptyValue"
+                               Grid.Column="1"
+                               Content="{TemplateBinding Value}"
+                               Style="{DynamicResource ValueStyle}" />
+                        <Label x:Name="Empty"
+                               Grid.Column="1"
+                               Content="--"
+                               Style="{DynamicResource ValueStyle}"
+                               Visibility="Collapsed" />
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="Value" Value="">

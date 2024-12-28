@@ -7,8 +7,8 @@
         xmlns:p="clr-namespace:BatteryMonitor.Properties"
         x:Name="Window"
         Title="{x:Static p:Resources.WindowTitle}"
-        Width="348"
-        Height="388"
+        Width="347"
+        Height="387"
         MinWidth="310"
         MinHeight="251"
         Background="{DynamicResource WindowBackgroundBrush}"
@@ -23,7 +23,8 @@
                       VerticalScrollBarVisibility="Auto">
             <StackPanel MaxWidth="{Binding ViewportWidth,
                                            ElementName=Scroller,
-                                           Converter={StaticResource WidthConverter}, ConverterParameter=20}"
+                                           Converter={StaticResource WidthConverter},
+                                           ConverterParameter=20}"
                         Margin="10"
                         Grid.IsSharedSizeScope="True">
                 <Expander Padding="5">
@@ -36,17 +37,19 @@
                                    FontSize="15"
                                    FontWeight="Normal" />
 
-                            <WrapPanel Margin="20,5,20,4">
+                            <WrapPanel Margin="20,3,10,0">
                                 <local:ValueControl x:Name="SystemCapacity"
+                                                    Margin="0,2,0,2"
                                                     Style="{StaticResource PercentValueStyle}"
-                                                    Value="" />
+                                                    Value="42" />
                                 <local:LabelValuePair x:Name="RemainingSystemTime"
+                                                      Margin="0,2,0,2"
                                                       Label="{x:Static p:Resources.LabelRemainingTime}"
                                                       Style="{StaticResource RemainingTimeValueStyle}" />
                             </WrapPanel>
                         </Grid>
                     </Expander.Header>
-                    <WrapPanel Margin="20,0,20,0">
+                    <WrapPanel Margin="20,0,10,0">
                         <local:LabelValuePair x:Name="SystemPowerState"
                                               Label="{x:Static p:Resources.LabelChargeState}" />
                         <local:LabelValuePair x:Name="SystemPowerLineStatus"
@@ -63,11 +66,14 @@
                                    Content="{x:Static p:Resources.HeaderBattery}"
                                    FontSize="15"
                                    FontWeight="Normal" />
-                            <StackPanel Margin="20,5,20,0">
-                                <WrapPanel>
+                            <StackPanel Margin="20,1,10,0">
+                                <WrapPanel Margin="0,3,0,0">
                                     <local:ValueControl x:Name="CurrentCapacityPercent"
-                                                        Style="{StaticResource PercentValueStyle}" />
+                                                        Margin="0,2,0,2"
+                                                        Style="{StaticResource PercentValueStyle}"
+                                                        Value="43" />
                                     <local:LabelValuePair x:Name="EstimatedTime"
+                                                          Margin="0,2,0,2"
                                                           Label="{x:Static p:Resources.LabelRemainingTime}"
                                                           Style="{StaticResource RemainingTimeValueStyle}" />
                                 </WrapPanel>
@@ -94,7 +100,7 @@
                             </StackPanel>
                         </Grid>
                     </Expander.Header>
-                    <WrapPanel Margin="20,0,20,0">
+                    <WrapPanel Margin="20,0,10,0">
                         <local:LabelValuePair x:Name="DeviceName"
                                               Label="{x:Static p:Resources.LabelBatteryName}" />
                         <local:LabelValuePair x:Name="Manufacture"
