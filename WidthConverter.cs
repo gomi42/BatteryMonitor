@@ -13,8 +13,9 @@ namespace BatteryMonitor
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var v = (double)value;
+            var width = double.Parse(parameter.ToString());
 
-            return v - 20;
+            return v - width;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

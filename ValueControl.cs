@@ -3,7 +3,7 @@ using System.Windows.Controls;
 
 namespace BatteryMonitor
 {
-    internal class PercentValue : Control
+    internal class ValueControl : Control
     {
         public string Value
         {
@@ -12,6 +12,6 @@ namespace BatteryMonitor
         }
 
         public static readonly DependencyProperty ValueProperty =
-            DependencyProperty.Register("Value", typeof(string), typeof(PercentValue), new PropertyMetadata(""));
+            DependencyProperty.Register("Value", typeof(string), typeof(ValueControl), new PropertyMetadata(""));
     }
 }

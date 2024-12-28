@@ -590,11 +590,10 @@
                           VerticalAlignment="Top">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"
-                                              SharedSizeGroup="columnGroup" />
+                                              SharedSizeGroup="ColumnGroupLabel" />
                             <ColumnDefinition Width="Auto"
-                                              SharedSizeGroup="columnGroupValue" />
-                            <ColumnDefinition Width="20"
-                                              SharedSizeGroup="columnGroupGap" />
+                                              SharedSizeGroup="ColumnGroupValue" />
+                            <ColumnDefinition Width="20" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition />
@@ -627,10 +626,10 @@
         </Setter>
     </Style>
 
-    <Style TargetType="{x:Type controls:PercentValue}">
+    <Style x:Key="PercentValueStyle" TargetType="{x:Type controls:ValueControl}">
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type controls:PercentValue}">
+                <ControlTemplate TargetType="{x:Type controls:ValueControl}">
                     <Grid Width="Auto"
                           HorizontalAlignment="Left"
                           VerticalAlignment="Top">
@@ -667,6 +666,45 @@
                         <Trigger Property="Value" Value="">
                             <Setter TargetName="NoneEmptyValue" Property="Visibility" Value="{x:Static Visibility.Collapsed}" />
                             <Setter TargetName="Unit" Property="Visibility" Value="{x:Static Visibility.Collapsed}" />
+                            <Setter TargetName="Empty" Property="Visibility" Value="{x:Static Visibility.Visible}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="RemainingTimeValueStyle" TargetType="{x:Type controls:LabelValuePair}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:LabelValuePair}">
+                    <Grid Width="Auto"
+                          HorizontalAlignment="Left"
+                          VerticalAlignment="Top">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"
+                                              SharedSizeGroup="ColumnGroupLabel" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="20" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Label Grid.Column="0"
+                               Content="{TemplateBinding Label}"
+                               Style="{DynamicResource DescriptionStyle}" />
+                            <Label x:Name="NoneEmptyValue"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Top"
+                                   Content="{TemplateBinding Value}" />
+                            <Label x:Name="Empty" Grid.Column="1"
+                                   Content="--"
+                                   Style="{DynamicResource ValueStyle}"
+                                   Visibility="Collapsed" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Value" Value="">
+                            <Setter TargetName="NoneEmptyValue" Property="Visibility" Value="{x:Static Visibility.Collapsed}" />
                             <Setter TargetName="Empty" Property="Visibility" Value="{x:Static Visibility.Visible}" />
                         </Trigger>
                     </ControlTemplate.Triggers>

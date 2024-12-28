@@ -3,7 +3,7 @@ using System.Windows.Controls;
 
 namespace BatteryMonitor
 {
-    internal class LabelValuePair : Control
+    internal class LabelValuePair : ValueControl
     {
         public string Label
         {
@@ -13,15 +13,6 @@ namespace BatteryMonitor
 
         public static readonly DependencyProperty LabelProperty =
             DependencyProperty.Register("Label", typeof(string), typeof(LabelValuePair), new PropertyMetadata("??"));
-
-        public string Value
-        {
-            get { return (string)GetValue(ValueProperty); }
-            set { SetValue(ValueProperty, value); }
-        }
-
-        public static readonly DependencyProperty ValueProperty =
-            DependencyProperty.Register("Value", typeof(string), typeof(LabelValuePair), new PropertyMetadata(""));
 
         public string Unit
         {

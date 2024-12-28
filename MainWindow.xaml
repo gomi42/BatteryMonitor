@@ -23,7 +23,7 @@
                       VerticalScrollBarVisibility="Auto">
             <StackPanel MaxWidth="{Binding ViewportWidth,
                                            ElementName=Scroller,
-                                           Converter={StaticResource WidthConverter}}"
+                                           Converter={StaticResource WidthConverter}, ConverterParameter=20}"
                         Margin="10"
                         Grid.IsSharedSizeScope="True">
                 <Expander Padding="5">
@@ -37,14 +37,16 @@
                                    FontWeight="Normal" />
 
                             <WrapPanel Margin="20,5,20,4">
-                                <local:PercentValue x:Name="SystemCapacity"
+                                <local:ValueControl x:Name="SystemCapacity"
+                                                    Style="{StaticResource PercentValueStyle}"
                                                     Value="" />
                                 <local:LabelValuePair x:Name="RemainingSystemTime"
-                                                      Label="{x:Static p:Resources.LabelRemainingTime}" />
+                                                      Label="{x:Static p:Resources.LabelRemainingTime}"
+                                                      Style="{StaticResource RemainingTimeValueStyle}" />
                             </WrapPanel>
                         </Grid>
                     </Expander.Header>
-                    <WrapPanel Margin="20,0,10,0">
+                    <WrapPanel Margin="20,0,20,0">
                         <local:LabelValuePair x:Name="SystemPowerState"
                                               Label="{x:Static p:Resources.LabelChargeState}" />
                         <local:LabelValuePair x:Name="SystemPowerLineStatus"
@@ -63,9 +65,11 @@
                                    FontWeight="Normal" />
                             <StackPanel Margin="20,5,20,0">
                                 <WrapPanel>
-                                    <local:PercentValue x:Name="CurrentCapacityPercent" />
+                                    <local:ValueControl x:Name="CurrentCapacityPercent"
+                                                        Style="{StaticResource PercentValueStyle}" />
                                     <local:LabelValuePair x:Name="EstimatedTime"
-                                                          Label="{x:Static p:Resources.LabelRemainingTime}" />
+                                                          Label="{x:Static p:Resources.LabelRemainingTime}"
+                                                          Style="{StaticResource RemainingTimeValueStyle}" />
                                 </WrapPanel>
 
                                 <WrapPanel Margin="0,5,0,0">
