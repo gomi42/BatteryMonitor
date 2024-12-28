@@ -1,6 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:controls="clr-namespace:BatteryMonitor"
+                    xmlns:s="clr-namespace:BatteryMonitor"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <!--  button  -->
     <Style x:Key="ButtonFocusVisual">
@@ -581,11 +581,11 @@
         </Setter>
     </Style>
 
-    <Style TargetType="{x:Type controls:LabelValuePair}">
+    <Style TargetType="{x:Type s:LabelValuePair}">
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type controls:LabelValuePair}">
+                <ControlTemplate TargetType="{x:Type s:LabelValuePair}">
                     <Grid Width="Auto"
                           HorizontalAlignment="Left"
                           VerticalAlignment="Top">
@@ -628,11 +628,11 @@
     </Style>
 
     <Style x:Key="PercentValueStyle"
-           TargetType="{x:Type controls:ValueControl}">
+           TargetType="{x:Type s:ValueControl}">
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type controls:ValueControl}">
+                <ControlTemplate TargetType="{x:Type s:ValueControl}">
                     <Grid Width="Auto"
                           HorizontalAlignment="Left"
                           VerticalAlignment="Top">
@@ -678,11 +678,11 @@
     </Style>
 
     <Style x:Key="RemainingTimeValueStyle"
-           TargetType="{x:Type controls:LabelValuePair}">
+           TargetType="{x:Type s:LabelValuePair}">
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type controls:LabelValuePair}">
+                <ControlTemplate TargetType="{x:Type s:LabelValuePair}">
                     <Grid Width="Auto"
                           HorizontalAlignment="Left"
                           VerticalAlignment="Top">
