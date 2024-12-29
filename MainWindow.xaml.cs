@@ -39,7 +39,46 @@ namespace BatteryMonitor
                     timer.Start();
                 }
             }
+#if DEBUG
+            else
+            {
+                ShowFakeDate();
+            }
+#endif
         }
+
+#if DEBUG
+        private void ShowFakeDate()
+        {
+            SystemPowerState.Value = ConvertPowerState(BatteryChargeStatus.High);
+            SystemPowerLineStatus.Value = ConvertPowerLineStatus(System.Windows.Forms.PowerLineStatus.Offline);
+            RemainingSystemTime.Value = TimeSpan.FromSeconds(2 * 60 * 60 + 34 * 60 + 12).ToString();
+            SystemCapacity.Value = "78";
+
+            ///
+
+            DeviceName.Value = "DELL 0FDRT85";
+            Manufacture.Value = "SMP";
+            Chemistry.Value = ConvertChemistry("LiP");
+            ManufactureDate.Value = new DateTime(2021, 2, 17).ToString(Properties.Resources.FormatDate);
+
+            DesignedCapacity.Value = "49768";
+            CurrentCapacity.Value = "24512";
+            CurrentCapacityPercent.Value = "67";
+            FullChargeCapacity.Value = "32698";
+            BatteryHealth.Value = "67";
+            Voltage.Value = "7,568";
+            EstimatedTime.Value = TimeSpan.FromSeconds(1 * 60 * 60 + 25 * 60 + 27).ToString();
+
+            Rate.Value = "6254";
+            DefaultAlert1.Value = "3241";
+            DefaultAlert2.Value = "1254";
+            CriticalBias.Value = "123";
+            PowerState.Value = ConvertPowerState(BatteryChargeStatus.High);
+            CylceCount.Value = "546";
+            Temperature.Value = "37";
+        }
+#endif
 
         private void TimerTickHandler(object sender, EventArgs e)
         {
