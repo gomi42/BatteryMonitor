@@ -246,32 +246,11 @@
         </Setter>
     </Style>
 
-    <Style x:Key="DescriptionStyle"
-           BasedOn="{StaticResource LabelStyle}"
-           TargetType="{x:Type Label}">
-        <Setter Property="Margin" Value="0,5,10,0" />
-        <Setter Property="HorizontalAlignment" Value="Right" />
-        <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="Foreground" Value="{StaticResource DescriptionBrush}" />
-        <Setter Property="Height" Value="21" />
-    </Style>
-
-    <Style x:Key="ValueStyle"
-           BasedOn="{StaticResource LabelStyle}"
-           TargetType="{x:Type Label}">
-        <Setter Property="HorizontalAlignment" Value="Left" />
-        <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="FontSize" Value="15" />
-        <Setter Property="Height" Value="21" />
-        <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
-    </Style>
-
-
     <ControlTemplate x:Key="ExpanderToggleButton"
                      TargetType="{x:Type ToggleButton}">
         <Border x:Name="Border"
                 Background="Transparent">
-            <Grid Margin="0,18,10,0"
+            <Grid Margin="0,25,10,0"
                   HorizontalAlignment="Right"
                   VerticalAlignment="Top">
                 <Path x:Name="CollapsedArrow"
@@ -322,7 +301,7 @@
     </ControlTemplate>
 
     <Style TargetType="{x:Type Expander}">
-        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Expander}">
@@ -342,11 +321,11 @@
                                 <ContentPresenter Margin="4"
                                                   ContentSource="Header"
                                                   RecognizesAccessKey="True" />
-                                <ToggleButton IsChecked="{Binding IsExpanded,
+                                <ToggleButton FocusVisualStyle="{x:Null}"
+                                              IsChecked="{Binding IsExpanded,
                                                                   Mode=TwoWay,
                                                                   RelativeSource={RelativeSource TemplatedParent}}"
                                               OverridesDefaultStyle="True"
-                                              FocusVisualStyle="{x:Null}"
                                               Template="{StaticResource ExpanderToggleButton}" />
                             </Grid>
                         </Border>
@@ -583,8 +562,28 @@
         </Setter>
     </Style>
 
+    <Style x:Key="DescriptionStyle"
+           BasedOn="{StaticResource LabelStyle}"
+           TargetType="{x:Type Label}">
+        <Setter Property="Margin" Value="0,0,10,0" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Foreground" Value="{StaticResource DescriptionBrush}" />
+    </Style>
+
+    <Style x:Key="ValueStyle"
+           BasedOn="{StaticResource LabelStyle}"
+           TargetType="{x:Type Label}">
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="Height" Value="21" />
+        <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
+    </Style>
+
     <Style TargetType="{x:Type s:LabelValuePair}">
         <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Margin" Value="0,0,0,7" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type s:LabelValuePair}">
@@ -594,29 +593,28 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"
                                               SharedSizeGroup="ColumnGroupLabel" />
-                            <ColumnDefinition Width="Auto"
-                                              SharedSizeGroup="ColumnGroupValue" />
-                            <ColumnDefinition Width="20" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition />
                         </Grid.RowDefinitions>
-                        <Label Grid.Column="0"
-                               Content="{TemplateBinding Label}"
-                               Style="{DynamicResource DescriptionStyle}" />
-                        <Grid Grid.Column="1">
-                            <StackPanel x:Name="NoneEmpty"
-                                        Orientation="Horizontal">
-                                <Label Content="{TemplateBinding Value}"
-                                       Style="{DynamicResource ValueStyle}" />
-                                <Label Content="{TemplateBinding Unit}"
-                                       Style="{DynamicResource ValueStyle}" />
-                            </StackPanel>
-                            <Label x:Name="Empty"
-                                   Content="--"
-                                   Style="{DynamicResource ValueStyle}"
-                                   Visibility="Collapsed" />
-                        </Grid>
+                        <StackPanel>
+                            <Label Grid.Column="0"
+                                   Content="{TemplateBinding Label}"
+                                   Style="{DynamicResource DescriptionStyle}" />
+                            <Grid Grid.Column="1">
+                                <StackPanel x:Name="NoneEmpty"
+                                            Orientation="Horizontal">
+                                    <Label Content="{TemplateBinding Value}"
+                                           Style="{DynamicResource ValueStyle}" />
+                                    <Label Content="{TemplateBinding Unit}"
+                                           Style="{DynamicResource ValueStyle}" />
+                                </StackPanel>
+                                <Label x:Name="Empty"
+                                       Content="--"
+                                       Style="{DynamicResource ValueStyle}"
+                                       Visibility="Collapsed" />
+                            </Grid>
+                        </StackPanel>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="Value" Value="">
@@ -639,27 +637,26 @@
                           HorizontalAlignment="Left"
                           VerticalAlignment="Top">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"
-                                              SharedSizeGroup="columnGroupPercent" />
+                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition />
                         </Grid.RowDefinitions>
-                        <StackPanel Margin="60,0,0,0"
+                        <StackPanel Margin="0,0,0,0"
                                     Orientation="Horizontal">
                             <Label x:Name="NoneEmptyValue"
                                    Margin="0,0,0,0"
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top"
                                    Content="{TemplateBinding Value}"
-                                   FontSize="24" />
+                                   FontSize="34" />
                             <Label x:Name="Unit"
                                    Grid.Row="0"
                                    Grid.Column="1"
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top"
                                    Content="%"
-                                   FontSize="24" />
+                                   FontSize="34" />
                             <Label x:Name="Empty"
                                    Margin="0,-2,0,0"
                                    Content="--"
@@ -689,27 +686,26 @@
                           HorizontalAlignment="Left"
                           VerticalAlignment="Top">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"
-                                              SharedSizeGroup="ColumnGroupLabel" />
-                            <ColumnDefinition Width="Auto"
-                                              SharedSizeGroup="ColumnGroupTime" />
-                            <ColumnDefinition Width="20" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition />
                         </Grid.RowDefinitions>
-                        <Label Grid.Column="0"
-                               Content="{TemplateBinding Label}"
-                               Style="{DynamicResource DescriptionStyle}" />
-                        <Label x:Name="NoneEmptyValue"
-                               Grid.Column="1"
-                               Content="{TemplateBinding Value}"
-                               Style="{DynamicResource ValueStyle}" />
-                        <Label x:Name="Empty"
-                               Grid.Column="1"
-                               Content="--"
-                               Style="{DynamicResource ValueStyle}"
-                               Visibility="Collapsed" />
+                        <StackPanel>
+                            <Label Grid.Column="0"
+                                   Content="{TemplateBinding Label}"
+                                   Style="{DynamicResource DescriptionStyle}" />
+                            <Label x:Name="NoneEmptyValue"
+                                   Grid.Column="1"
+                                   Content="{TemplateBinding Value}"
+                                   Style="{DynamicResource ValueStyle}" />
+                            <Label x:Name="Empty"
+                                   Grid.Column="1"
+                                   Content="--"
+                                   Style="{DynamicResource ValueStyle}"
+                                   Visibility="Collapsed" />
+                        </StackPanel>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="Value" Value="">

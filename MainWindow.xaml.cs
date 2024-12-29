@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Threading;
@@ -19,6 +20,7 @@ namespace BatteryMonitor
 
         public MainWindow()
         {
+            //Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en");
             InitializeComponent();
 
             ThemeSettings.SetThemeData("pack://application:,,,/BatteryMonitor;component/", "DarkModeColors.xaml", "LightModeColors.xaml", "Styles.xaml");
@@ -79,7 +81,6 @@ namespace BatteryMonitor
             Temperature.Value = "37";
         }
 #endif
-
         private void TimerTickHandler(object sender, EventArgs e)
         {
             UpdateAll();

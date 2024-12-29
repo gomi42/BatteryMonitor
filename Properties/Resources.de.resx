@@ -154,7 +154,7 @@
     <value>Nennkapazität</value>
   </data>
   <data name="LabelFullChargedCapacity" xml:space="preserve">
-    <value>Kapazität voll aufgeladen</value>
+    <value>Kapazität voll geladen</value>
   </data>
   <data name="LabelManufactureDate" xml:space="preserve">
     <value>Herstellungsdatum</value>
@@ -214,7 +214,7 @@
     <value>Lithium-Ion</value>
   </data>
   <data name="FormatDate" xml:space="preserve">
-    <value>d.m.yyyy</value>
+    <value>d.M.yyyy</value>
   </data>
   <data name="ChargeStatusNoSystemBattery" xml:space="preserve">
     <value>kein Akku</value>
