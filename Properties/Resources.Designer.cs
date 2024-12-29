@@ -187,7 +187,7 @@ namespace BatteryMonitor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to m-d-yyyy.
+        ///   Looks up a localized string similar to M-d-yyyy.
         /// </summary>
         public static string FormatDate {
             get {

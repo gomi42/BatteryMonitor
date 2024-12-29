@@ -214,7 +214,7 @@
     <value>Lithium Ion</value>
   </data>
   <data name="FormatDate" xml:space="preserve">
-    <value>m-d-yyyy</value>
+    <value>M-d-yyyy</value>
     <comment>format to format a DateTime object in ToString()</comment>
   </data>
   <data name="ChargeStatusNoSystemBattery" xml:space="preserve">
