@@ -593,6 +593,7 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"
                                               SharedSizeGroup="ColumnGroupLabel" />
+                            <ColumnDefinition Width="10"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition />
@@ -692,7 +693,6 @@
                         <Grid.RowDefinitions>
                             <RowDefinition />
                         </Grid.RowDefinitions>
-                        <StackPanel>
                             <Label Grid.Column="0"
                                    Content="{TemplateBinding Label}"
                                    Style="{DynamicResource DescriptionStyle}" />
@@ -705,7 +705,6 @@
                                    Content="--"
                                    Style="{DynamicResource ValueStyle}"
                                    Visibility="Collapsed" />
-                        </StackPanel>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="Value" Value="">

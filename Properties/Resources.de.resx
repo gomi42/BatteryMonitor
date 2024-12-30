@@ -249,4 +249,10 @@
   <data name="PowerLineStateOffline" xml:space="preserve">
     <value>nicht eingesteckt</value>
   </data>
+  <data name="PowerStateNotCharging" xml:space="preserve">
+    <value>wird nicht geladen</value>
+  </data>
+  <data name="PowerStateNormal" xml:space="preserve">
+    <value>normal</value>
+  </data>
 </root>

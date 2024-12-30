@@ -44,20 +44,23 @@ namespace BatteryMonitor
 #if DEBUG
             else
             {
-                ShowFakeDate();
+                ShowFakeData();
             }
 #endif
         }
 
 #if DEBUG
-        private void ShowFakeDate()
+        private void ShowFakeData()
         {
-            SystemPowerState.Value = ConvertPowerState(BatteryChargeStatus.High);
-            SystemPowerLineStatus.Value = ConvertPowerLineStatus(System.Windows.Forms.PowerLineStatus.Offline);
+            // system
+
+            SystemPowerState.Value = ConvertSystemPowerState(BatteryChargeStatus.High);
+            SystemChargeState.Value = ConvertSystemChargeState(BatteryChargeStatus.Charging, System.Windows.Forms.PowerLineStatus.Online);
+            SystemPowerLineStatus.Value = ConvertSystemPowerLineStatus(System.Windows.Forms.PowerLineStatus.Offline);
             RemainingSystemTime.Value = TimeSpan.FromSeconds(2 * 60 * 60 + 34 * 60 + 12).ToString();
             SystemCapacity.Value = "78";
 
-            ///
+            // battery
 
             DeviceName.Value = "DELL 0FDRT85";
             Manufacture.Value = "SMP";
@@ -76,7 +79,9 @@ namespace BatteryMonitor
             DefaultAlert1.Value = "3241";
             DefaultAlert2.Value = "1254";
             CriticalBias.Value = "123";
-            PowerState.Value = ConvertPowerState(BatteryChargeStatus.High);
+            ChargeState.Value = ConvertBatteryChargeState(PowerStates.Critical);
+            PowerState.Value = ConvertBatteryPowerState(PowerStates.Discharging);
+            PowerLineState.Value = ConvertBatteryPowerLineState(0);
             CylceCount.Value = "546";
             Temperature.Value = "37";
         }
@@ -100,8 +105,9 @@ namespace BatteryMonitor
         {
             PowerStatus pwr = SystemInformation.PowerStatus;
 
-            SystemPowerState.Value = ConvertPowerState(pwr.BatteryChargeStatus);
-            SystemPowerLineStatus.Value = ConvertPowerLineStatus(pwr.PowerLineStatus);
+            SystemPowerState.Value = ConvertSystemPowerState(pwr.BatteryChargeStatus);
+            SystemChargeState.Value = ConvertSystemChargeState(pwr.BatteryChargeStatus, pwr.PowerLineStatus);
+            SystemPowerLineStatus.Value = ConvertSystemPowerLineStatus(pwr.PowerLineStatus);
 
             if ((pwr.BatteryChargeStatus & BatteryChargeStatus.NoSystemBattery) != 0)
             {
@@ -122,7 +128,7 @@ namespace BatteryMonitor
             return true;
         }
 
-        private string ConvertPowerLineStatus(System.Windows.Forms.PowerLineStatus powerLineStatus)
+        private string ConvertSystemPowerLineStatus(System.Windows.Forms.PowerLineStatus powerLineStatus)
         {
             if (powerLineStatus == System.Windows.Forms.PowerLineStatus.Online)
             {
@@ -137,48 +143,54 @@ namespace BatteryMonitor
             return Properties.Resources.ChargeStatusUnknown;
         }
 
-        private string ConvertPowerState(BatteryChargeStatus powerState)
+        private string ConvertSystemPowerState(BatteryChargeStatus powerState)
         {
             if (powerState == BatteryChargeStatus.Unknown)
             {
                 return Properties.Resources.ChargeStatusUnknown;
             }
 
-            List<string> states = new List<string>();
-            bool stateFound = false;
-
             if ((powerState & BatteryChargeStatus.NoSystemBattery) != 0)
             {
-                return Properties.Resources.ChargeStatusNoSystemBattery;
+                return string.Empty;
             }
-
-            if ((powerState & BatteryChargeStatus.Charging) != 0)
-                states.Add(Properties.Resources.ChargeStatusCharging);
 
             if ((powerState & BatteryChargeStatus.Low) != 0)
             {
-                stateFound = true;
-                states.Add(Properties.Resources.ChargeStatusLow);
+                return Properties.Resources.ChargeStatusLow;
             }
 
             if ((powerState & BatteryChargeStatus.High) != 0)
             {
-                stateFound = true;
-                states.Add(Properties.Resources.ChargeStatusHigh);
+                return Properties.Resources.ChargeStatusHigh;
             }
 
             if ((powerState & BatteryChargeStatus.Critical) != 0)
             {
-                stateFound = true;
-                states.Add(Properties.Resources.ChargeStatusCritical);
+                return Properties.Resources.ChargeStatusCritical;
             }
 
-            if (!stateFound)
+            return Properties.Resources.ChargeStatusOk;
+        }
+
+        private string ConvertSystemChargeState(BatteryChargeStatus powerState, System.Windows.Forms.PowerLineStatus powerLineStatus)
+        {
+            if (powerState == BatteryChargeStatus.Unknown)
             {
-                states.Add(Properties.Resources.ChargeStatusOk);
+                return Properties.Resources.ChargeStatusUnknown;
             }
 
-            return string.Join(", ", states);
+            if ((powerState & BatteryChargeStatus.Charging) != 0)
+            {
+                return Properties.Resources.ChargeStatusCharging;
+            }
+
+            if (powerLineStatus == System.Windows.Forms.PowerLineStatus.Offline)
+            {
+                return Properties.Resources.PowerStateDischarging;
+            }
+
+            return Properties.Resources.PowerStateNotCharging;
         }
 
 
@@ -222,7 +234,9 @@ namespace BatteryMonitor
                 DefaultAlert1.Value = battery.DefaultAlert1.ToString();
                 DefaultAlert2.Value = battery.DefaultAlert2.ToString();
                 CriticalBias.Value = battery.CriticalBias.ToString();
-                PowerState.Value = ConvertPowerState(battery.PowerState);
+                ChargeState.Value = ConvertBatteryChargeState(battery.PowerState);
+                PowerState.Value = ConvertBatteryPowerState(battery.PowerState);
+                PowerLineState.Value = ConvertBatteryPowerLineState(battery.PowerState);
                 CylceCount.Value = battery.CycleCount.ToString();
 
                 if (!double.IsNaN(battery.Temperature))
@@ -242,23 +256,39 @@ namespace BatteryMonitor
             }
         }
 
-        private string ConvertPowerState(PowerStates powerState)
+        private string ConvertBatteryPowerLineState(PowerStates powerState)
         {
-            List<string> states = new List<string>();
-
             if ((powerState & PowerStates.PowerOnline) != 0)
-                states.Add(Properties.Resources.PowerStatePluggedIn);
+            {
+                return Properties.Resources.PowerStatePluggedIn;
+            }
 
+            return Properties.Resources.PowerLineStateOffline;
+        }
+
+        private string ConvertBatteryPowerState(PowerStates powerState)
+        {
             if ((powerState & PowerStates.Charging) != 0)
-                states.Add(Properties.Resources.PowerStateCharging);
+            {
+                return Properties.Resources.PowerStateCharging;
+            }
 
             if ((powerState & PowerStates.Discharging) != 0)
-                states.Add(Properties.Resources.PowerStateDischarging);
+            {
+                return Properties.Resources.PowerStateDischarging;
+            }
 
+            return Properties.Resources.PowerStateNotCharging;
+        }
+
+        private string ConvertBatteryChargeState(PowerStates powerState)
+        {
             if ((powerState & PowerStates.Critical) != 0)
-                states.Add(Properties.Resources.PowerStateCritical);
+            {
+                return Properties.Resources.PowerStateCritical;
+            }
 
-            return string.Join(", ", states);
+            return Properties.Resources.PowerStateNormal;
         }
 
         private string ConvertChemistry(string chemistry)
@@ -326,19 +356,6 @@ namespace BatteryMonitor
         private void Test()
         {
             StringBuilder sb = new StringBuilder();
-
-            PowerStatus pwr = SystemInformation.PowerStatus;
-
-            sb.AppendLine(pwr.BatteryChargeStatus.ToString("X"));
-            sb.AppendLine(ConvertPowerState(pwr.BatteryChargeStatus));
-
-            sb.AppendLine(pwr.BatteryLifePercent.ToString());
-            sb.AppendLine(TimeSpan.FromSeconds(pwr.BatteryLifeRemaining).ToString());
-            sb.AppendLine(TimeSpan.FromSeconds(pwr.BatteryFullLifetime).ToString());
-
-            var battery = BatteryInfo.BatteryInfo.GetBatteryInfo(currentBatterieIndex);
-            var ps = battery.PowerState.ToString("X");
-            sb.AppendLine(ps);
 
             Error.Content = sb.ToString();
         }

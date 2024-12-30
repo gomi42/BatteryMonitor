@@ -439,6 +439,24 @@ namespace BatteryMonitor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to normal.
+        /// </summary>
+        public static string PowerStateNormal {
+            get {
+                return ResourceManager.GetString("PowerStateNormal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to not charging.
+        /// </summary>
+        public static string PowerStateNotCharging {
+            get {
+                return ResourceManager.GetString("PowerStateNotCharging", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to plugged in.
         /// </summary>
         public static string PowerStatePluggedIn {
