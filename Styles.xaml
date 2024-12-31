@@ -309,11 +309,11 @@
         </Border>
     </ControlTemplate>
 
-    <Style TargetType="{x:Type Expander}">
+    <Style TargetType="{x:Type s:AnimatedExpander}">
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Expander}">
+                <ControlTemplate TargetType="{x:Type s:AnimatedExpander}">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
@@ -336,12 +336,12 @@
                             </Grid>
                         </Border>
                         <Border x:Name="ExpandSite"
-                                Grid.Row="1"
+                                Grid.Row="1" Height="NaN"
                                 Background="{StaticResource Group.BackgroundBrush}"
                                 BorderBrush="{StaticResource Group.BorderBrush}"
                                 BorderThickness="1,0,1,1"
                                 CornerRadius="0,0,5,5"
-                                Visibility="Collapsed">
+                                Visibility="Visible">
                             <ContentPresenter Margin="4" />
                         </Border>
                         <VisualStateManager.VisualStateGroups>
@@ -579,7 +579,7 @@
 
     <Style TargetType="{x:Type s:LabelValuePair}">
         <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="Margin" Value="0,0,0,7" />
+        <Setter Property="Margin" Value="0,0,0,8" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type s:LabelValuePair}">
