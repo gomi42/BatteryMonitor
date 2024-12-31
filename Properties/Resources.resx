@@ -169,7 +169,7 @@
     <value>Charge/Discharge Rate</value>
   </data>
   <data name="LabelRemainingTime" xml:space="preserve">
-    <value>Remaing time</value>
+    <value>remaing</value>
   </data>
   <data name="LabelTemperature" xml:space="preserve">
     <value>Temperature</value>

@@ -7,8 +7,8 @@
         xmlns:s="clr-namespace:BatteryMonitor"
         x:Name="Window"
         Title="{x:Static p:Resources.WindowTitle}"
-        Width="477"
-        Height="340"
+        Width="500"
+        Height="360"
         MinWidth="250"
         MinHeight="251"
         Background="{DynamicResource WindowBackgroundBrush}"
@@ -30,7 +30,7 @@
                 <Expander Padding="5">
                     <Expander.Header>
                         <Grid>
-                            <WrapPanel Margin="0,0,20,0">
+                            <WrapPanel Margin="0,0,10,0">
                                 <Grid Width="Auto"
                                       HorizontalAlignment="Left"
                                       VerticalAlignment="Center">
@@ -62,7 +62,7 @@
                             </WrapPanel>
                         </Grid>
                     </Expander.Header>
-                    <WrapPanel Margin="20,2,0,0" HorizontalAlignment="Stretch">
+                    <WrapPanel Margin="26,6,18,0" HorizontalAlignment="Stretch">
                         <s:LabelValuePair x:Name="SystemPowerState"
                                           Label="{x:Static p:Resources.LabelPowerState}" />
                         <s:LabelValuePair x:Name="SystemChargeState"
@@ -76,7 +76,7 @@
                     <Expander.Header>
                         <Grid>
                             <StackPanel Margin="0,0,0,0">
-                                <WrapPanel Margin="0,0,20,0">
+                                <WrapPanel Margin="0,0,10,0">
                                     <Grid Width="Auto"
                                           HorizontalAlignment="Left"
                                           VerticalAlignment="Center">
@@ -106,7 +106,7 @@
                                                       Style="{StaticResource RemainingTimeValueStyle}" />
                                 </WrapPanel>
 
-                                <WrapPanel Margin="20,11,0,0" HorizontalAlignment="Stretch">
+                                <WrapPanel Margin="20,13,0,0" HorizontalAlignment="Stretch">
                                     <s:LabelValuePair x:Name="DesignedCapacity"
                                                       Label="{x:Static p:Resources.LabelDesignCapacity}"
                                                       Unit=" mWh" />
@@ -132,7 +132,7 @@
                             </StackPanel>
                         </Grid>
                     </Expander.Header>
-                    <WrapPanel Margin="20,0,0,0" HorizontalAlignment="Stretch">
+                    <WrapPanel Margin="26,6,18,0" HorizontalAlignment="Stretch">
                         <s:LabelValuePair x:Name="DeviceName"
                                           Label="{x:Static p:Resources.LabelBatteryName}" />
                         <s:LabelValuePair x:Name="Manufacture"

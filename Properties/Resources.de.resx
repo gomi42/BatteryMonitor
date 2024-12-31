@@ -169,7 +169,7 @@
     <value>Lade-/Entladerate</value>
   </data>
   <data name="LabelRemainingTime" xml:space="preserve">
-    <value>verbleibende Zeit</value>
+    <value>verbleibend</value>
   </data>
   <data name="LabelTemperature" xml:space="preserve">
     <value>Temperatur</value>

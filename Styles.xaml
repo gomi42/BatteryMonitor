@@ -250,11 +250,17 @@
                      TargetType="{x:Type ToggleButton}">
         <Border x:Name="Border"
                 Background="Transparent">
-            <Grid Margin="0,25,10,0"
-                  HorizontalAlignment="Right"
+            <Grid Margin="10"
+                  HorizontalAlignment="Stretch"
                   VerticalAlignment="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="12" />
+                </Grid.ColumnDefinitions>
                 <Path x:Name="CollapsedArrow"
+                      Grid.Column="1"
                       Width="12"
+                      Margin="0,0,0,0"
                       HorizontalAlignment="Center"
                       VerticalAlignment="Center"
                       Data="M 0 0 L 8 8 L 16 0"
@@ -262,7 +268,9 @@
                       Stroke="{StaticResource Group.ExpanderButtonBrush}"
                       StrokeThickness="1" />
                 <Path x:Name="ExpandededArrow"
+                      Grid.Column="1"
                       Width="12"
+                      Margin="0,0,0,0"
                       HorizontalAlignment="Center"
                       VerticalAlignment="Center"
                       Data="M 0 8 L 8 0 L 16 8"
@@ -270,6 +278,7 @@
                       Stroke="{StaticResource Group.ExpanderButtonBrush}"
                       StrokeThickness="1"
                       Visibility="Collapsed" />
+                <ContentPresenter Grid.Column="0" />
             </Grid>
             <VisualStateManager.VisualStateGroups>
                 <VisualStateGroup x:Name="CommonStates">
@@ -308,8 +317,7 @@
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
-                            <RowDefinition x:Name="ContentRow"
-                                           Height="0" />
+                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         <Border x:Name="Border"
                                 Grid.Row="0"
@@ -318,10 +326,8 @@
                                 BorderThickness="1"
                                 CornerRadius="5">
                             <Grid>
-                                <ContentPresenter Margin="4"
-                                                  ContentSource="Header"
-                                                  RecognizesAccessKey="True" />
-                                <ToggleButton FocusVisualStyle="{x:Null}"
+                                <ToggleButton Content="{TemplateBinding Header}"
+                                              FocusVisualStyle="{x:Null}"
                                               IsChecked="{Binding IsExpanded,
                                                                   Mode=TwoWay,
                                                                   RelativeSource={RelativeSource TemplatedParent}}"
@@ -329,36 +335,26 @@
                                               Template="{StaticResource ExpanderToggleButton}" />
                             </Grid>
                         </Border>
-                        <Border x:Name="Content"
+                        <Border x:Name="ExpandSite"
                                 Grid.Row="1"
                                 Background="{StaticResource Group.BackgroundBrush}"
                                 BorderBrush="{StaticResource Group.BorderBrush}"
                                 BorderThickness="1,0,1,1"
-                                CornerRadius="0,0,5,5">
+                                CornerRadius="0,0,5,5"
+                                Visibility="Collapsed">
                             <ContentPresenter Margin="4" />
                         </Border>
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
                                 <VisualState x:Name="Normal" />
                                 <VisualState x:Name="MouseOver" />
-                                <VisualState x:Name="Disabled">
-                                    <Storyboard>
-                                        <ColorAnimation Storyboard.TargetName="Border"
-                                                        Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[1].(GradientStop.Color)"
-                                                        To="Gray"
-                                                        Duration="0" />
-                                        <ColorAnimation Storyboard.TargetName="Border"
-                                                        Storyboard.TargetProperty="(Border.BorderBrush).(GradientBrush.GradientStops)[1].(GradientStop.Color)"
-                                                        To="Gray"
-                                                        Duration="0" />
-                                    </Storyboard>
-                                </VisualState>
+                                <VisualState x:Name="Disabled" />
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsExpanded" Value="True">
-                            <Setter TargetName="ContentRow" Property="Height" Value="{Binding DesiredHeight, ElementName=Content}" />
+                            <Setter TargetName="ExpandSite" Property="Visibility" Value="Visible" />
                             <Setter TargetName="Border" Property="CornerRadius" Value="5,5,0,0" />
                         </Trigger>
                     </ControlTemplate.Triggers>
@@ -593,7 +589,7 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"
                                               SharedSizeGroup="ColumnGroupLabel" />
-                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="10" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition />
@@ -634,37 +630,23 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type s:ValueControl}">
-                    <Grid Width="Auto"
-                          HorizontalAlignment="Left"
-                          VerticalAlignment="Top">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-                        <StackPanel Margin="0,0,0,0"
-                                    Orientation="Horizontal">
-                            <Label x:Name="NoneEmptyValue"
-                                   Margin="0,0,0,0"
-                                   HorizontalAlignment="Left"
-                                   VerticalAlignment="Top"
-                                   Content="{TemplateBinding Value}"
-                                   FontSize="34" />
-                            <Label x:Name="Unit"
-                                   Grid.Row="0"
-                                   Grid.Column="1"
-                                   HorizontalAlignment="Left"
-                                   VerticalAlignment="Top"
-                                   Content="%"
-                                   FontSize="34" />
-                            <Label x:Name="Empty"
-                                   Margin="0,-2,0,0"
-                                   Content="--"
-                                   FontSize="22"
-                                   Visibility="Collapsed" />
-                        </StackPanel>
-                    </Grid>
+                    <StackPanel Orientation="Horizontal">
+                        <Label x:Name="NoneEmptyValue"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"
+                               Content="{TemplateBinding Value}"
+                               FontSize="34" />
+                        <Label x:Name="Unit"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"
+                               Content="%"
+                               FontSize="34" />
+                        <Label x:Name="Empty"
+                               Margin="0,-2,0,0"
+                               Content="--"
+                               FontSize="22"
+                               Visibility="Collapsed" />
+                    </StackPanel>
                     <ControlTemplate.Triggers>
                         <Trigger Property="Value" Value="">
                             <Setter TargetName="NoneEmptyValue" Property="Visibility" Value="{x:Static Visibility.Collapsed}" />
@@ -683,29 +665,18 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type s:LabelValuePair}">
-                    <Grid Width="Auto"
-                          HorizontalAlignment="Left"
-                          VerticalAlignment="Top">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-                            <Label Grid.Column="0"
-                                   Content="{TemplateBinding Label}"
-                                   Style="{DynamicResource DescriptionStyle}" />
-                            <Label x:Name="NoneEmptyValue"
-                                   Grid.Column="1"
-                                   Content="{TemplateBinding Value}"
-                                   Style="{DynamicResource ValueStyle}" />
-                            <Label x:Name="Empty"
-                                   Grid.Column="1"
-                                   Content="--"
-                                   Style="{DynamicResource ValueStyle}"
-                                   Visibility="Collapsed" />
-                    </Grid>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Grid.Column="0"
+                               Content="{TemplateBinding Label}"
+                               Style="{DynamicResource DescriptionStyle}" />
+                        <Label x:Name="NoneEmptyValue"
+                               Content="{TemplateBinding Value}"
+                               Style="{DynamicResource ValueStyle}" />
+                        <Label x:Name="Empty"
+                               Content="--"
+                               Style="{DynamicResource ValueStyle}"
+                               Visibility="Collapsed" />
+                    </StackPanel>
                     <ControlTemplate.Triggers>
                         <Trigger Property="Value" Value="">
                             <Setter TargetName="NoneEmptyValue" Property="Visibility" Value="{x:Static Visibility.Collapsed}" />

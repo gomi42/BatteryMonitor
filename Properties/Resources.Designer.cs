@@ -367,7 +367,7 @@ namespace BatteryMonitor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remaing time.
+        ///   Looks up a localized string similar to remaing.
         /// </summary>
         public static string LabelRemainingTime {
             get {
