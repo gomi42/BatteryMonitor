@@ -57,6 +57,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AnimatedExpander.cs" />
     <Compile Include="ValueControl.cs" />
     <Compile Include="LabelValuePair.cs" />
     <Compile Include="NativeMethods.cs" />
