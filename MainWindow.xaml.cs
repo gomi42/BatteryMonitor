@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
-using System.Threading;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Threading;
@@ -23,7 +21,10 @@ namespace BatteryMonitor
             //Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en");
             InitializeComponent();
 
-            ThemeSettings.SetThemeData("pack://application:,,,/BatteryMonitor;component/", "DarkModeColors.xaml", "LightModeColors.xaml", "Styles.xaml");
+            ThemeSettings.SetThemeData("pack://application:,,,/BatteryMonitor;component/",
+                                       "DarkModeColors.xaml",
+                                       "LightModeColors.xaml",
+                                       "Styles.xaml");
             SetTheme(ThemeSettings.GetWindowsTheme());
 
             if (UpdateSystemInfo())
@@ -173,7 +174,8 @@ namespace BatteryMonitor
             return Properties.Resources.ChargeStatusOk;
         }
 
-        private string ConvertSystemChargeState(BatteryChargeStatus powerState, System.Windows.Forms.PowerLineStatus powerLineStatus)
+        private string ConvertSystemChargeState(BatteryChargeStatus powerState,
+                                                System.Windows.Forms.PowerLineStatus powerLineStatus)
         {
             if (powerState == BatteryChargeStatus.Unknown)
             {
