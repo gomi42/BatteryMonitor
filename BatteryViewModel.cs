@@ -4,6 +4,7 @@ namespace BatteryMonitor
 {
     internal class BatteryViewModel : ViewModelBase
     {
+        private string index;
         private string deviceName;
         private string manufacture;
         private string chemistry;
@@ -24,6 +25,32 @@ namespace BatteryMonitor
         private string powerLineState;
         private string cylceCount;
         private string temperature;
+
+        public BatteryViewModel(int index)
+        {
+            Index = $" {index}";
+        }
+
+        public BatteryViewModel(BatteryData battery)
+        {
+            SetBattery(battery);
+        }
+
+        public BatteryViewModel(int index, BatteryData battery)
+        {
+            if (index > 0)
+            {
+                Index = $" {index}";
+            }
+
+            SetBattery(battery);
+        }
+
+        public string Index
+        {
+            get => index;
+            set => SetProperty(ref index, value);
+        }
 
         public string DeviceName
         {

@@ -9,9 +9,7 @@ namespace BatteryMonitor
     /// </summary>
     public partial class MainWindow : Window
     {
-        DispatcherTimer timer;
         WindowsTheme currentTheme;
-        int currentBatterieIndex;
 
         public MainWindow()
         {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace BatteryMonitor
 {
@@ -7,53 +8,63 @@ namespace BatteryMonitor
 #if DEBUG
         public DesignViewModel()
         {
-            System = new SystemPowerViewModel();
-            Battery = new BatteryViewModel();
+            SystemPower = new SystemPowerViewModel();
+            Batteries = new List<BatteryViewModel>();
             Error = new ErrorViewModel();
 
             InitSystem();
-            InitBattery();
+            InitBatteries();
         }
 
-        public SystemPowerViewModel System { get; }
-        public BatteryViewModel Battery { get; }
+        public SystemPowerViewModel SystemPower { get; }
+        public List<BatteryViewModel> Batteries { get; }
         public ErrorViewModel Error { get; }
 
         private void InitSystem()
         {
             // system
 
-            System.PowerState = "hoch";
-            System.ChargeState = "wird geladen";
-            System.PowerLineStatus = "nicht eingesteckt";
-            System.RemainingTime = "02:45:43";
-            System.Capacity = "78";
+            SystemPower.PowerState = "hoch";
+            SystemPower.ChargeState = "wird geladen";
+            SystemPower.PowerLineStatus = "nicht eingesteckt";
+            SystemPower.RemainingTime = "02:45:43";
+            SystemPower.Capacity = "78";
         }
 
-        private void InitBattery()
+        private void InitBatteries()
         {
-            Battery.DeviceName = "DELL 0FDRT85";
-            Battery.Manufacture = "SMP";
-            Battery.Chemistry = "Lithium Polymer";
-            Battery.ManufactureDate = new DateTime(2021, 2, 17).ToString(Properties.Resources.FormatDate);
+            for (int i = 1; i <= 2; i++)
+            {
+                Batteries.Add(GetOneBattery(i));
+            }
+        }
 
-            Battery.DesignedCapacity = "49768";
-            Battery.CurrentCapacity = "24512";
-            Battery.CurrentCapacityPercent = "67";
-            Battery.FullChargeCapacity = "32698";
-            Battery.BatteryHealth = "67";
-            Battery.Voltage = "7,568";
-            Battery.EstimatedTime = TimeSpan.FromSeconds(1 * 60 * 60 + 25 * 60 + 27).ToString();
+        private BatteryViewModel GetOneBattery(int index)
+        {
+            BatteryViewModel bvm = new BatteryViewModel(index);
 
-            Battery.Rate = "6254";
-            Battery.DefaultAlert1 = "3241";
-            Battery.DefaultAlert2 = "1254";
-            Battery.CriticalBias = "123";
-            Battery.ChargeState = "kritisch";
-            Battery.PowerState = "wird entladen";
-            Battery.PowerLineState = "nicht eingesteckt";
-            Battery.CylceCount = "546";
-            Battery.Temperature = "37";
+            bvm.DeviceName = $"DELL 0FDRT47{index}";
+            bvm.Manufacture = $"Company {index}";
+            bvm.Chemistry = index % 2 == 0 ? "Lithium Polymer" : "Lithium Ion";
+            bvm.ManufactureDate = new DateTime(2021, 2, 17 + index).ToString(Properties.Resources.FormatDate);
+            bvm.DesignedCapacity = (49657 + index).ToString();
+            bvm.CurrentCapacity = (24512 + index).ToString();
+            bvm.CurrentCapacityPercent = (67 + index).ToString();
+            bvm.FullChargeCapacity = (32698 + index).ToString();
+            bvm.BatteryHealth = (57 + index).ToString();
+            bvm.Voltage = "7,568";
+            bvm.EstimatedTime = TimeSpan.FromSeconds(1 * 60 * 60 + 25 * 60 + 27).ToString();
+            bvm.Rate = "6254";
+            bvm.DefaultAlert1 = "3241";
+            bvm.DefaultAlert2 = "1254";
+            bvm.CriticalBias = "123";
+            bvm.ChargeState = "kritisch";
+            bvm.PowerState = "wird geladen";
+            bvm.PowerLineState = "eingesteckt";
+            bvm.CylceCount = "546";
+            bvm.Temperature = "37";
+
+            return bvm;
         }
 #endif
     }

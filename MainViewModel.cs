@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Windows.Threading;
 
@@ -7,28 +8,21 @@ namespace BatteryMonitor
     internal class MainViewModel : ViewModelBase
     {
         DispatcherTimer timer;
-        int currentBatterieIndex;
 
         public MainViewModel()
         {
-            System = new SystemPowerViewModel();
-            Battery = new BatteryViewModel();
+            SystemPower = new SystemPowerViewModel();
+            Batteries = new List<BatteryViewModel>();
             Error = new ErrorViewModel();
 
-            if (UpdateSystemInfo())
+            if (UpdateSystemPower())
             {
-                var batteryIndexes = BatteryInformation.GetSystemBatteryIndexes();
+                InitBatteries();
 
-                if (batteryIndexes.Count > 0)
-                {
-                    currentBatterieIndex = batteryIndexes[0];
-                    UpdateOneBattery(currentBatterieIndex);
-
-                    timer = new DispatcherTimer();
-                    timer.Interval = TimeSpan.FromSeconds(10);
-                    timer.Tick += TimerTickHandler;
-                    timer.Start();
-                }
+                timer = new DispatcherTimer();
+                timer.Interval = TimeSpan.FromSeconds(10);
+                timer.Tick += TimerTickHandler;
+                timer.Start();
             }
 #if DEBUG
             else
@@ -36,14 +30,14 @@ namespace BatteryMonitor
                 // to see some data on none-laptops
 
                 var fake = new DesignViewModel();
-                System = fake.System;
-                Battery = fake.Battery;
+                SystemPower = fake.SystemPower;
+                Batteries = fake.Batteries;
             }
 #endif
         }
 
-        public SystemPowerViewModel System { get; }
-        public BatteryViewModel Battery { get; }
+        public SystemPowerViewModel SystemPower { get; }
+        public List<BatteryViewModel> Batteries { get; }
         public ErrorViewModel Error { get; }
 
         private void TimerTickHandler(object sender, EventArgs e)
@@ -55,12 +49,12 @@ namespace BatteryMonitor
         {
             try
             {
-                if (!UpdateSystemInfo())
+                if (!UpdateSystemPower())
                 {
                     return;
                 }
 
-                UpdateOneBattery(currentBatterieIndex);
+                UpdateBatteries();
             }
             catch (Exception ex)
             {
@@ -68,24 +62,60 @@ namespace BatteryMonitor
             }
         }
 
-        private bool UpdateSystemInfo()
+        private bool UpdateSystemPower()
         {
             PowerStatus pwr = SystemInformation.PowerStatus;
-            return System.SetPowerStatus(pwr);
+            return SystemPower.SetPowerStatus(pwr);
         }
 
-
-        private void UpdateOneBattery(int batteryIndex)
+        private void InitBatteries()
         {
-            var battery = BatteryInformation.GetBattery(batteryIndex);
+            List<BatteryData> batteries;
 
-            if (battery == null)
+            try
+            {
+                batteries = BatteryInformation.GetAllSystemBatteries();
+
+                if (batteries == null)
+                {
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                Error.Text = ex.ToString();
+                return;
+            }
+
+            if (batteries.Count == 1)
+            {
+                Batteries.Add(new BatteryViewModel(batteries[0]));
+            }
+            else
+            {
+                int index = 1;
+
+                foreach (var battery in batteries)
+                {
+                    Batteries.Add(new BatteryViewModel(index, battery));
+                    index++;
+                }
+            }
+        }
+
+        private void UpdateBatteries()
+        {
+            var batteries = BatteryInformation.GetAllSystemBatteries();
+
+            if (batteries == null)
             {
                 return;
             }
 
-            Battery.SetBattery(battery);
+            for (int i = 0; i < Batteries.Count; i++)
+            {
+                Batteries[i].SetBattery(batteries[i]);
+            }
         }
-
     }
 }
