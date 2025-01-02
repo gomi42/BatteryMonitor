@@ -58,6 +58,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AnimatedExpander.cs" />
+    <Compile Include="BatteryViewModel.cs" />
+    <Compile Include="DesignViewModel.cs" />
+    <Compile Include="ErrorViewModel.cs" />
+    <Compile Include="MainViewModel.cs" />
+    <Compile Include="SystemPowerViewModel.cs" />
     <Compile Include="ValueControl.cs" />
     <Compile Include="LabelValuePair.cs" />
     <Compile Include="NativeMethods.cs" />
@@ -67,6 +72,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="ThemeSettings.cs" />
+    <Compile Include="ViewModelBase.cs" />
     <Compile Include="WidthConverter.cs" />
     <Page Include="DarkModeColors.xaml">
       <Generator>MSBuild:Compile</Generator>

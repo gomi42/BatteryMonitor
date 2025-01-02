@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 
 // based on https://gist.github.com/ahawker/9715872
 
-namespace BatteryInfo
+namespace BatteryMonitor
 {
     [Flags]
     public enum PowerStates
@@ -16,9 +16,9 @@ namespace BatteryInfo
         Critical = 0x00000008
     }
 
-    public class BatteryInformation
+    public class BatteryData
     {
-        public BatteryInformation(int index,
+        public BatteryData(int index,
                                   bool isSystemPowerBattery,
                                   string deviceName,
                                   string manufactureName,
@@ -77,7 +77,7 @@ namespace BatteryInfo
         public string Chemistry { get; }
     }
 
-    public static class BatteryInfo
+    public static class BatteryInformation
     {
         public static List<int> GetSystemBatteryIndexes()
         {
@@ -121,9 +121,9 @@ namespace BatteryInfo
             return batteryIndexes;
         }
 
-        public static List<BatteryInformation> GetAllSystemBatteryInfos()
+        public static List<BatteryData> GetAllSystemBatteries()
         {
-            var batteries = new List<BatteryInformation>();
+            var batteries = new List<BatteryData>();
 
             IntPtr deviceHandle = SetupDiGetClassDevs(NativeMethods.GUID_DEVCLASS_BATTERY,
                                                       NativeMethods.DEVICE_GET_CLASS_FLAGS.DIGCF_PRESENT | NativeMethods.DEVICE_GET_CLASS_FLAGS.DIGCF_DEVICEINTERFACE);
@@ -152,7 +152,7 @@ namespace BatteryInfo
             return batteries;
         }
 
-        public static BatteryInformation GetBatteryInfo(int batteryIndex)
+        public static BatteryData GetBattery(int batteryIndex)
         {
             IntPtr deviceHandle = SetupDiGetClassDevs(NativeMethods.GUID_DEVCLASS_BATTERY,
                                                       NativeMethods.DEVICE_GET_CLASS_FLAGS.DIGCF_PRESENT | NativeMethods.DEVICE_GET_CLASS_FLAGS.DIGCF_DEVICEINTERFACE);
@@ -164,7 +164,7 @@ namespace BatteryInfo
             return batteryInfo;
         }
 
-        private static BatteryInformation GetOneBatteryInfo(IntPtr deviceHandle, int batteryIndex)
+        private static BatteryData GetOneBatteryInfo(IntPtr deviceHandle, int batteryIndex)
         {
             IntPtr batteryHandle = IntPtr.Zero;
             bool isSystemPowerBatterie = false;
@@ -204,7 +204,7 @@ namespace BatteryInfo
 
             NativeMethods.CloseHandle(batteryHandle);
 
-            return new BatteryInformation(
+            return new BatteryData(
                 batteryIndex,
                 isSystemPowerBatterie,
                 deviceName,

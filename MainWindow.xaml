@@ -11,6 +11,8 @@
         Height="360"
         MinWidth="250"
         MinHeight="251"
+        d:DataContext="{d:DesignInstance Type=s:DesignViewModel,
+                                         IsDesignTimeCreatable=True}"
         Background="{DynamicResource WindowBackgroundBrush}"
         SnapsToDevicePixels="True"
         mc:Ignorable="d">
@@ -49,139 +51,133 @@
                                            FontSize="16"
                                            FontWeight="Normal" />
 
-                                    <s:ValueControl x:Name="SystemCapacity"
-                                                    Grid.Column="1"
+                                    <s:ValueControl Grid.Column="1"
                                                     Margin="30,1,20,2"
                                                     Style="{StaticResource PercentValueStyle}"
-                                                    Value="" />
+                                                    Value="{Binding SystemPower.Capacity}" />
                                 </Grid>
-                                <s:LabelValuePair x:Name="RemainingSystemTime"
-                                                  Margin="20,2,0,2"
+                                <s:LabelValuePair Margin="20,2,0,2"
                                                   Label="{x:Static p:Resources.LabelRemainingTime}"
-                                                  Style="{StaticResource RemainingTimeValueStyle}" />
+                                                  Style="{StaticResource RemainingTimeValueStyle}"
+                                                  Value="{Binding SystemPower.RemainingTime}" />
                             </WrapPanel>
                         </Grid>
                     </s:AnimatedExpander.Header>
-                    <WrapPanel Margin="26,6,18,0" HorizontalAlignment="Stretch">
-                        <s:LabelValuePair x:Name="SystemPowerState"
-                                          Label="{x:Static p:Resources.LabelPowerState}" />
-                        <s:LabelValuePair x:Name="SystemChargeState"
-                                          Label="{x:Static p:Resources.LabelChargeState}" />
-                        <s:LabelValuePair x:Name="SystemPowerLineStatus"
-                                          Label="{x:Static p:Resources.LabelPowerLineStatus}" />
+                    <WrapPanel Margin="26,6,18,0"
+                               HorizontalAlignment="Stretch">
+                        <s:LabelValuePair Label="{x:Static p:Resources.LabelPowerState}"
+                                          Value="{Binding SystemPower.PowerState}" />
+                        <s:LabelValuePair Label="{x:Static p:Resources.LabelChargeState}"
+                                          Value="{Binding SystemPower.ChargeState}" />
+                        <s:LabelValuePair Label="{x:Static p:Resources.LabelPowerLineStatus}"
+                                          Value="{Binding SystemPower.PowerLineStatus}" />
                     </WrapPanel>
                 </s:AnimatedExpander>
 
-                <s:AnimatedExpander Margin="0,10,0,0">
-                    <s:AnimatedExpander.Header>
-                        <Grid>
-                            <StackPanel Margin="0,0,0,0">
-                                <WrapPanel Margin="0,0,10,0">
-                                    <Grid Width="Auto"
-                                          HorizontalAlignment="Left"
-                                          VerticalAlignment="Center">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto"
-                                                              SharedSizeGroup="ColumnGroupTitle" />
-                                            <ColumnDefinition />
-                                        </Grid.ColumnDefinitions>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition />
-                                        </Grid.RowDefinitions>
-                                        <Label Margin="8,0,0,0"
-                                               HorizontalAlignment="Left"
-                                               VerticalAlignment="Center"
-                                               Content="{x:Static p:Resources.HeaderBattery}"
-                                               FontSize="16"
-                                               FontWeight="Normal" />
-                                        <s:ValueControl x:Name="CurrentCapacityPercent"
-                                                        Grid.Column="1"
-                                                        Margin="30,2,20,2"
-                                                        Style="{StaticResource PercentValueStyle}"
-                                                        Value="" />
+                <ItemsControl ItemsSource="{Binding Batteries}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <s:AnimatedExpander Margin="0,10,0,0">
+                                <s:AnimatedExpander.Header>
+                                    <Grid>
+                                        <StackPanel Margin="0,0,0,0">
+                                            <WrapPanel Margin="0,0,10,0">
+                                                <Grid Width="Auto"
+                                                      HorizontalAlignment="Left"
+                                                      VerticalAlignment="Center">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"
+                                                                          SharedSizeGroup="ColumnGroupTitle" />
+                                                        <ColumnDefinition />
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition />
+                                                    </Grid.RowDefinitions>
+                                                    <StackPanel Margin="8,0,0,0"
+                                                                HorizontalAlignment="Left"
+                                                                VerticalAlignment="Center"
+                                                                Orientation="Horizontal">
+                                                        <Label Content="{x:Static p:Resources.HeaderBattery}"
+                                                               FontSize="16"
+                                                               FontWeight="Normal" />
+                                                        <Label Content="{Binding Index}"
+                                                               FontSize="16"
+                                                               FontWeight="Normal" />
+                                                    </StackPanel>
+                                                    <s:ValueControl Grid.Column="1"
+                                                                    Margin="30,2,20,2"
+                                                                    Style="{StaticResource PercentValueStyle}"
+                                                                    Value="{Binding CurrentCapacityPercent}" />
+                                                </Grid>
+                                                <s:LabelValuePair Margin="20,2,0,2"
+                                                                  Label="{x:Static p:Resources.LabelRemainingTime}"
+                                                                  Style="{StaticResource RemainingTimeValueStyle}"
+                                                                  Value="{Binding EstimatedTime}" />
+                                            </WrapPanel>
+
+                                            <WrapPanel Margin="20,13,0,0"
+                                                       HorizontalAlignment="Stretch">
+                                                <s:LabelValuePair Label="{x:Static p:Resources.LabelDesignCapacity}"
+                                                                  Unit=" mWh"
+                                                                  Value="{Binding DesignedCapacity}" />
+                                                <s:LabelValuePair Label="{x:Static p:Resources.LabelFullChargedCapacity}"
+                                                                  Unit=" mWh"
+                                                                  Value="{Binding FullChargeCapacity}" />
+                                                <s:LabelValuePair Label="{x:Static p:Resources.LabelCurrentCapacity}"
+                                                                  Unit=" mWh"
+                                                                  Value="{Binding CurrentCapacity}" />
+                                                <s:LabelValuePair Label="{x:Static p:Resources.LabelVoltage}"
+                                                                  Unit=" V"
+                                                                  Value="{Binding Voltage}" />
+                                                <s:LabelValuePair Label="{x:Static p:Resources.LabelRate}"
+                                                                  Unit=" mWh"
+                                                                  Value="{Binding Rate}" />
+                                                <s:LabelValuePair Label="{x:Static p:Resources.LabelPowerState}"
+                                                                  Value="{Binding PowerState}" />
+                                                <s:LabelValuePair Label="{x:Static p:Resources.LabelChargeState}"
+                                                                  Value="{Binding ChargeState}" />
+                                                <s:LabelValuePair Label="{x:Static p:Resources.LabelPowerLineStatus}"
+                                                                  Value="{Binding PowerLineState}" />
+                                            </WrapPanel>
+                                        </StackPanel>
                                     </Grid>
-                                    <s:LabelValuePair x:Name="EstimatedTime"
-                                                      Margin="20,2,0,2"
-                                                      Label="{x:Static p:Resources.LabelRemainingTime}"
-                                                      Style="{StaticResource RemainingTimeValueStyle}" />
+                                </s:AnimatedExpander.Header>
+                                <WrapPanel Margin="26,6,18,0"
+                                           HorizontalAlignment="Stretch">
+                                    <s:LabelValuePair Label="{x:Static p:Resources.LabelBatteryName}"
+                                                      Value="{Binding DeviceName}" />
+                                    <s:LabelValuePair Label="{x:Static p:Resources.LabelManufacturer}"
+                                                      Value="{Binding Manufacture}" />
+                                    <s:LabelValuePair Label="{x:Static p:Resources.LabelManufactureDate}"
+                                                      Value="{Binding ManufactureDate}" />
+                                    <s:LabelValuePair Label="{x:Static p:Resources.LabelChemistry}"
+                                                      Value="{Binding Chemistry}" />
+                                    <s:LabelValuePair Label="{x:Static p:Resources.LabelDefaultAlert1}"
+                                                      Unit=" mWh"
+                                                      Value="{Binding DefaultAlert1}" />
+                                    <s:LabelValuePair Label="{x:Static p:Resources.LabelDefaultAlert2}"
+                                                      Unit=" mWh"
+                                                      Value="{Binding DefaultAlert2}" />
+                                    <s:LabelValuePair Label="{x:Static p:Resources.LabelCriticalBias}"
+                                                      Unit=" mWh"
+                                                      Value="{Binding CriticalBias}" />
+                                    <s:LabelValuePair Label="{x:Static p:Resources.LabelCycleCount}"
+                                                      Value="{Binding CylceCount}" />
+                                    <s:LabelValuePair Label="{x:Static p:Resources.LabelTemperature}"
+                                                      Unit="°"
+                                                      Value="{Binding Temperature}" />
+                                    <s:LabelValuePair Label="{x:Static p:Resources.LabelBatteryHealth}"
+                                                      Unit="%"
+                                                      Value="{Binding BatteryHealth}" />
                                 </WrapPanel>
-
-                                <WrapPanel Margin="20,13,0,0" HorizontalAlignment="Stretch">
-                                    <s:LabelValuePair x:Name="DesignedCapacity"
-                                                      Label="{x:Static p:Resources.LabelDesignCapacity}"
-                                                      Unit=" mWh" />
-                                    <s:LabelValuePair x:Name="FullChargeCapacity"
-                                                      Label="{x:Static p:Resources.LabelFullChargedCapacity}"
-                                                      Unit=" mWh" />
-                                    <s:LabelValuePair x:Name="CurrentCapacity"
-                                                      Label="{x:Static p:Resources.LabelCurrentCapacity}"
-                                                      Unit=" mWh" />
-                                    <s:LabelValuePair x:Name="Voltage"
-                                                      Label="{x:Static p:Resources.LabelVoltage}"
-                                                      Unit=" V" />
-                                    <s:LabelValuePair x:Name="Rate"
-                                                      Label="{x:Static p:Resources.LabelRate}"
-                                                      Unit=" mWh" />
-                                    <s:LabelValuePair x:Name="ChargeState"
-                                                      Label="{x:Static p:Resources.LabelPowerState}" />
-                                    <s:LabelValuePair x:Name="PowerState"
-                                                      Label="{x:Static p:Resources.LabelChargeState}" />
-                                    <s:LabelValuePair x:Name="PowerLineState"
-                                                      Label="{x:Static p:Resources.LabelPowerLineStatus}" />
-                                </WrapPanel>
-                            </StackPanel>
-                        </Grid>
-                    </s:AnimatedExpander.Header>
-                    <WrapPanel Margin="26,6,18,0" HorizontalAlignment="Stretch">
-                        <s:LabelValuePair x:Name="DeviceName"
-                                          Label="{x:Static p:Resources.LabelBatteryName}" />
-                        <s:LabelValuePair x:Name="Manufacture"
-                                          Label="{x:Static p:Resources.LabelManufacturer}" />
-                        <s:LabelValuePair x:Name="ManufactureDate"
-                                          Label="{x:Static p:Resources.LabelManufactureDate}" />
-                        <s:LabelValuePair x:Name="Chemistry"
-                                          Label="{x:Static p:Resources.LabelChemistry}" />
-                        <s:LabelValuePair x:Name="DefaultAlert1"
-                                          Label="{x:Static p:Resources.LabelDefaultAlert1}"
-                                          Unit=" mWh" />
-                        <s:LabelValuePair x:Name="DefaultAlert2"
-                                          Label="{x:Static p:Resources.LabelDefaultAlert2}"
-                                          Unit=" mWh" />
-                        <s:LabelValuePair x:Name="CriticalBias"
-                                          Label="{x:Static p:Resources.LabelCriticalBias}"
-                                          Unit=" mWh" />
-                        <s:LabelValuePair x:Name="CylceCount"
-                                          Label="{x:Static p:Resources.LabelCycleCount}" />
-                        <s:LabelValuePair x:Name="Temperature"
-                                          Label="{x:Static p:Resources.LabelTemperature}"
-                                          Unit="°" />
-                        <s:LabelValuePair x:Name="BatteryHealth"
-                                          Label="{x:Static p:Resources.LabelBatteryHealth}"
-                                          Unit="%" />
-                    </WrapPanel>
-                </s:AnimatedExpander>
-
-                <StackPanel Margin="21,40,0,0"
-                            Orientation="Horizontal"
-                            Visibility="Collapsed">
-                    <Button Width="85"
-                            Margin="0,0,0,0"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Top"
-                            Click="Button_Click_Test1"
-                            Content="1" />
-                    <Button Width="85"
-                            Margin="12,0,0,0"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Top"
-                            Click="Button_Click_Test2"
-                            Content="2" />
-                </StackPanel>
+                            </s:AnimatedExpander>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
             </StackPanel>
         </ScrollViewer>
 
-        <Button x:Name="ThemeBtn"
-                Width="22"
+        <Button Width="22"
                 Height="22"
                 Margin="0,0,0,0"
                 HorizontalAlignment="Left"
@@ -204,13 +200,11 @@
             </Grid>
         </Button>
 
-
-        <Label x:Name="Error"
-               Margin="0,0,0,60"
+        <Label Margin="0,0,0,60"
                VerticalAlignment="Bottom"
                Background="#A0424242"
-               Content="ajlfjkdsalfjösafjlsaöfj"
+               Content="{Binding Error.Text}"
                Foreground="White"
-               Visibility="Collapsed" />
+               Visibility="{Binding ShowError.ShowError}" />
     </Grid>
 </Window>
