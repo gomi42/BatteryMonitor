@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Windows.Forms;
 using BatteryMonitor.Properties;
+using Forms = System.Windows.Forms;
 
 namespace BatteryMonitor
 {
@@ -42,40 +42,42 @@ namespace BatteryMonitor
             set => SetProperty(ref capacity, value);
         }
 
-        public bool SetPowerStatus(PowerStatus pwr)
+        public bool SetPowerStatus(Forms.PowerStatus status)
         {
-            PowerState = ConvertSystemPowerState(pwr.BatteryChargeStatus);
-            ChargeState = ConvertSystemChargeState(pwr.BatteryChargeStatus, pwr.PowerLineStatus);
-            PowerLineStatus = ConvertSystemPowerLineStatus(pwr.PowerLineStatus);
+            PowerState = ConvertSystemPowerState(status.BatteryChargeStatus);
+            ChargeState = ConvertSystemChargeState(status.BatteryChargeStatus, status.PowerLineStatus);
+            PowerLineStatus = ConvertSystemPowerLineStatus(status.PowerLineStatus);
 
-            if ((pwr.BatteryChargeStatus & BatteryChargeStatus.NoSystemBattery) != 0)
+            if ((status.BatteryChargeStatus & Forms.BatteryChargeStatus.NoSystemBattery) != 0)
             {
+                RemainingTime = string.Empty;
+                Capacity = string.Empty;
+
                 return false;
             }
 
-            if (pwr.BatteryLifeRemaining > 0)
+            if (status.BatteryLifeRemaining > 0)
             {
-                RemainingTime = TimeSpan.FromSeconds(pwr.BatteryLifeRemaining).ToString();
+                RemainingTime = TimeSpan.FromSeconds(status.BatteryLifeRemaining).ToString();
             }
             else
             {
                 RemainingTime = string.Empty;
             }
 
-            Capacity = (pwr.BatteryLifePercent * 100.0).ToString("F0");
+            Capacity = (status.BatteryLifePercent * 100.0).ToString("F0");
 
             return true;
-
         }
 
-        private string ConvertSystemPowerLineStatus(System.Windows.Forms.PowerLineStatus powerLineStatus)
+        private string ConvertSystemPowerLineStatus(Forms.PowerLineStatus powerLineStatus)
         {
-            if (powerLineStatus == global::System.Windows.Forms.PowerLineStatus.Online)
+            if (powerLineStatus == Forms.PowerLineStatus.Online)
             {
                 return Resources.PowerLineStateOnline;
             }
 
-            if (powerLineStatus == global::System.Windows.Forms.PowerLineStatus.Offline)
+            if (powerLineStatus == Forms.PowerLineStatus.Offline)
             {
                 return Resources.PowerLineStateOffline;
             }
@@ -83,29 +85,29 @@ namespace BatteryMonitor
             return Resources.ChargeStatusUnknown;
         }
 
-        private string ConvertSystemPowerState(BatteryChargeStatus powerState)
+        private string ConvertSystemPowerState(Forms.BatteryChargeStatus powerState)
         {
-            if (powerState == BatteryChargeStatus.Unknown)
+            if (powerState == Forms.BatteryChargeStatus.Unknown)
             {
                 return Resources.ChargeStatusUnknown;
             }
 
-            if ((powerState & BatteryChargeStatus.NoSystemBattery) != 0)
+            if ((powerState & Forms.BatteryChargeStatus.NoSystemBattery) != 0)
             {
                 return string.Empty;
             }
 
-            if ((powerState & BatteryChargeStatus.Low) != 0)
+            if ((powerState & Forms.BatteryChargeStatus.Low) != 0)
             {
                 return Resources.ChargeStatusLow;
             }
 
-            if ((powerState & BatteryChargeStatus.High) != 0)
+            if ((powerState & Forms.BatteryChargeStatus.High) != 0)
             {
                 return Resources.ChargeStatusHigh;
             }
 
-            if ((powerState & BatteryChargeStatus.Critical) != 0)
+            if ((powerState & Forms.BatteryChargeStatus.Critical) != 0)
             {
                 return Resources.ChargeStatusCritical;
             }
@@ -113,20 +115,20 @@ namespace BatteryMonitor
             return Resources.ChargeStatusOk;
         }
 
-        private string ConvertSystemChargeState(BatteryChargeStatus powerState,
-                                                System.Windows.Forms.PowerLineStatus powerLineStatus)
+        private string ConvertSystemChargeState(Forms.BatteryChargeStatus powerState,
+                                                Forms.PowerLineStatus powerLineStatus)
         {
-            if (powerState == BatteryChargeStatus.Unknown)
+            if (powerState == Forms.BatteryChargeStatus.Unknown)
             {
                 return Resources.ChargeStatusUnknown;
             }
 
-            if ((powerState & BatteryChargeStatus.Charging) != 0)
+            if ((powerState & Forms.BatteryChargeStatus.Charging) != 0)
             {
                 return Resources.ChargeStatusCharging;
             }
 
-            if (powerLineStatus == global::System.Windows.Forms.PowerLineStatus.Offline)
+            if (powerLineStatus == Forms.PowerLineStatus.Offline)
             {
                 return Resources.PowerStateDischarging;
             }

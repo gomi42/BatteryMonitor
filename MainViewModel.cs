@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
 using System.Windows.Threading;
+using Forms = System.Windows.Forms;
 
 namespace BatteryMonitor
 {
@@ -64,7 +64,7 @@ namespace BatteryMonitor
 
         private bool UpdateSystemPower()
         {
-            PowerStatus pwr = SystemInformation.PowerStatus;
+            Forms.PowerStatus pwr = Forms.SystemInformation.PowerStatus;
             return SystemPower.SetPowerStatus(pwr);
         }
 
