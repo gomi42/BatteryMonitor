@@ -31,7 +31,7 @@ namespace BatteryMonitor
         private void ExpanderHasExpanded(object sender, RoutedEventArgs args)
         {
             // we can't animate the height of expandContainer, the height isn't known yet
-            // even the inner childreen aren't calculated
+            // even the inner children aren't calculated
 
             expandContainer.Height = double.NaN;
             expandSite.Visibility = Visibility.Visible;
