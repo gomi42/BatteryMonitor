@@ -59,6 +59,8 @@
     </ApplicationDefinition>
     <Compile Include="AnimatedExpander.cs" />
     <Compile Include="BatteryInfoViewModel.cs" />
+    <Compile Include="DesignViewModel.cs" />
+    <Compile Include="ErrorViewModel.cs" />
     <Compile Include="MainViewModel.cs" />
     <Compile Include="SystemInfoViewModel.cs" />
     <Compile Include="ValueControl.cs" />

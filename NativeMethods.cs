@@ -2,7 +2,7 @@
 using System.IO;
 using System.Runtime.InteropServices;
 
-namespace BatteryInfo
+namespace BatteryMonitor
 {
     internal static class NativeMethods
     {

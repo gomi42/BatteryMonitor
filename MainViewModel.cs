@@ -1,33 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Windows;
 using System.Windows.Threading;
-using BatteryInfo;
 
 namespace BatteryMonitor
 {
     internal class MainViewModel : ViewModelBase
     {
         DispatcherTimer timer;
-        WindowsTheme currentTheme;
         int currentBatterieIndex;
 
         public MainViewModel()
         {
-            System = new SystemInfoViewModel();
+            System = new SystemPowerViewModel();
+            Battery = new BatteryViewModel();
+            Error = new ErrorViewModel();
 
             if (UpdateSystemInfo())
             {
-                var batteryIndexes = BatteryInfo.BatteryInfo.GetSystemBatteryIndexes();
+                var batteryIndexes = BatteryInformation.GetSystemBatteryIndexes();
 
                 if (batteryIndexes.Count > 0)
                 {
                     currentBatterieIndex = batteryIndexes[0];
-                    UpdateOneBatteryInfo(currentBatterieIndex);
+                    UpdateOneBattery(currentBatterieIndex);
 
                     timer = new DispatcherTimer();
                     timer.Interval = TimeSpan.FromSeconds(10);
@@ -38,51 +33,19 @@ namespace BatteryMonitor
 #if DEBUG
             else
             {
-                ShowFakeData();
+                // to see some data on none-laptops
+
+                var fake = new DesignViewModel();
+                System = fake.System;
+                Battery = fake.Battery;
             }
 #endif
         }
 
-        public SystemInfoViewModel System { get; }
-        public BatteryInfoViewModel Battery { get; }
+        public SystemPowerViewModel System { get; }
+        public BatteryViewModel Battery { get; }
+        public ErrorViewModel Error { get; }
 
-#if DEBUG
-        private void ShowFakeData()
-        {
-            // system
-
-            System.SystemPowerState = ConvertSystemPowerState(BatteryChargeStatus.High);
-            System.SystemChargeState = ConvertSystemChargeState(BatteryChargeStatus.Charging, global::System.Windows.Forms.PowerLineStatus.Online);
-            System.SystemPowerLineStatus = ConvertSystemPowerLineStatus(global::System.Windows.Forms.PowerLineStatus.Offline);
-            System.RemainingSystemTime = TimeSpan.FromSeconds(2 * 60 * 60 + 34 * 60 + 12).ToString();
-            System.SystemCapacity = "78";
-
-            // battery
-
-            DeviceName.Value = "DELL 0FDRT85";
-            Manufacture.Value = "SMP";
-            Chemistry.Value = ConvertChemistry("LiP");
-            ManufactureDate.Value = new DateTime(2021, 2, 17).ToString(Properties.Resources.FormatDate);
-
-            DesignedCapacity.Value = "49768";
-            CurrentCapacity.Value = "24512";
-            CurrentCapacityPercent.Value = "67";
-            FullChargeCapacity.Value = "32698";
-            BatteryHealth.Value = "67";
-            Voltage.Value = "7,568";
-            EstimatedTime.Value = TimeSpan.FromSeconds(1 * 60 * 60 + 25 * 60 + 27).ToString();
-
-            Rate.Value = "6254";
-            DefaultAlert1.Value = "3241";
-            DefaultAlert2.Value = "1254";
-            CriticalBias.Value = "123";
-            ChargeState.Value = ConvertBatteryChargeState(PowerStates.Critical);
-            PowerState.Value = ConvertBatteryPowerState(PowerStates.Discharging);
-            PowerLineState.Value = ConvertBatteryPowerLineState(0);
-            CylceCount.Value = "546";
-            Temperature.Value = "37";
-        }
-#endif
         private void TimerTickHandler(object sender, EventArgs e)
         {
             UpdateAll();
@@ -90,228 +53,39 @@ namespace BatteryMonitor
 
         private void UpdateAll()
         {
-            if (!UpdateSystemInfo())
+            try
             {
-                return;
-            }
+                if (!UpdateSystemInfo())
+                {
+                    return;
+                }
 
-            UpdateOneBatteryInfo(currentBatterieIndex);
+                UpdateOneBattery(currentBatterieIndex);
+            }
+            catch (Exception ex)
+            {
+                Error.Text = ex.ToString();
+            }
         }
 
         private bool UpdateSystemInfo()
         {
             PowerStatus pwr = SystemInformation.PowerStatus;
-
-            System.SystemPowerState = ConvertSystemPowerState(pwr.BatteryChargeStatus);
-            System.SystemChargeState = ConvertSystemChargeState(pwr.BatteryChargeStatus, pwr.PowerLineStatus);
-            System.SystemPowerLineStatus = ConvertSystemPowerLineStatus(pwr.PowerLineStatus);
-
-            if ((pwr.BatteryChargeStatus & BatteryChargeStatus.NoSystemBattery) != 0)
-            {
-                return false;
-            }
-
-            if (pwr.BatteryLifeRemaining > 0)
-            {
-                System.RemainingSystemTime = TimeSpan.FromSeconds(pwr.BatteryLifeRemaining).ToString();
-            }
-            else
-            {
-                System.RemainingSystemTime = string.Empty;
-            }
-
-            System.SystemCapacity = (pwr.BatteryLifePercent * 100.0).ToString("F0");
-
-            return true;
-        }
-
-        private string ConvertSystemPowerLineStatus(System.Windows.Forms.PowerLineStatus powerLineStatus)
-        {
-            if (powerLineStatus == global::System.Windows.Forms.PowerLineStatus.Online)
-            {
-                return Properties.Resources.PowerLineStateOnline;
-            }
-
-            if (powerLineStatus == global::System.Windows.Forms.PowerLineStatus.Offline)
-            {
-                return Properties.Resources.PowerLineStateOffline;
-            }
-
-            return Properties.Resources.ChargeStatusUnknown;
-        }
-
-        private string ConvertSystemPowerState(BatteryChargeStatus powerState)
-        {
-            if (powerState == BatteryChargeStatus.Unknown)
-            {
-                return Properties.Resources.ChargeStatusUnknown;
-            }
-
-            if ((powerState & BatteryChargeStatus.NoSystemBattery) != 0)
-            {
-                return string.Empty;
-            }
-
-            if ((powerState & BatteryChargeStatus.Low) != 0)
-            {
-                return Properties.Resources.ChargeStatusLow;
-            }
-
-            if ((powerState & BatteryChargeStatus.High) != 0)
-            {
-                return Properties.Resources.ChargeStatusHigh;
-            }
-
-            if ((powerState & BatteryChargeStatus.Critical) != 0)
-            {
-                return Properties.Resources.ChargeStatusCritical;
-            }
-
-            return Properties.Resources.ChargeStatusOk;
-        }
-
-        private string ConvertSystemChargeState(BatteryChargeStatus powerState,
-                                                System.Windows.Forms.PowerLineStatus powerLineStatus)
-        {
-            if (powerState == BatteryChargeStatus.Unknown)
-            {
-                return Properties.Resources.ChargeStatusUnknown;
-            }
-
-            if ((powerState & BatteryChargeStatus.Charging) != 0)
-            {
-                return Properties.Resources.ChargeStatusCharging;
-            }
-
-            if (powerLineStatus == global::System.Windows.Forms.PowerLineStatus.Offline)
-            {
-                return Properties.Resources.PowerStateDischarging;
-            }
-
-            return Properties.Resources.PowerStateNotCharging;
+            return System.SetPowerStatus(pwr);
         }
 
 
-        private void UpdateOneBatteryInfo(int batteryIndex)
+        private void UpdateOneBattery(int batteryIndex)
         {
-            var battery = BatteryInfo.BatteryInfo.GetBatteryInfo(batteryIndex);
+            var battery = BatteryInformation.GetBattery(batteryIndex);
 
             if (battery == null)
             {
                 return;
             }
 
-            try
-            {
-                DeviceName.Value = battery.DeviceName;
-                Manufacture.Value = battery.ManufactureName;
-                Chemistry.Value = ConvertChemistry(battery.Chemistry);
-
-                if (battery.ManufactureDate != DateTime.MinValue)
-                {
-                    ManufactureDate.Value = battery.ManufactureDate.ToString(Properties.Resources.FormatDate);
-                }
-
-                DesignedCapacity.Value = battery.DesignedMaxCapacity.ToString();
-                CurrentCapacity.Value = battery.CurrentCapacity.ToString();
-                CurrentCapacityPercent.Value = ((battery.CurrentCapacity * 100.0) / battery.FullChargedCapacity).ToString("F0");
-                FullChargeCapacity.Value = battery.FullChargedCapacity.ToString();
-                BatteryHealth.Value = ((battery.FullChargedCapacity * 100.0) / battery.DesignedMaxCapacity).ToString("F0");
-                Voltage.Value = ((double)battery.Voltage / 1000.0).ToString();
-
-                if (battery.EstimatedTime == TimeSpan.Zero)
-                {
-                    EstimatedTime.Value = string.Empty;
-                }
-                else
-                {
-                    EstimatedTime.Value = battery.EstimatedTime.ToString();
-                }
-
-                Rate.Value = battery.DischargeRate.ToString();
-                DefaultAlert1.Value = battery.DefaultAlert1.ToString();
-                DefaultAlert2.Value = battery.DefaultAlert2.ToString();
-                CriticalBias.Value = battery.CriticalBias.ToString();
-                ChargeState.Value = ConvertBatteryChargeState(battery.PowerState);
-                PowerState.Value = ConvertBatteryPowerState(battery.PowerState);
-                PowerLineState.Value = ConvertBatteryPowerLineState(battery.PowerState);
-                CylceCount.Value = battery.CycleCount.ToString();
-
-                if (!double.IsNaN(battery.Temperature))
-                {
-                    Temperature.Value = battery.Temperature.ToString();
-                }
-                else
-                {
-                    Temperature.Value = string.Empty;
-                }
-
-            }
-            catch (Exception ex)
-            {
-                Error.Content = ex.ToString();
-                Error.Visibility = Visibility.Visible;
-            }
+            Battery.SetBattery(battery);
         }
 
-        private string ConvertBatteryPowerLineState(PowerStates powerState)
-        {
-            if ((powerState & PowerStates.PowerOnline) != 0)
-            {
-                return Properties.Resources.PowerStatePluggedIn;
-            }
-
-            return Properties.Resources.PowerLineStateOffline;
-        }
-
-        private string ConvertBatteryPowerState(PowerStates powerState)
-        {
-            if ((powerState & PowerStates.Charging) != 0)
-            {
-                return Properties.Resources.PowerStateCharging;
-            }
-
-            if ((powerState & PowerStates.Discharging) != 0)
-            {
-                return Properties.Resources.PowerStateDischarging;
-            }
-
-            return Properties.Resources.PowerStateNotCharging;
-        }
-
-        private string ConvertBatteryChargeState(PowerStates powerState)
-        {
-            if ((powerState & PowerStates.Critical) != 0)
-            {
-                return Properties.Resources.PowerStateCritical;
-            }
-
-            return Properties.Resources.PowerStateNormal;
-        }
-
-        private string ConvertChemistry(string chemistry)
-        {
-            switch (chemistry)
-            {
-                case "PbAc":
-                    return Properties.Resources.ChemistryPbAc;
-                case "LiP":
-                    return Properties.Resources.ChemistryLiPo;
-                case "Li-I":
-                    return Properties.Resources.ChemistryLiIo;
-                case "LION":
-                    return Properties.Resources.ChemistryLiIo;
-                case "NiCd":
-                    return Properties.Resources.ChemistryNiCd;
-                case "NiMH":
-                    return Properties.Resources.ChemistryNiMH;
-                case "NiZn":
-                    return Properties.Resources.ChemistryNiZn;
-                case "RAM":
-                    return Properties.Resources.ChemistryRAM;
-                default:
-                    return chemistry;
-            }
-        }
     }
 }

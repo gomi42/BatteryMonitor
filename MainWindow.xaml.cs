@@ -1,9 +1,6 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 using System.Windows;
-using System.Windows.Forms;
 using System.Windows.Threading;
-using BatteryInfo;
 
 namespace BatteryMonitor
 {
@@ -18,6 +15,7 @@ namespace BatteryMonitor
 
         public MainWindow()
         {
+            DataContext = new MainViewModel();
             //Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en");
             InitializeComponent();
 
@@ -52,23 +50,6 @@ namespace BatteryMonitor
             }
 
             ThemeSettings.SetTheme(this, dark);
-        }
-
-        private void Button_Click_Test1(object sender, RoutedEventArgs e)
-        {
-            Test();
-            Error.Visibility = Visibility.Visible;
-        }
-
-        private void Button_Click_Test2(object sender, RoutedEventArgs e)
-        {
-        }
-
-        private void Test()
-        {
-            StringBuilder sb = new StringBuilder();
-
-            Error.Content = sb.ToString();
         }
     }
 }
