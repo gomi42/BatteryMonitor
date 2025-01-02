@@ -185,6 +185,10 @@ namespace BatteryMonitor
             {
                 ManufactureDate = battery.ManufactureDate.ToString(Resources.FormatDate);
             }
+            else
+            {
+                ManufactureDate = string.Empty;
+            }
 
             DesignedCapacity = battery.DesignedMaxCapacity.ToString();
             CurrentCapacity = battery.CurrentCapacity.ToString();
