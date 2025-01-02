@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using BatteryMonitor.Properties;
 
 namespace BatteryMonitor
 {
@@ -71,22 +72,22 @@ namespace BatteryMonitor
         {
             if (powerLineStatus == global::System.Windows.Forms.PowerLineStatus.Online)
             {
-                return Properties.Resources.PowerLineStateOnline;
+                return Resources.PowerLineStateOnline;
             }
 
             if (powerLineStatus == global::System.Windows.Forms.PowerLineStatus.Offline)
             {
-                return Properties.Resources.PowerLineStateOffline;
+                return Resources.PowerLineStateOffline;
             }
 
-            return Properties.Resources.ChargeStatusUnknown;
+            return Resources.ChargeStatusUnknown;
         }
 
         private string ConvertSystemPowerState(BatteryChargeStatus powerState)
         {
             if (powerState == BatteryChargeStatus.Unknown)
             {
-                return Properties.Resources.ChargeStatusUnknown;
+                return Resources.ChargeStatusUnknown;
             }
 
             if ((powerState & BatteryChargeStatus.NoSystemBattery) != 0)
@@ -96,20 +97,20 @@ namespace BatteryMonitor
 
             if ((powerState & BatteryChargeStatus.Low) != 0)
             {
-                return Properties.Resources.ChargeStatusLow;
+                return Resources.ChargeStatusLow;
             }
 
             if ((powerState & BatteryChargeStatus.High) != 0)
             {
-                return Properties.Resources.ChargeStatusHigh;
+                return Resources.ChargeStatusHigh;
             }
 
             if ((powerState & BatteryChargeStatus.Critical) != 0)
             {
-                return Properties.Resources.ChargeStatusCritical;
+                return Resources.ChargeStatusCritical;
             }
 
-            return Properties.Resources.ChargeStatusOk;
+            return Resources.ChargeStatusOk;
         }
 
         private string ConvertSystemChargeState(BatteryChargeStatus powerState,
@@ -117,20 +118,20 @@ namespace BatteryMonitor
         {
             if (powerState == BatteryChargeStatus.Unknown)
             {
-                return Properties.Resources.ChargeStatusUnknown;
+                return Resources.ChargeStatusUnknown;
             }
 
             if ((powerState & BatteryChargeStatus.Charging) != 0)
             {
-                return Properties.Resources.ChargeStatusCharging;
+                return Resources.ChargeStatusCharging;
             }
 
             if (powerLineStatus == global::System.Windows.Forms.PowerLineStatus.Offline)
             {
-                return Properties.Resources.PowerStateDischarging;
+                return Resources.PowerStateDischarging;
             }
 
-            return Properties.Resources.PowerStateNotCharging;
+            return Resources.PowerStateNotCharging;
         }
     }
 }

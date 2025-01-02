@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using BatteryMonitor.Properties;
 
 namespace BatteryMonitor
 {
@@ -46,7 +47,7 @@ namespace BatteryMonitor
             bvm.DeviceName = $"DELL 0FDRT47{index}";
             bvm.Manufacture = $"Company {index}";
             bvm.Chemistry = index % 2 == 0 ? "Lithium Polymer" : "Lithium Ion";
-            bvm.ManufactureDate = new DateTime(2021, 2, 17 + index).ToString(Properties.Resources.FormatDate);
+            bvm.ManufactureDate = new DateTime(2021, 2, 17 + index).ToString(Resources.FormatDate);
             bvm.DesignedCapacity = (49657 + index).ToString();
             bvm.CurrentCapacity = (24512 + index).ToString();
             bvm.CurrentCapacityPercent = (67 + index).ToString();

@@ -1,4 +1,5 @@
 ﻿using System;
+using BatteryMonitor.Properties;
 
 namespace BatteryMonitor
 {
@@ -182,7 +183,7 @@ namespace BatteryMonitor
 
             if (battery.ManufactureDate != DateTime.MinValue)
             {
-                ManufactureDate = battery.ManufactureDate.ToString(Properties.Resources.FormatDate);
+                ManufactureDate = battery.ManufactureDate.ToString(Resources.FormatDate);
             }
 
             DesignedCapacity = battery.DesignedMaxCapacity.ToString();
@@ -205,9 +206,9 @@ namespace BatteryMonitor
             DefaultAlert1 = battery.DefaultAlert1.ToString();
             DefaultAlert2 = battery.DefaultAlert2.ToString();
             CriticalBias = battery.CriticalBias.ToString();
-            ChargeState = ConvertBatteryChargeState(battery.PowerState);
-            PowerState = ConvertBatteryPowerState(battery.PowerState);
-            PowerLineState = ConvertBatteryPowerLineState(battery.PowerState);
+            ChargeState = ConvertChargeState(battery.PowerState);
+            PowerState = ConvertPowerState(battery.PowerState);
+            PowerLineState = ConvertPowerLineState(battery.PowerState);
             CylceCount = battery.CycleCount.ToString();
 
             if (!double.IsNaN(battery.Temperature))
@@ -220,39 +221,39 @@ namespace BatteryMonitor
             }
         }
 
-        private string ConvertBatteryPowerLineState(PowerStates powerState)
+        private string ConvertPowerLineState(PowerStates powerState)
         {
             if ((powerState & PowerStates.PowerOnline) != 0)
             {
-                return Properties.Resources.PowerStatePluggedIn;
+                return Resources.PowerStatePluggedIn;
             }
 
-            return Properties.Resources.PowerLineStateOffline;
+            return Resources.PowerLineStateOffline;
         }
 
-        private string ConvertBatteryPowerState(PowerStates powerState)
+        private string ConvertPowerState(PowerStates powerState)
         {
             if ((powerState & PowerStates.Charging) != 0)
             {
-                return Properties.Resources.PowerStateCharging;
+                return Resources.PowerStateCharging;
             }
 
             if ((powerState & PowerStates.Discharging) != 0)
             {
-                return Properties.Resources.PowerStateDischarging;
+                return Resources.PowerStateDischarging;
             }
 
-            return Properties.Resources.PowerStateNotCharging;
+            return Resources.PowerStateNotCharging;
         }
 
-        private string ConvertBatteryChargeState(PowerStates powerState)
+        private string ConvertChargeState(PowerStates powerState)
         {
             if ((powerState & PowerStates.Critical) != 0)
             {
-                return Properties.Resources.PowerStateCritical;
+                return Resources.PowerStateCritical;
             }
 
-            return Properties.Resources.PowerStateNormal;
+            return Resources.PowerStateNormal;
         }
 
         private string ConvertChemistry(string chemistry)
@@ -260,21 +261,21 @@ namespace BatteryMonitor
             switch (chemistry)
             {
                 case "PbAc":
-                    return Properties.Resources.ChemistryPbAc;
+                    return Resources.ChemistryPbAc;
                 case "LiP":
-                    return Properties.Resources.ChemistryLiPo;
+                    return Resources.ChemistryLiPo;
                 case "Li-I":
-                    return Properties.Resources.ChemistryLiIo;
+                    return Resources.ChemistryLiIo;
                 case "LION":
-                    return Properties.Resources.ChemistryLiIo;
+                    return Resources.ChemistryLiIo;
                 case "NiCd":
-                    return Properties.Resources.ChemistryNiCd;
+                    return Resources.ChemistryNiCd;
                 case "NiMH":
-                    return Properties.Resources.ChemistryNiMH;
+                    return Resources.ChemistryNiMH;
                 case "NiZn":
-                    return Properties.Resources.ChemistryNiZn;
+                    return Resources.ChemistryNiZn;
                 case "RAM":
-                    return Properties.Resources.ChemistryRAM;
+                    return Resources.ChemistryRAM;
                 default:
                     return chemistry;
             }
