@@ -44,9 +44,9 @@ namespace BatteryMonitor
 
         public bool SetPowerStatus(Forms.PowerStatus status)
         {
-            PowerState = ConvertSystemPowerState(status.BatteryChargeStatus);
-            ChargeState = ConvertSystemChargeState(status.BatteryChargeStatus, status.PowerLineStatus);
-            PowerLineStatus = ConvertSystemPowerLineStatus(status.PowerLineStatus);
+            PowerState = ConvertPowerState(status.BatteryChargeStatus);
+            ChargeState = ConvertChargeState(status.BatteryChargeStatus, status.PowerLineStatus);
+            PowerLineStatus = ConvertPowerLineStatus(status.PowerLineStatus);
 
             if ((status.BatteryChargeStatus & Forms.BatteryChargeStatus.NoSystemBattery) != 0)
             {
@@ -70,7 +70,7 @@ namespace BatteryMonitor
             return true;
         }
 
-        private string ConvertSystemPowerLineStatus(Forms.PowerLineStatus powerLineStatus)
+        private string ConvertPowerLineStatus(Forms.PowerLineStatus powerLineStatus)
         {
             if (powerLineStatus == Forms.PowerLineStatus.Online)
             {
@@ -85,7 +85,7 @@ namespace BatteryMonitor
             return Resources.ChargeStatusUnknown;
         }
 
-        private string ConvertSystemPowerState(Forms.BatteryChargeStatus powerState)
+        private string ConvertPowerState(Forms.BatteryChargeStatus powerState)
         {
             if (powerState == Forms.BatteryChargeStatus.Unknown)
             {
@@ -115,7 +115,7 @@ namespace BatteryMonitor
             return Resources.ChargeStatusOk;
         }
 
-        private string ConvertSystemChargeState(Forms.BatteryChargeStatus powerState,
+        private string ConvertChargeState(Forms.BatteryChargeStatus powerState,
                                                 Forms.PowerLineStatus powerLineStatus)
         {
             if (powerState == Forms.BatteryChargeStatus.Unknown)
