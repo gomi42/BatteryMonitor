@@ -4,7 +4,7 @@ using Forms = System.Windows.Forms;
 
 namespace BatteryMonitor
 {
-    internal class SystemPowerViewModel : ViewModelBase
+    internal class SystemPowerViewModel : ViewModelBase, ISystemPower
     {
         private string powerState;
         private string chargeState;
@@ -15,31 +15,31 @@ namespace BatteryMonitor
         public string PowerState
         {
             get => powerState;
-            set => SetProperty(ref powerState, value);
+            private set => SetProperty(ref powerState, value);
         }
 
         public string ChargeState
         {
             get => chargeState;
-            set => SetProperty(ref chargeState, value);
+            private set => SetProperty(ref chargeState, value);
         }
 
         public string PowerLineStatus
         {
             get => powerLineStatus;
-            set => SetProperty(ref powerLineStatus, value);
+            private set => SetProperty(ref powerLineStatus, value);
         }
 
         public string RemainingTime
         {
             get => remainingTime;
-            set => SetProperty(ref remainingTime, value);
+            private set => SetProperty(ref remainingTime, value);
         }
 
         public string Capacity
         {
             get => capacity;
-            set => SetProperty(ref capacity, value);
+            private set => SetProperty(ref capacity, value);
         }
 
         public bool SetPowerStatus(Forms.PowerStatus status)

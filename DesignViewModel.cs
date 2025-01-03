@@ -4,12 +4,27 @@ using BatteryMonitor.Properties;
 
 namespace BatteryMonitor
 {
+#if DEBUG
+    internal class DesignSystemPowerViewModel : ISystemPower
+    {
+        public string PowerState {  get; set; }
+
+        public string ChargeState {  get; set; }
+
+        public string PowerLineStatus {  get; set; }
+
+        public string RemainingTime {  get; set; }
+
+        public string Capacity {  get; set; }
+    }
+#endif
+
     internal class DesignViewModel
     {
 #if DEBUG
         public DesignViewModel()
         {
-            SystemPower = new SystemPowerViewModel();
+            SystemPower = new DesignSystemPowerViewModel();
             Batteries = new List<BatteryViewModel>();
             Error = new ErrorViewModel();
 
@@ -17,19 +32,19 @@ namespace BatteryMonitor
             InitBatteries();
         }
 
-        public SystemPowerViewModel SystemPower { get; }
+        public ISystemPower SystemPower { get; }
         public List<BatteryViewModel> Batteries { get; }
         public ErrorViewModel Error { get; }
 
         private void InitSystem()
         {
-            // system
+            var systemPower = (DesignSystemPowerViewModel)SystemPower;
 
-            SystemPower.PowerState = "hoch";
-            SystemPower.ChargeState = "wird geladen";
-            SystemPower.PowerLineStatus = "nicht eingesteckt";
-            SystemPower.RemainingTime = "02:45:43";
-            SystemPower.Capacity = "78";
+            systemPower.PowerState = "hoch";
+            systemPower.ChargeState = "wird geladen";
+            systemPower.PowerLineStatus = "nicht eingesteckt";
+            systemPower.RemainingTime = "02:45:43";
+            systemPower.Capacity = "78";
         }
 
         private void InitBatteries()

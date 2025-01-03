@@ -36,7 +36,7 @@ namespace BatteryMonitor
 #endif
         }
 
-        public SystemPowerViewModel SystemPower { get; }
+        public ISystemPower SystemPower { get; }
         public List<BatteryViewModel> Batteries { get; }
         public ErrorViewModel Error { get; }
 
@@ -65,7 +65,7 @@ namespace BatteryMonitor
         private bool UpdateSystemPower()
         {
             Forms.PowerStatus pwr = Forms.SystemInformation.PowerStatus;
-            return SystemPower.SetPowerStatus(pwr);
+            return ((SystemPowerViewModel)SystemPower).SetPowerStatus(pwr);
         }
 
         private void InitBatteries()
