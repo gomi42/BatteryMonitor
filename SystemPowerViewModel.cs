@@ -4,7 +4,12 @@ using Forms = System.Windows.Forms;
 
 namespace BatteryMonitor
 {
-    internal class SystemPowerViewModel : ViewModelBase, ISystemPowerViewModel
+    internal interface ISystemPowerViewModel2 : ISystemPowerViewModel
+    {
+        bool SetPowerStatus(Forms.PowerStatus status);
+    }
+
+    internal class SystemPowerViewModel : ViewModelBase, ISystemPowerViewModel2
     {
         private string powerState;
         private string chargeState;
@@ -15,31 +20,31 @@ namespace BatteryMonitor
         public string PowerState
         {
             get => powerState;
-            private set => SetProperty(ref powerState, value);
+            protected set => SetProperty(ref powerState, value);
         }
 
         public string ChargeState
         {
             get => chargeState;
-            private set => SetProperty(ref chargeState, value);
+            protected set => SetProperty(ref chargeState, value);
         }
 
         public string PowerLineStatus
         {
             get => powerLineStatus;
-            private set => SetProperty(ref powerLineStatus, value);
+            protected set => SetProperty(ref powerLineStatus, value);
         }
 
         public string RemainingTime
         {
             get => remainingTime;
-            private set => SetProperty(ref remainingTime, value);
+            protected set => SetProperty(ref remainingTime, value);
         }
 
         public string Capacity
         {
             get => capacity;
-            private set => SetProperty(ref capacity, value);
+            protected set => SetProperty(ref capacity, value);
         }
 
         public bool SetPowerStatus(Forms.PowerStatus status)
@@ -134,6 +139,18 @@ namespace BatteryMonitor
             }
 
             return Resources.PowerStateNotCharging;
+        }
+    }
+
+    internal class SystemPowerViewModel2 : SystemPowerViewModel
+    {
+        public void SetFakeData()
+        {
+            PowerState = "hoch";
+            ChargeState = "wird geladen";
+            PowerLineStatus = "nicht eingesteckt";
+            RemainingTime = "02:45:43";
+            Capacity = "78";
         }
     }
 }

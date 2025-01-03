@@ -29,9 +29,8 @@ namespace BatteryMonitor
             {
                 // to see some data on none-laptops
 
-                var fake = new DesignViewModel();
-                SystemPower = fake.SystemPower;
-                Batteries = fake.Batteries;
+                SystemPower = DesignViewModel.CreateDesignSystemPowerViewModel();
+                Batteries = DesignViewModel.CreateDesignBatteriesViewModel();
             }
 #endif
         }
