@@ -1,6 +1,6 @@
 ﻿namespace BatteryMonitor
 {
-    internal interface ISystemPower
+    internal interface ISystemPowerViewModel
     {
         string PowerState { get; }
 

@@ -5,7 +5,7 @@ using BatteryMonitor.Properties;
 namespace BatteryMonitor
 {
 #if DEBUG
-    internal class DesignSystemPowerViewModel : ISystemPower
+    internal class DesignSystemPowerViewModel : ISystemPowerViewModel
     {
         public string PowerState {  get; set; }
 
@@ -17,6 +17,51 @@ namespace BatteryMonitor
 
         public string Capacity {  get; set; }
     }
+
+    class DesignBatteryViewModel : IBatteryViewModel
+    {
+        public string Index { get; set; }
+
+        public string DeviceName { get; set; }
+
+        public string Manufacture { get; set; }
+
+        public string Chemistry { get; set; }
+
+        public string ManufactureDate { get; set; }
+
+        public string DesignedCapacity { get; set; }
+
+        public string CurrentCapacity { get; set; }
+
+        public string CurrentCapacityPercent { get; set; }
+
+        public string FullChargeCapacity { get; set; }
+
+        public string BatteryHealth { get; set; }
+
+        public string Voltage { get; set; }
+
+        public string EstimatedTime { get; set; }
+
+        public string Rate { get; set; }
+
+        public string DefaultAlert1 { get; set; }
+
+        public string DefaultAlert2 { get; set; }
+
+        public string CriticalBias { get; set; }
+
+        public string ChargeState { get; set; }
+
+        public string PowerState { get; set; }
+
+        public string PowerLineState { get; set; }
+
+        public string CylceCount { get; set; }
+
+        public string Temperature { get; set; }
+    }
 #endif
 
     internal class DesignViewModel
@@ -25,15 +70,15 @@ namespace BatteryMonitor
         public DesignViewModel()
         {
             SystemPower = new DesignSystemPowerViewModel();
-            Batteries = new List<BatteryViewModel>();
+            Batteries = new List<IBatteryViewModel>();
             Error = new ErrorViewModel();
 
             InitSystem();
             InitBatteries();
         }
 
-        public ISystemPower SystemPower { get; }
-        public List<BatteryViewModel> Batteries { get; }
+        public ISystemPowerViewModel SystemPower { get; }
+        public List<IBatteryViewModel> Batteries { get; }
         public ErrorViewModel Error { get; }
 
         private void InitSystem()
@@ -55,10 +100,11 @@ namespace BatteryMonitor
             }
         }
 
-        private BatteryViewModel GetOneBattery(int index)
+        private DesignBatteryViewModel GetOneBattery(int index)
         {
-            BatteryViewModel bvm = new BatteryViewModel(index);
+            var bvm = new DesignBatteryViewModel();
 
+            bvm.Index = index.ToString();
             bvm.DeviceName = $"DELL 0FDRT47{index}";
             bvm.Manufacture = $"Company {index}";
             bvm.Chemistry = index % 2 == 0 ? "Lithium Polymer" : "Lithium Ion";

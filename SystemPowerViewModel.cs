@@ -4,7 +4,7 @@ using Forms = System.Windows.Forms;
 
 namespace BatteryMonitor
 {
-    internal class SystemPowerViewModel : ViewModelBase, ISystemPower
+    internal class SystemPowerViewModel : ViewModelBase, ISystemPowerViewModel
     {
         private string powerState;
         private string chargeState;

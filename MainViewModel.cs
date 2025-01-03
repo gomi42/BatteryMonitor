@@ -12,7 +12,7 @@ namespace BatteryMonitor
         public MainViewModel()
         {
             SystemPower = new SystemPowerViewModel();
-            Batteries = new List<BatteryViewModel>();
+            Batteries = new List<IBatteryViewModel>();
             Error = new ErrorViewModel();
 
             if (UpdateSystemPower())
@@ -36,8 +36,8 @@ namespace BatteryMonitor
 #endif
         }
 
-        public ISystemPower SystemPower { get; }
-        public List<BatteryViewModel> Batteries { get; }
+        public ISystemPowerViewModel SystemPower { get; }
+        public List<IBatteryViewModel> Batteries { get; }
         public ErrorViewModel Error { get; }
 
         private void TimerTickHandler(object sender, EventArgs e)
@@ -114,7 +114,7 @@ namespace BatteryMonitor
 
             for (int i = 0; i < Batteries.Count; i++)
             {
-                Batteries[i].SetBattery(batteries[i]);
+                ((BatteryViewModel)Batteries[i]).SetBattery(batteries[i]);
             }
         }
     }
