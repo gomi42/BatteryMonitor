@@ -3,7 +3,7 @@ using BatteryMonitor.Properties;
 
 namespace BatteryMonitor
 {
-    internal class BatteryViewModel : ViewModelBase, IBatteryViewModel
+    internal class BatteryViewModel : ViewModelBase
     {
         private string index;
         private string deviceName;

@@ -61,8 +61,6 @@
     <Compile Include="BatteryViewModel.cs" />
     <Compile Include="DesignViewModel.cs" />
     <Compile Include="ErrorViewModel.cs" />
-    <Compile Include="IBatteryViewModel.cs" />
-    <Compile Include="ISystemPowerViewModel.cs" />
     <Compile Include="MainViewModel.cs" />
     <Compile Include="SystemPowerViewModel.cs" />
     <Compile Include="ValueControl.cs" />

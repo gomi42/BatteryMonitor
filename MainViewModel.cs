@@ -12,7 +12,7 @@ namespace BatteryMonitor
         public MainViewModel()
         {
             SystemPower = new SystemPowerViewModel();
-            Batteries = new List<IBatteryViewModel>();
+            Batteries = new List<BatteryViewModel>();
             Error = new ErrorViewModel();
 
             if (UpdateSystemPower())
@@ -28,15 +28,14 @@ namespace BatteryMonitor
             else
             {
                 // to see some data on none-laptops
-
                 SystemPower = DesignViewModel.CreateDesignSystemPowerViewModel();
                 Batteries = DesignViewModel.CreateDesignBatteriesViewModel();
             }
 #endif
         }
 
-        public ISystemPowerViewModel SystemPower { get; }
-        public List<IBatteryViewModel> Batteries { get; }
+        public SystemPowerViewModel SystemPower { get; }
+        public List<BatteryViewModel> Batteries { get; }
         public ErrorViewModel Error { get; }
 
         private void TimerTickHandler(object sender, EventArgs e)
@@ -64,7 +63,7 @@ namespace BatteryMonitor
         private bool UpdateSystemPower()
         {
             Forms.PowerStatus pwr = Forms.SystemInformation.PowerStatus;
-            return ((SystemPowerViewModel)SystemPower).SetPowerStatus(pwr);
+            return SystemPower.SetPowerStatus(pwr);
         }
 
         private void InitBatteries()
@@ -113,7 +112,7 @@ namespace BatteryMonitor
 
             for (int i = 0; i < Batteries.Count; i++)
             {
-                ((BatteryViewModel)Batteries[i]).SetBattery(batteries[i]);
+                Batteries[i].SetBattery(batteries[i]);
             }
         }
     }

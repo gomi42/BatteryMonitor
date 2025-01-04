@@ -1,69 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using BatteryMonitor.Properties;
+using Forms = System.Windows.Forms;
 
 namespace BatteryMonitor
 {
-#if DEBUG
-    internal class DesignSystemPowerViewModel : ISystemPowerViewModel
-    {
-        public string PowerState { get; set; }
-
-        public string ChargeState { get; set; }
-
-        public string PowerLineStatus { get; set; }
-
-        public string RemainingTime { get; set; }
-
-        public string Capacity { get; set; }
-    }
-
-    class DesignBatteryViewModel : IBatteryViewModel
-    {
-        public string Index { get; set; }
-
-        public string DeviceName { get; set; }
-
-        public string Manufacture { get; set; }
-
-        public string Chemistry { get; set; }
-
-        public string ManufactureDate { get; set; }
-
-        public string DesignedCapacity { get; set; }
-
-        public string CurrentCapacity { get; set; }
-
-        public string CurrentCapacityPercent { get; set; }
-
-        public string FullChargeCapacity { get; set; }
-
-        public string BatteryHealth { get; set; }
-
-        public string Voltage { get; set; }
-
-        public string EstimatedTime { get; set; }
-
-        public string Rate { get; set; }
-
-        public string DefaultAlert1 { get; set; }
-
-        public string DefaultAlert2 { get; set; }
-
-        public string CriticalBias { get; set; }
-
-        public string ChargeState { get; set; }
-
-        public string PowerState { get; set; }
-
-        public string PowerLineState { get; set; }
-
-        public string CylceCount { get; set; }
-
-        public string Temperature { get; set; }
-    }
-#endif
-
     internal class DesignViewModel
     {
 #if DEBUG
@@ -74,62 +14,48 @@ namespace BatteryMonitor
             Error = new ErrorViewModel();
         }
 
-        public ISystemPowerViewModel SystemPower { get; }
-        public List<IBatteryViewModel> Batteries { get; }
+        public SystemPowerViewModel SystemPower { get; }
+        public List<BatteryViewModel> Batteries { get; }
         public ErrorViewModel Error { get; }
 
-        public static ISystemPowerViewModel CreateDesignSystemPowerViewModel()
+        public static SystemPowerViewModel CreateDesignSystemPowerViewModel()
         {
-            var systemPower = new DesignSystemPowerViewModel();
-
-            systemPower.PowerState = "hoch";
-            systemPower.ChargeState = "wird geladen";
-            systemPower.PowerLineStatus = "nicht eingesteckt";
-            systemPower.RemainingTime = "02:45:43";
-            systemPower.Capacity = "78";
-
-            return systemPower;
+            var spvm = new SystemPowerViewModel();
+            spvm.SetPowerStatus(Forms.BatteryChargeStatus.Charging | Forms.BatteryChargeStatus.High,
+                                        Forms.PowerLineStatus.Offline,
+                                        2 * 60 * 60 + 35 * 60 + 47,
+                                        0.68f);
+            return spvm;
         }
 
-        public static List<IBatteryViewModel> CreateDesignBatteriesViewModel()
+        public static List<BatteryViewModel> CreateDesignBatteriesViewModel()
         {
-            var batteries = new List<IBatteryViewModel>();
+            var batteries = new List<BatteryViewModel>();
 
-            for (int i = 1; i <= 2; i++)
+            for (int index = 1; index <= 2; index++)
             {
-                batteries.Add(CreateOneBattery(i));
+                BatteryData data = new BatteryData(index,
+                               true,
+                               $"DELL 0FDRT47{index}",
+                               $"Company {index}",
+                               new DateTime(2021, 2, 17 + index),
+                               index % 2 == 0 ? "Lithium Polymer" : "Lithium Ion",
+                               49657 + index,
+                               32698 + 100 * index,
+                               24512 + 100 * index,
+                               7568 + 100 * index,
+                               TimeSpan.FromSeconds(1 * 60 * 60 + 25 * 60 + 27),
+                               6254,
+                               546,
+                               3241,
+                               1254,
+                               123,
+                               PowerStates.Discharging,
+                               37);
+                batteries.Add(new BatteryViewModel(index, data));
             }
 
             return batteries;
-        }
-
-        private static IBatteryViewModel CreateOneBattery(int index)
-        {
-            var battery = new DesignBatteryViewModel();
-
-            battery.Index = index.ToString();
-            battery.DeviceName = $"DELL 0FDRT47{index}";
-            battery.Manufacture = $"Company {index}";
-            battery.Chemistry = index % 2 == 0 ? "Lithium Polymer" : "Lithium Ion";
-            battery.ManufactureDate = new DateTime(2021, 2, 17 + index).ToString(Resources.FormatDate);
-            battery.DesignedCapacity = (49657 + index).ToString();
-            battery.CurrentCapacity = (24512 + index).ToString();
-            battery.CurrentCapacityPercent = (67 + index).ToString();
-            battery.FullChargeCapacity = (32698 + index).ToString();
-            battery.BatteryHealth = (57 + index).ToString();
-            battery.Voltage = "7,568";
-            battery.EstimatedTime = TimeSpan.FromSeconds(1 * 60 * 60 + 25 * 60 + 27).ToString();
-            battery.Rate = "6254";
-            battery.DefaultAlert1 = "3241";
-            battery.DefaultAlert2 = "1254";
-            battery.CriticalBias = "123";
-            battery.ChargeState = "kritisch";
-            battery.PowerState = "wird geladen";
-            battery.PowerLineState = "eingesteckt";
-            battery.CylceCount = "546";
-            battery.Temperature = "37";
-
-            return battery;
         }
 #endif
     }
