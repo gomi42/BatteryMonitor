@@ -197,13 +197,13 @@ namespace BatteryMonitor
             BatteryHealth = ((battery.FullChargedCapacity * 100.0) / battery.DesignedMaxCapacity).ToString("F0");
             Voltage = ((double)battery.Voltage / 1000.0).ToString();
 
-            if (battery.EstimatedTime == TimeSpan.Zero)
+            if (battery.EstimatedTime != TimeSpan.Zero)
             {
-                EstimatedTime = string.Empty;
+                EstimatedTime = battery.EstimatedTime.ToString();
             }
             else
             {
-                EstimatedTime = battery.EstimatedTime.ToString();
+                EstimatedTime = string.Empty;
             }
 
             Rate = battery.DischargeRate.ToString();
