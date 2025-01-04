@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using BatteryMonitor.Properties;
+using Forms = System.Windows.Forms;
 
 namespace BatteryMonitor
 {
@@ -9,63 +9,53 @@ namespace BatteryMonitor
 #if DEBUG
         public DesignViewModel()
         {
-            SystemPower = new SystemPowerViewModel();
-            Batteries = new List<BatteryViewModel>();
+            SystemPower = CreateDesignSystemPowerViewModel();
+            Batteries = CreateDesignBatteriesViewModel();
             Error = new ErrorViewModel();
-
-            InitSystem();
-            InitBatteries();
         }
 
         public SystemPowerViewModel SystemPower { get; }
         public List<BatteryViewModel> Batteries { get; }
         public ErrorViewModel Error { get; }
 
-        private void InitSystem()
+        public static SystemPowerViewModel CreateDesignSystemPowerViewModel()
         {
-            // system
-
-            SystemPower.PowerState = "hoch";
-            SystemPower.ChargeState = "wird geladen";
-            SystemPower.PowerLineStatus = "nicht eingesteckt";
-            SystemPower.RemainingTime = "02:45:43";
-            SystemPower.Capacity = "78";
+            var systemPower = new SystemPowerViewModel();
+            systemPower.SetPowerStatus(Forms.BatteryChargeStatus.Charging | Forms.BatteryChargeStatus.High,
+                                        Forms.PowerLineStatus.Offline,
+                                        2 * 60 * 60 + 35 * 60 + 47,
+                                        0.68f);
+            return systemPower;
         }
 
-        private void InitBatteries()
+        public static List<BatteryViewModel> CreateDesignBatteriesViewModel()
         {
-            for (int i = 1; i <= 2; i++)
+            var batteries = new List<BatteryViewModel>();
+
+            for (int index = 1; index <= 2; index++)
             {
-                Batteries.Add(GetOneBattery(i));
+                BatteryData data = new BatteryData(index,
+                               true,
+                               $"DELL 0FDRT47{index}",
+                               $"Company {index}",
+                               new DateTime(2021, 2, 17 + index),
+                               index % 2 == 0 ? "Lithium Polymer" : "Lithium Ion",
+                               49657 + index,
+                               32698 + 100 * index,
+                               24512 + 100 * index,
+                               7568 + 100 * index,
+                               TimeSpan.FromSeconds(1 * 60 * 60 + 25 * 60 + 27),
+                               6254,
+                               546,
+                               3241,
+                               1254,
+                               123,
+                               PowerStates.Discharging,
+                               37);
+                batteries.Add(new BatteryViewModel(index, data));
             }
-        }
 
-        private BatteryViewModel GetOneBattery(int index)
-        {
-            BatteryViewModel bvm = new BatteryViewModel(index);
-
-            bvm.DeviceName = $"DELL 0FDRT47{index}";
-            bvm.Manufacture = $"Company {index}";
-            bvm.Chemistry = index % 2 == 0 ? "Lithium Polymer" : "Lithium Ion";
-            bvm.ManufactureDate = new DateTime(2021, 2, 17 + index).ToString(Resources.FormatDate);
-            bvm.DesignedCapacity = (49657 + index).ToString();
-            bvm.CurrentCapacity = (24512 + index).ToString();
-            bvm.CurrentCapacityPercent = (67 + index).ToString();
-            bvm.FullChargeCapacity = (32698 + index).ToString();
-            bvm.BatteryHealth = (57 + index).ToString();
-            bvm.Voltage = "7,568";
-            bvm.EstimatedTime = TimeSpan.FromSeconds(1 * 60 * 60 + 25 * 60 + 27).ToString();
-            bvm.Rate = "6254";
-            bvm.DefaultAlert1 = "3241";
-            bvm.DefaultAlert2 = "1254";
-            bvm.CriticalBias = "123";
-            bvm.ChargeState = "kritisch";
-            bvm.PowerState = "wird geladen";
-            bvm.PowerLineState = "eingesteckt";
-            bvm.CylceCount = "546";
-            bvm.Temperature = "37";
-
-            return bvm;
+            return batteries;
         }
 #endif
     }

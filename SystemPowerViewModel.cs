@@ -15,40 +15,48 @@ namespace BatteryMonitor
         public string PowerState
         {
             get => powerState;
-            set => SetProperty(ref powerState, value);
+            private set => SetProperty(ref powerState, value);
         }
 
         public string ChargeState
         {
             get => chargeState;
-            set => SetProperty(ref chargeState, value);
+            private set => SetProperty(ref chargeState, value);
         }
 
         public string PowerLineStatus
         {
             get => powerLineStatus;
-            set => SetProperty(ref powerLineStatus, value);
+            private set => SetProperty(ref powerLineStatus, value);
         }
 
         public string RemainingTime
         {
             get => remainingTime;
-            set => SetProperty(ref remainingTime, value);
+            private set => SetProperty(ref remainingTime, value);
         }
 
         public string Capacity
         {
             get => capacity;
-            set => SetProperty(ref capacity, value);
+            private set => SetProperty(ref capacity, value);
         }
 
         public bool SetPowerStatus(Forms.PowerStatus status)
         {
-            PowerState = ConvertPowerState(status.BatteryChargeStatus);
-            ChargeState = ConvertChargeState(status.BatteryChargeStatus, status.PowerLineStatus);
-            PowerLineStatus = ConvertPowerLineStatus(status.PowerLineStatus);
+            return SetPowerStatus(status.BatteryChargeStatus, status.PowerLineStatus, status.BatteryLifeRemaining, status.BatteryLifeRemaining);
+        }
 
-            if ((status.BatteryChargeStatus & Forms.BatteryChargeStatus.NoSystemBattery) != 0)
+        public bool SetPowerStatus(Forms.BatteryChargeStatus chargeStatus,
+                                   Forms.PowerLineStatus powerLineStatus,
+                                   int batteryLifeRemaining,
+                                   float batteryLifePercent)
+        {
+            PowerState = ConvertPowerState(chargeStatus);
+            ChargeState = ConvertChargeState(chargeStatus, powerLineStatus);
+            PowerLineStatus = ConvertPowerLineStatus(powerLineStatus);
+
+            if ((chargeStatus & Forms.BatteryChargeStatus.NoSystemBattery) != 0)
             {
                 RemainingTime = string.Empty;
                 Capacity = string.Empty;
@@ -56,16 +64,16 @@ namespace BatteryMonitor
                 return false;
             }
 
-            if (status.BatteryLifeRemaining > 0)
+            if (batteryLifeRemaining > 0)
             {
-                RemainingTime = TimeSpan.FromSeconds(status.BatteryLifeRemaining).ToString();
+                RemainingTime = TimeSpan.FromSeconds(batteryLifeRemaining).ToString();
             }
             else
             {
                 RemainingTime = string.Empty;
             }
 
-            Capacity = (status.BatteryLifePercent * 100.0).ToString("F0");
+            Capacity = (batteryLifePercent * 100.0).ToString("F0");
 
             return true;
         }

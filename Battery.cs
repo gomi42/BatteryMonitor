@@ -19,23 +19,23 @@ namespace BatteryMonitor
     public class BatteryData
     {
         public BatteryData(int index,
-                                  bool isSystemPowerBattery,
-                                  string deviceName,
-                                  string manufactureName,
-                                  DateTime manufactureDate,
-                                  string chemistry,
-                                  int designedMaxCapacity,
-                                  int fullChargeCapacity,
-                                  uint currentCapacity,
-                                  uint voltage,
-                                  TimeSpan estimatedTime,
-                                  int dischargeRate,
-                                  int cycleCount,
-                                  int defaultAlert1,
-                                  int defaultAlert2,
-                                  int criticalBias,
-                                  PowerStates powerState,
-                                  double temperature)
+                           bool isSystemPowerBattery,
+                           string deviceName,
+                           string manufactureName,
+                           DateTime manufactureDate,
+                           string chemistry,
+                           int designedMaxCapacity,
+                           int fullChargeCapacity,
+                           int currentCapacity,
+                           int voltage,
+                           TimeSpan estimatedTime,
+                           int dischargeRate,
+                           int cycleCount,
+                           int defaultAlert1,
+                           int defaultAlert2,
+                           int criticalBias,
+                           PowerStates powerState,
+                           double temperature)
         {
             Index = index;
             IsSystemPowerBattery = isSystemPowerBattery;
@@ -62,10 +62,10 @@ namespace BatteryMonitor
         public string DeviceName { get; }
         public string ManufactureName { get; }
         public DateTime ManufactureDate { get; }
-        public uint CurrentCapacity { get; }
+        public int CurrentCapacity { get; }
         public int DesignedMaxCapacity { get; }
         public int FullChargedCapacity { get; }
-        public uint Voltage { get; }
+        public int Voltage { get; }
         public TimeSpan EstimatedTime { get; }
         public int DischargeRate { get; }
         public int CycleCount { get; }
@@ -213,8 +213,8 @@ namespace BatteryMonitor
                 ConvertToString(batteryInformation.Chemistry),
                 batteryInformation.DesignedCapacity,
                 batteryInformation.FullChargedCapacity,
-                batterieStatus.Capacity,
-                batterieStatus.Voltage,
+                (int)batterieStatus.Capacity,
+                (int)batterieStatus.Voltage,
                 estimatedTime,
                 batterieStatus.Rate,
                 batteryInformation.CycleCount,
