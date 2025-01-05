@@ -123,107 +123,6 @@
     <Style BasedOn="{StaticResource LabelStyle}"
            TargetType="{x:Type Label}" />
 
-    <Style x:Key="FocusVisual">
-        <Setter Property="Control.Template">
-            <Setter.Value>
-                <ControlTemplate>
-                    <Rectangle Margin="2"
-                               Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"
-                               StrokeDashArray="1 2"
-                               StrokeThickness="1" />
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <Style TargetType="{x:Type TabItem}">
-        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-        <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
-        <Setter Property="Background" Value="{DynamicResource TabItem.Static.BackgroundBrush}" />
-        <Setter Property="BorderBrush" Value="{DynamicResource TabItem.Selected.BorderBrushBrush}" />
-        <Setter Property="Margin" Value="0,0,-1,0" />
-        <Setter Property="Padding" Value="6,2,6,2" />
-        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-        <Setter Property="VerticalContentAlignment" Value="Stretch" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type TabItem}">
-                    <Grid x:Name="templateRoot">
-                        <Border x:Name="mainBorder"
-                                MinWidth="10"
-                                MinHeight="27"
-                                Margin="0"
-                                Padding="{TemplateBinding Padding}"
-                                Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="1,1,1,0"
-                                CornerRadius="5,5,0,0">
-                            <ContentPresenter x:Name="contentPresenter"
-                                              HorizontalAlignment="{Binding HorizontalContentAlignment,
-                                                                            RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"
-                                              VerticalAlignment="{Binding VerticalContentAlignment,
-                                                                          RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"
-                                              ContentSource="Header"
-                                              Focusable="False"
-                                              RecognizesAccessKey="True"
-                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                        </Border>
-                    </Grid>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsEnabled" Value="false">
-                            <Setter TargetName="contentPresenter" Property="Opacity" Value="0.56" />
-                            <Setter TargetName="mainBorder" Property="Background" Value="{DynamicResource TabItem.Disabled.BackgroundBrush}" />
-                            <Setter TargetName="mainBorder" Property="BorderBrush" Value="{DynamicResource TabItem.Disabled.BorderBrush}" />
-                        </Trigger>
-                        <Trigger Property="IsSelected" Value="true">
-                            <Setter Property="Panel.ZIndex" Value="1" />
-                            <Setter Property="Margin" Value="-2,-2,-2,-1" />
-                            <Setter TargetName="contentPresenter" Property="Margin" Value="0,1,0,0" />
-                            <Setter TargetName="mainBorder" Property="Background" Value="{DynamicResource TabItem.Selected.BackgroundBrush}" />
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <Style TargetType="{x:Type TabControl}">
-        <Setter Property="Padding" Value="10" />
-        <Setter Property="HorizontalContentAlignment" Value="Center" />
-        <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type TabControl}">
-                    <Grid KeyboardNavigation.TabNavigation="Local">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <TabPanel x:Name="headerPanel"
-                                  Grid.Row="0"
-                                  Grid.Column="0"
-                                  Margin="2,2,2,0"
-                                  Panel.ZIndex="1"
-                                  Background="Transparent"
-                                  IsItemsHost="true"
-                                  KeyboardNavigation.TabIndex="1" />
-                        <Border x:Name="Border"
-                                Grid.Row="1"
-                                Background="{StaticResource TabItem.Selected.BackgroundBrush}"
-                                BorderBrush="{StaticResource TabItem.Selected.BorderBrushBrush}"
-                                BorderThickness="0,1,0,0"
-                                KeyboardNavigation.DirectionalNavigation="Contained"
-                                KeyboardNavigation.TabIndex="2"
-                                KeyboardNavigation.TabNavigation="Local">
-                            <ContentControl x:Name="PART_SelectedContentHost"
-                                            Content="{TemplateBinding SelectedContent}" />
-                        </Border>
-                    </Grid>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
     <ControlTemplate x:Key="ExpanderToggleButton"
                      TargetType="{x:Type ToggleButton}">
         <Border x:Name="Border"
@@ -235,27 +134,20 @@
                     <ColumnDefinition />
                     <ColumnDefinition Width="12" />
                 </Grid.ColumnDefinitions>
-                <Path x:Name="CollapsedArrow"
-                      Grid.Column="1"
+                <Path Grid.Column="1"
                       Width="12"
                       Margin="0,0,0,0"
                       HorizontalAlignment="Center"
                       VerticalAlignment="Center"
                       Data="M 0 0 L 8 8 L 16 0"
+                      RenderTransformOrigin="0.5,0.5"
                       Stretch="Uniform"
                       Stroke="{StaticResource Group.ExpanderButtonBrush}"
-                      StrokeThickness="1" />
-                <Path x:Name="ExpandededArrow"
-                      Grid.Column="1"
-                      Width="12"
-                      Margin="0,0,0,0"
-                      HorizontalAlignment="Center"
-                      VerticalAlignment="Center"
-                      Data="M 0 8 L 8 0 L 16 8"
-                      Stretch="Uniform"
-                      Stroke="{StaticResource Group.ExpanderButtonBrush}"
-                      StrokeThickness="1"
-                      Visibility="Collapsed" />
+                      StrokeThickness="1">
+                    <Path.RenderTransform>
+                        <ScaleTransform x:Name="Arrow" ScaleY="1" />
+                    </Path.RenderTransform>
+                </Path>
                 <ContentPresenter Grid.Column="0" />
             </Grid>
             <VisualStateManager.VisualStateGroups>
@@ -268,19 +160,20 @@
                 <VisualStateGroup x:Name="CheckStates">
                     <VisualState x:Name="Checked">
                         <Storyboard>
-                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="CollapsedArrow"
-                                                           Storyboard.TargetProperty="(UIElement.Visibility)">
-                                <DiscreteObjectKeyFrame KeyTime="0"
-                                                        Value="{x:Static Visibility.Hidden}" />
-                            </ObjectAnimationUsingKeyFrames>
-                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ExpandededArrow"
-                                                           Storyboard.TargetProperty="(UIElement.Visibility)">
-                                <DiscreteObjectKeyFrame KeyTime="0"
-                                                        Value="{x:Static Visibility.Visible}" />
-                            </ObjectAnimationUsingKeyFrames>
+                            <DoubleAnimation Storyboard.TargetName="Arrow"
+                                             Storyboard.TargetProperty="ScaleY"
+                                             To="-1"
+                                             Duration="0:0:0.3" />
                         </Storyboard>
                     </VisualState>
-                    <VisualState x:Name="Unchecked" />
+                    <VisualState x:Name="Unchecked">
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetName="Arrow"
+                                             Storyboard.TargetProperty="ScaleY"
+                                             To="1"
+                                             Duration="0:0:0.3" />
+                        </Storyboard>
+                    </VisualState>
                     <VisualState x:Name="Indeterminate" />
                 </VisualStateGroup>
             </VisualStateManager.VisualStateGroups>
