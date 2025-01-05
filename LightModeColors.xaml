@@ -4,8 +4,8 @@
     <Color x:Key="DarkBackgroundColor">#FF707070</Color>
     <Color x:Key="BackgroundColor">#FAFAFA</Color>
     <Color x:Key="ForegroundColor">#FF000000</Color>
-    <Color x:Key="DimmedForegroundColor">#FFcecece</Color>
-    <Color x:Key="SuperDimmedForegroundColor">#FFE8E8E8</Color>
+    <Color x:Key="DimmedForegroundColor">#FF444444</Color>
+    <Color x:Key="SuperDimmedForegroundColor">#FF666666</Color>
     <Color x:Key="WindowBackgroundColor">#f3f3f3</Color>
 
     <Color x:Key="HighlightColor">#C0DDEB</Color>

@@ -177,28 +177,16 @@
             </StackPanel>
         </ScrollViewer>
 
-        <Button Width="22"
-                Height="22"
-                Margin="0,0,0,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Bottom"
-                BorderThickness="0"
-                Click="ThemeButton_Click"
-                Style="{DynamicResource TransparentButtonStyle}">
-            <Grid>
-                <Path x:Name="Sonne"
-                      Margin="4"
-                      Data="{StaticResource LightThemeIcon}"
-                      Fill="{DynamicResource ForegroundBrush}"
-                      Stretch="Uniform"
-                      Visibility="Collapsed" />
-                <Path x:Name="Mond"
-                      Margin="4"
-                      Data="{StaticResource DarkThemeIcon}"
-                      Fill="{DynamicResource ForegroundBrush}"
-                      Stretch="Uniform" />
-            </Grid>
-        </Button>
+        <ToggleButton x:Name="ThemeButton"
+                      Width="20"
+                      Height="20"
+                      Margin="0,0,0,0"
+                      HorizontalAlignment="Left"
+                      VerticalAlignment="Bottom"
+                      BorderThickness="0"
+                      Checked="ThemeButtonChecked"
+                      Style="{DynamicResource ThemeButtonStyle}"
+                      Unchecked="ThemeButtonUnchecked" />
 
         <Label Margin="0,0,0,60"
                VerticalAlignment="Bottom"

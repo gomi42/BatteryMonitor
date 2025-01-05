@@ -20,33 +20,18 @@ namespace BatteryMonitor
                                        "DarkModeColors.xaml",
                                        "LightModeColors.xaml",
                                        "Styles.xaml");
-            SetTheme(ThemeSettings.GetWindowsTheme());
+            ThemeButton.IsChecked = ThemeSettings.GetWindowsTheme() == WindowsTheme.Dark;
+            ThemeSettings.SetTheme(this, ThemeButton.IsChecked == true);
         }
 
-        //////////////////////////////////////////////
-
-        private void ThemeButton_Click(object sender, RoutedEventArgs e)
+        private void ThemeButtonChecked(object sender, RoutedEventArgs e)
         {
-            SetTheme(currentTheme == WindowsTheme.Light ? WindowsTheme.Dark : WindowsTheme.Light);
+            ThemeSettings.SetTheme(this, true);
         }
 
-        private void SetTheme(WindowsTheme theme)
+        private void ThemeButtonUnchecked(object sender, RoutedEventArgs e)
         {
-            currentTheme = theme;
-            var dark = theme == WindowsTheme.Dark;
-
-            if (dark)
-            {
-                Sonne.Visibility = Visibility.Visible;
-                Mond.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                Sonne.Visibility = Visibility.Collapsed;
-                Mond.Visibility = Visibility.Visible;
-            }
-
-            ThemeSettings.SetTheme(this, dark);
+            ThemeSettings.SetTheme(this, false);
         }
     }
 }
