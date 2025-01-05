@@ -1,6 +1,4 @@
-﻿using System.Text;
-using System.Windows;
-using System.Windows.Threading;
+﻿using System.Windows;
 
 namespace BatteryMonitor
 {
@@ -9,8 +7,6 @@ namespace BatteryMonitor
     /// </summary>
     public partial class MainWindow : Window
     {
-        WindowsTheme currentTheme;
-
         public MainWindow()
         {
             //Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en");
