@@ -13,7 +13,6 @@ namespace BatteryMonitor
 
         public MainWindow()
         {
-            DataContext = new MainViewModel();
             //Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en");
             InitializeComponent();
 
