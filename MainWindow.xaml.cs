@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
+﻿using System.Windows;
 
 namespace BatteryMonitor
 {
@@ -26,33 +23,11 @@ namespace BatteryMonitor
         private void ThemeButtonChecked(object sender, RoutedEventArgs e)
         {
             ThemeSettings.SetTheme(this, true);
-            CollapseAllExpanders(this);
         }
 
         private void ThemeButtonUnchecked(object sender, RoutedEventArgs e)
         {
             ThemeSettings.SetTheme(this, false);
-            CollapseAllExpanders(this);
-        }
-
-        public static void CollapseAllExpanders(DependencyObject myVisual)
-        {
-            if (myVisual is ScrollViewer scrollViewer)
-            {
-                myVisual = (DependencyObject)scrollViewer.Content;
-            }
-
-            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(myVisual); i++)
-            {
-                var childVisual = VisualTreeHelper.GetChild(myVisual, i);
-
-                if (childVisual is AnimatedExpander expander)
-                {
-                    expander.IsExpanded = false;
-                }
-
-                CollapseAllExpanders(childVisual);
-            }
         }
     }
 }

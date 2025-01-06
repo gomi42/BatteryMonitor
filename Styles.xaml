@@ -13,7 +13,7 @@
             <Setter.Value>
                 <ControlTemplate x:Name="ButtonTemplate"
                                  TargetType="{x:Type ToggleButton}">
-                    <Border Background="Transparent" CornerRadius="9,0,0,0" BorderThickness="0,0,0,0" BorderBrush="{StaticResource Group.BorderBrush}">
+                    <Border Background="Transparent">
                         <Path x:Name="Icon"
                               Margin="{TemplateBinding Padding}"
                               Data="{StaticResource LightThemeIcon}"
