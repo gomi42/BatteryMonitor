@@ -1,19 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Markup;
 using System.Windows.Threading;
+using static System.Net.Mime.MediaTypeNames;
 using Forms = System.Windows.Forms;
 
 namespace BatteryMonitor
 {
     internal class MainViewModel : ViewModelBase
     {
-        DispatcherTimer timer;
+        private DispatcherTimer timer;
+        private string error;
 
         public MainViewModel()
         {
             SystemPower = new SystemPowerViewModel();
             Batteries = new List<BatteryViewModel>();
-            Error = new ErrorViewModel();
 
             if (UpdateSystemPower())
             {
@@ -36,7 +38,12 @@ namespace BatteryMonitor
 
         public SystemPowerViewModel SystemPower { get; }
         public List<BatteryViewModel> Batteries { get; }
-        public ErrorViewModel Error { get; }
+
+        public string Error
+        {
+            get => error;
+            set => SetProperty(ref error, value);
+        }
 
         private void TimerTickHandler(object sender, EventArgs e)
         {
@@ -56,7 +63,7 @@ namespace BatteryMonitor
             }
             catch (Exception ex)
             {
-                Error.Text = ex.ToString();
+                Error = ex.ToString();
             }
         }
 
@@ -81,7 +88,7 @@ namespace BatteryMonitor
             }
             catch (Exception ex)
             {
-                Error.Text = ex.ToString();
+                Error = ex.ToString();
                 return;
             }
 

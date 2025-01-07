@@ -60,7 +60,7 @@
     <Compile Include="AnimatedExpander.cs" />
     <Compile Include="BatteryViewModel.cs" />
     <Compile Include="DesignViewModel.cs" />
-    <Compile Include="ErrorViewModel.cs" />
+    <Compile Include="EmptyStringToVisibilityConverter.cs" />
     <Compile Include="MainViewModel.cs" />
     <Compile Include="SystemPowerViewModel.cs" />
     <Compile Include="ValueControl.cs" />

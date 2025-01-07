@@ -17,7 +17,7 @@
         SnapsToDevicePixels="True"
         mc:Ignorable="d">
     <Window.Resources>
-        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <s:EmptyStringToVisibilityConverter x:Key="EmptyStringToVisibilityConverter" />
         <s:WidthConverter x:Key="WidthConverter" />
     </Window.Resources>
     <Grid>
@@ -101,9 +101,16 @@
                                                         <Label Content="{x:Static p:Resources.HeaderBattery}"
                                                                FontSize="16"
                                                                FontWeight="Normal" />
+                                                        <Label Content=" "
+                                                               FontSize="16"
+                                                               FontWeight="Normal"
+                                                               Visibility="{Binding Index,
+                                                                                    Converter={StaticResource EmptyStringToVisibilityConverter}}" />
                                                         <Label Content="{Binding Index}"
                                                                FontSize="16"
-                                                               FontWeight="Normal" />
+                                                               FontWeight="Normal"
+                                                               Visibility="{Binding Index,
+                                                                                    Converter={StaticResource EmptyStringToVisibilityConverter}}" />
                                                     </StackPanel>
                                                     <s:ValueControl Grid.Column="1"
                                                                     Margin="30,2,20,2"
@@ -191,9 +198,9 @@
         <Label Margin="0,0,0,60"
                VerticalAlignment="Bottom"
                Background="#A0424242"
-               Content="{Binding Error.Text}"
+               Content="{Binding Error}"
                Foreground="White"
-               Visibility="{Binding Error.ShowError,
-                                    Converter={StaticResource BooleanToVisibilityConverter}}" />
+               Visibility="{Binding Error,
+                                    Converter={StaticResource EmptyStringToVisibilityConverter}}" />
     </Grid>
 </Window>

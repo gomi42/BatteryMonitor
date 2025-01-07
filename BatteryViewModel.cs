@@ -36,7 +36,7 @@ namespace BatteryMonitor
         {
             if (index > 0)
             {
-                Index = $" {index}";
+                Index = index.ToString();
             }
 
             SetBattery(battery);

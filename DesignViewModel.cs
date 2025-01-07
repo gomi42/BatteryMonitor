@@ -11,20 +11,19 @@ namespace BatteryMonitor
         {
             SystemPower = CreateDesignSystemPowerViewModel();
             Batteries = CreateDesignBatteriesViewModel();
-            Error = new ErrorViewModel();
         }
 
         public SystemPowerViewModel SystemPower { get; }
         public List<BatteryViewModel> Batteries { get; }
-        public ErrorViewModel Error { get; }
+        public string Error { get; }
 
         public static SystemPowerViewModel CreateDesignSystemPowerViewModel()
         {
             var systemPower = new SystemPowerViewModel();
             systemPower.SetPowerStatus(Forms.BatteryChargeStatus.Charging | Forms.BatteryChargeStatus.High,
-                                        Forms.PowerLineStatus.Offline,
-                                        2 * 60 * 60 + 35 * 60 + 47,
-                                        0.68f);
+                                       Forms.PowerLineStatus.Offline,
+                                       2 * 60 * 60 + 35 * 60 + 47,
+                                       0.68f);
             return systemPower;
         }
 
