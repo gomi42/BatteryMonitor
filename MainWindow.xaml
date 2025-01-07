@@ -17,6 +17,7 @@
         SnapsToDevicePixels="True"
         mc:Ignorable="d">
     <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         <s:WidthConverter x:Key="WidthConverter" />
     </Window.Resources>
     <Grid>
@@ -192,6 +193,7 @@
                Background="#A0424242"
                Content="{Binding Error.Text}"
                Foreground="White"
-               Visibility="{Binding ShowError.ShowError}" />
+               Visibility="{Binding Error.ShowError,
+                                    Converter={StaticResource BooleanToVisibilityConverter}}" />
     </Grid>
 </Window>

@@ -81,9 +81,6 @@
                             </PathFigure>
                         </PathGeometry>
                     </Path.Data>
-                    <Path.RenderTransform>
-                        <ScaleTransform x:Name="Arrow" ScaleY="1" />
-                    </Path.RenderTransform>
                 </Path>
                 <ContentPresenter Grid.Column="0" />
             </Grid>
