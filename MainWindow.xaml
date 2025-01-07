@@ -20,11 +20,11 @@
         <s:WidthConverter x:Key="WidthConverter" />
     </Window.Resources>
     <Grid>
-        <ScrollViewer x:Name="Scroller"
-                      HorizontalScrollBarVisibility="Auto"
+        <ScrollViewer HorizontalScrollBarVisibility="Auto"
                       VerticalScrollBarVisibility="Auto">
             <StackPanel MaxWidth="{Binding ViewportWidth,
-                                           ElementName=Scroller,
+                                           RelativeSource={RelativeSource AncestorType=ScrollViewer,
+                                                                          Mode=FindAncestor},
                                            Converter={StaticResource WidthConverter},
                                            ConverterParameter=20}"
                         Margin="10"

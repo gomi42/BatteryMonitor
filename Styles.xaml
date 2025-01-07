@@ -65,11 +65,22 @@
                       Margin="0,0,0,0"
                       HorizontalAlignment="Center"
                       VerticalAlignment="Center"
-                      Data="M 0 0 L 8 8 L 16 0"
                       RenderTransformOrigin="0.5,0.5"
                       Stretch="Uniform"
                       Stroke="{StaticResource Group.ExpanderButtonBrush}"
                       StrokeThickness="1">
+                    <Path.Data>
+                        <PathGeometry FillRule="EvenOdd">
+                            <PathFigure x:Name="P1"
+                                        IsClosed="False"
+                                        StartPoint="0,0">
+                                <LineSegment x:Name="P2"
+                                             Point="8,8" />
+                                <LineSegment x:Name="P3"
+                                             Point="16,0" />
+                            </PathFigure>
+                        </PathGeometry>
+                    </Path.Data>
                     <Path.RenderTransform>
                         <ScaleTransform x:Name="Arrow" ScaleY="1" />
                     </Path.RenderTransform>
@@ -86,21 +97,52 @@
                 <VisualStateGroup x:Name="CheckStates">
                     <VisualState x:Name="Checked">
                         <Storyboard>
-                            <DoubleAnimation Storyboard.TargetName="Arrow"
-                                             Storyboard.TargetProperty="ScaleY"
-                                             To="-1"
-                                             Duration="0:0:0.3" />
+                            <PointAnimation Storyboard.TargetName="P1"
+                                            Storyboard.TargetProperty="StartPoint"
+                                            To="0,8"
+                                            Duration="0:0:0.3" />
+                            <PointAnimation Storyboard.TargetName="P2"
+                                            Storyboard.TargetProperty="Point"
+                                            To="8,0"
+                                            Duration="0:0:0.3" />
+                            <PointAnimation Storyboard.TargetName="P3"
+                                            Storyboard.TargetProperty="Point"
+                                            To="16,8"
+                                            Duration="0:0:0.3" />
                         </Storyboard>
                     </VisualState>
                     <VisualState x:Name="Unchecked">
                         <Storyboard>
-                            <DoubleAnimation Storyboard.TargetName="Arrow"
-                                             Storyboard.TargetProperty="ScaleY"
-                                             To="1"
-                                             Duration="0:0:0.3" />
+                            <PointAnimation Storyboard.TargetName="P1"
+                                            Storyboard.TargetProperty="StartPoint"
+                                            To="0,0"
+                                            Duration="0:0:0.3" />
+                            <PointAnimation Storyboard.TargetName="P2"
+                                            Storyboard.TargetProperty="Point"
+                                            To="8,8"
+                                            Duration="0:0:0.3" />
+                            <PointAnimation Storyboard.TargetName="P3"
+                                            Storyboard.TargetProperty="Point"
+                                            To="16,0"
+                                            Duration="0:0:0.3" />
                         </Storyboard>
                     </VisualState>
-                    <VisualState x:Name="Indeterminate" />
+                    <VisualState x:Name="Indeterminate">
+                        <Storyboard>
+                            <PointAnimation Storyboard.TargetName="P1"
+                                            Storyboard.TargetProperty="StartPoint"
+                                            To="0,4"
+                                            Duration="0:0:0.3" />
+                            <PointAnimation Storyboard.TargetName="P2"
+                                            Storyboard.TargetProperty="Point"
+                                            To="8,4"
+                                            Duration="0:0:0.3" />
+                            <PointAnimation Storyboard.TargetName="P3"
+                                            Storyboard.TargetProperty="Point"
+                                            To="16,4"
+                                            Duration="0:0:0.3" />
+                        </Storyboard>
+                    </VisualState>
                 </VisualStateGroup>
             </VisualStateManager.VisualStateGroups>
         </Border>
