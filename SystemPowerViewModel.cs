@@ -44,7 +44,10 @@ namespace BatteryMonitor
 
         public bool SetPowerStatus(Forms.PowerStatus status)
         {
-            return SetPowerStatus(status.BatteryChargeStatus, status.PowerLineStatus, status.BatteryLifeRemaining, status.BatteryLifeRemaining);
+            return SetPowerStatus(status.BatteryChargeStatus,
+                                  status.PowerLineStatus,
+                                  status.BatteryLifeRemaining,
+                                  status.BatteryLifePercent);
         }
 
         public bool SetPowerStatus(Forms.BatteryChargeStatus chargeStatus,
