@@ -1,20 +1,29 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 
 namespace BatteryMonitor
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App : Application
     {
-        protected override void OnStartup(System.Windows.StartupEventArgs e)
+        Window window;
+
+        protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
 
-            var window = new MainWindow();
+            window = new MainWindow();
             window.DataContext = new MainViewModel();
             window.Show();
-            MainWindow = window;
+        }
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+            base.OnExit(e);
+
+            if (window.DataContext is IDisposable disposable)
+            {
+                disposable.Dispose();
+            }
         }
     }
 }

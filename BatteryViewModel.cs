@@ -201,7 +201,15 @@ namespace BatteryMonitor
                 EstimatedTime = string.Empty;
             }
 
-            Rate = battery.DischargeRate.ToString();
+            if (battery.DischargeRate != int.MinValue)
+            {
+                Rate = battery.DischargeRate.ToString();
+            }
+            else
+            {
+                Rate = string.Empty;
+            }
+
             DefaultAlert1 = battery.DefaultAlert1.ToString();
             DefaultAlert2 = battery.DefaultAlert2.ToString();
             CriticalBias = battery.CriticalBias.ToString();

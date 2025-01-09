@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Markup;
 using System.Windows.Threading;
-using static System.Net.Mime.MediaTypeNames;
 using Forms = System.Windows.Forms;
 
 namespace BatteryMonitor
 {
-    internal class MainViewModel : ViewModelBase
+    internal class MainViewModel : ViewModelBase, IDisposable
     {
         private DispatcherTimer timer;
         private string error;
+        private bool noBatterieFound;
 
         public MainViewModel()
         {
@@ -25,15 +24,26 @@ namespace BatteryMonitor
                 timer.Interval = TimeSpan.FromSeconds(10);
                 timer.Tick += TimerTickHandler;
                 timer.Start();
+
+                Microsoft.Win32.SystemEvents.PowerModeChanged += OnPowerModeChanged;
             }
-#if DEBUG
             else
             {
+                noBatterieFound = true;
+#if DEBUG
                 // to see some data on none-laptops
                 SystemPower = DesignViewModel.CreateDesignSystemPowerViewModel();
                 Batteries = DesignViewModel.CreateDesignBatteriesViewModel();
-            }
 #endif
+            }
+        }
+
+        public void Dispose()
+        {
+            if (!noBatterieFound)
+            {
+                Microsoft.Win32.SystemEvents.PowerModeChanged -= OnPowerModeChanged;
+            }
         }
 
         public SystemPowerViewModel SystemPower { get; }
@@ -48,6 +58,14 @@ namespace BatteryMonitor
         private void TimerTickHandler(object sender, EventArgs e)
         {
             UpdateAll();
+        }
+
+        private void OnPowerModeChanged(object sender, Microsoft.Win32.PowerModeChangedEventArgs e)
+        {
+            if (e.Mode == Microsoft.Win32.PowerModes.StatusChange)
+            {
+                UpdateAll();
+            }
         }
 
         private void UpdateAll()
